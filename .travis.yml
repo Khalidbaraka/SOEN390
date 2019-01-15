@@ -16,5 +16,10 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-x86-android-26
     
-    ./gradlew build con
-nectedCheck
+    before_script:
+    - chmod +x gradlew
+    
+script:
+  - ./gradlew -p app/src/androidTest/java/de/test/antennapod/entities
+  
+  
