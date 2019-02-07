@@ -150,7 +150,23 @@
         <item>@string/pref_font_title_lobster</item>
         <item>@string/pref_font_title_ubuntu</item>
     </string-array>
+
+
     <string-array name="font_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="font_color_options">
+        <item>@string/pref_font_title_default</item>
+        <item>@string/pref_font_title_Blue</item>
+        <item>@string/pref_font_title_Red</item>
+        <item>@string/pref_font_title_Yellow</item>
+    </string-array>
+
+
+    <string-array name="font_color_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
