@@ -12,7 +12,14 @@
             android:summary="@string/pref_set_theme_sum"
             android:title="@string/pref_set_theme_title"
             app:useStockLayout="true" />
-
+        <ListPreference
+            android:entryValues="@array/font_values"
+            android:entries="@array/font_options"
+            android:title="@string/pref_set_font_title"
+            android:key="prefFont"
+            android:summary="@string/pref_set_theme_sum"
+            android:defaultValue="0"
+            app:useStockLayout="true"/>
         <Preference
                 android:key="prefHiddenDrawerItems"
                 android:summary="@string/pref_nav_drawer_items_sum"
@@ -33,24 +40,6 @@
                 android:summary="@string/pref_nav_drawer_feed_counter_sum"
                 android:defaultValue="0"
                 app:useStockLayout="true"/>
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/font">
-        <ListPreference
-        android:entryValues="@array/font_values"
-        android:entries="@array/font_options"
-        android:title="@string/pref_set_font_title"
-        android:key="prefFont"
-        android:summary="@string/pref_set_theme_sum"
-        android:defaultValue="0"
-        app:useStockLayout="true"/>
-        <ListPreference
-            android:entryValues="@array/font_colors"
-            android:entries="@array/font_color_options"
-            android:title="@string/pref_set_Fontcolor_title"
-            android:key="prefFont_color"
-            android:summary="@string/pref_set_color"
-            android:defaultValue="0"
-            app:useStockLayout="true"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/external_elements">
         <SwitchPreference
