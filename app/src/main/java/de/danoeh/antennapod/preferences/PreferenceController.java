@@ -215,6 +215,18 @@ public class PreferenceController implements SharedPreferences.OnSharedPreferenc
                             return true;
                         }
                 );
+        //returns selected font option, used in userPreferences.java
+        ui.findPreference(UserPreferences.PREF_FONT)
+                .setOnPreferenceChangeListener(
+                        (preference, newValue) -> {
+                            Intent i = new Intent(activity, MainActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            activity.finish();
+                            activity.startActivity(i);
+                            return true;
+                        }
+                );
         ui.findPreference(UserPreferences.PREF_HIDDEN_DRAWER_ITEMS)
                 .setOnPreferenceClickListener(preference -> {
                     showDrawerPreferencesDialog();
