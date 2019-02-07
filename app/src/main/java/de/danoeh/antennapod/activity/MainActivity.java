@@ -129,6 +129,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setTheme(UserPreferences.getNoTitleTheme());
+        //update theme based on desired font
+      //  setTheme(UserPreferences.getNoTitleThemeWithFont());
+
         super.onCreate(savedInstanceState);
         StorageUtils.checkStorageAvailability(this);
         setContentView(R.layout.main);

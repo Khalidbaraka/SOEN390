@@ -379,6 +379,7 @@
     <string name="pref_auto_flattr_sum">Configure automatic flattring</string>
     <string name="user_interface_label">User Interface</string>
     <string name="pref_set_theme_title">Select Theme</string>
+    <string name="pref_set_font_title">Select Font style</string>
     <string name="pref_nav_drawer_title">Customize Navigation Drawer</string>
     <string name="pref_nav_drawer_sum">Customize the appearance of the navigation drawer.</string>
     <string name="pref_nav_drawer_items_title">Set Navigation Drawer items</string>
@@ -388,6 +389,7 @@
     <string name="pref_nav_drawer_feed_counter_title">Set Subscription Counter</string>
     <string name="pref_nav_drawer_feed_counter_sum">Change the information displayed by the subscription counter. Also affects the sorting of subscriptions if \'Subscription Order\' is set to \'Counter\'.</string>
     <string name="pref_set_theme_sum">Change the appearance of AntennaPod.</string>
+    <string name="pref_set_font_sum">Change the font style of AntennaPod.</string>
     <string name="pref_automatic_download_title">Automatic Download</string>
     <string name="pref_automatic_download_sum">Configure the automatic download of episodes.</string>
     <string name="pref_autodl_wifi_filter_title">Enable Wi-Fi filter</string>
@@ -401,6 +403,9 @@
     <string name="pref_theme_title_light">Light</string>
     <string name="pref_theme_title_dark">Dark</string>
     <string name="pref_theme_title_trueblack">Black (AMOLED ready)</string>
+    <string name="pref_font_title_default">Default</string>
+    <string name="pref_font_title_lobster">Lobster</string>
+    <string name="pref_font_title_ubuntu">Ubuntu</string>
     <string name="pref_episode_cache_unlimited">Unlimited</string>
     <string name="pref_update_interval_hours_plural">hours</string>
     <string name="pref_update_interval_hours_singular">hour</string>

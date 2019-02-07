@@ -82,6 +82,14 @@
         <item type="attr" name="about_screen_font_color">#000000</item>
     </style>
 
+    <style name="DarkWithLobster" parent="Theme.Base.AntennaPod.Dark.NoTitle">
+        <item name="android:fontFamily">@font/lobster</item>
+    </style>
+
+    <style name="DarkWithUbuntu" parent="Theme.Base.AntennaPod.Dark.NoTitle">
+        <item name="android:fontFamily">@font/ubuntu</item>
+    </style>
+
     <style name="Theme.AntennaPod.Dark" parent="Theme.Base.AntennaPod.Dark">
         <!-- Room for API dependent attributes -->
     </style>
@@ -180,6 +188,14 @@
         <item name="android:actionBarStyle">@color/black</item>
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/black</item>
+    </style>
+
+    <style name="LightWithLobster" parent="Theme.Base.AntennaPod.Light.NoTitle">
+        <item name="android:fontFamily">@font/lobster</item>
+    </style>
+
+    <style name="LightWithUbuntu" parent="Theme.Base.AntennaPod.Light.NoTitle">
+        <item name="android:fontFamily">@font/ubuntu</item>
     </style>
 
 
@@ -341,6 +357,14 @@
         <item type="attr" name="about_screen_card_background">#424242</item>
         <item type="attr" name="about_screen_card_border">#262626</item>
         <item type="attr" name="about_screen_font_color">#ffffff</item>
+    </style>
+
+    <style name="BlackWithLobster" parent="Theme.Base.AntennaPod.TrueBlack.NoTitle">
+        <item name="android:fontFamily">@font/lobster</item>
+    </style>
+
+    <style name="BlackWithUbuntu" parent="Theme.Base.AntennaPod.TrueBlack.NoTitle">
+        <item name="android:fontFamily">@font/ubuntu</item>
     </style>
 
     <style name="Theme.AntennaPod.TrueBlack.NoTitle" parent="Theme.Base.AntennaPod.TrueBlack.NoTitle">

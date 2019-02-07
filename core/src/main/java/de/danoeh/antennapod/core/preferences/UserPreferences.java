@@ -44,6 +44,7 @@ public class UserPreferences {
 
     // User Interface
     public static final String PREF_THEME = "prefTheme";
+    public static final String PREF_FONT = "prefFont";
     public static final String PREF_HIDDEN_DRAWER_ITEMS = "prefHiddenDrawerItems";
     private static final String PREF_DRAWER_FEED_ORDER = "prefDrawerFeedOrder";
     private static final String PREF_DRAWER_FEED_COUNTER = "prefDrawerFeedIndicator";
@@ -156,19 +157,43 @@ public class UserPreferences {
      *
      * @return R.style.Theme_AntennaPod_Light or R.style.Theme_AntennaPod_Dark
      */
+    //this method is used in every activity to set the theme
     public static int getTheme() {
         return readThemeValue(prefs.getString(PREF_THEME, "0"));
     }
 
+    //used once in Main Activity because its a "NoTitle" page, all other activities have a title
     public static int getNoTitleTheme() {
         int theme = getTheme();
+
         if (theme == R.style.Theme_AntennaPod_Dark) {
             return R.style.Theme_AntennaPod_Dark_NoTitle;
+        } else if (theme == R.style.DarkWithLobster) {
+            return R.style.DarkWithLobster;
+        } else if (theme == R.style.DarkWithUbuntu) {
+            return R.style.DarkWithUbuntu;
         } else if (theme == R.style.Theme_AntennaPod_TrueBlack) {
             return R.style.Theme_AntennaPod_TrueBlack_NoTitle;
-        } else {
+        } else if (theme == R.style.BlackWithLobster) {
+            return R.style.BlackWithLobster;
+        } else if (theme == R.style.BlackWithUbuntu) {
+            return R.style.BlackWithUbuntu;
+        } else if (theme == R.style.LightWithLobster) {
+            return R.style.LightWithLobster;
+        } else if (theme == R.style.LightWithUbuntu) {
+            return R.style.LightWithUbuntu;
+        }else {
             return R.style.Theme_AntennaPod_Light_NoTitle;
         }
+    }
+
+    /**
+     * Returns font as a string
+     *
+     * @return string of selected font
+     */
+    public static String getFont() {
+        return readFontValue(prefs.getString(PREF_FONT, "0"));
     }
 
     public static List<String> getHiddenDrawerItems() {
@@ -595,17 +620,61 @@ public class UserPreferences {
              .putBoolean(PREF_QUEUE_LOCKED, locked)
              .apply();
     }
-
+    //Returns theme with selected font
     private static int readThemeValue(String valueFromPrefs) {
+        String font = getFont();
+        if(font.equals("Default")){
+            switch (Integer.parseInt(valueFromPrefs)) {
+                case 0:
+                    return R.style.Theme_AntennaPod_Light;
+                case 1:
+                    return R.style.Theme_AntennaPod_Dark;
+                case 2:
+                    return R.style.Theme_AntennaPod_TrueBlack;
+                default:
+                    return R.style.Theme_AntennaPod_Light;
+            }
+        }
+        else if(font.equals("Lobster")){
+            switch (Integer.parseInt(valueFromPrefs)) {
+                case 0:
+                    return R.style.LightWithLobster;
+                case 1:
+                    return R.style.DarkWithLobster;
+                case 2:
+                    return R.style.BlackWithLobster;
+                default:
+                    return R.style.Theme_AntennaPod_Light;
+            }
+        }
+        else if(font.equals("Ubuntu")){
+            switch (Integer.parseInt(valueFromPrefs)) {
+                case 0:
+                    return R.style.LightWithUbuntu;
+                case 1:
+                    return R.style.DarkWithUbuntu;
+                case 2:
+                    return R.style.BlackWithUbuntu;
+                default:
+                    return R.style.Theme_AntennaPod_Light;
+            }
+        }
+        else{
+            return R.style.Theme_AntennaPod_Light;
+        }
+    }
+
+    //returns selection from font preference dialog
+    private static String readFontValue(String valueFromPrefs) {
         switch (Integer.parseInt(valueFromPrefs)) {
             case 0:
-                return R.style.Theme_AntennaPod_Light;
+                return "Default";
             case 1:
-                return R.style.Theme_AntennaPod_Dark;
+                return "Lobster";
             case 2:
-                return R.style.Theme_AntennaPod_TrueBlack;
+                return "Ubuntu";
             default:
-                return R.style.Theme_AntennaPod_Light;
+                return "Default";
         }
     }
 

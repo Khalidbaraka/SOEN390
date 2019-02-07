@@ -37,10 +37,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion 26
+        targetSdkVersion 26
         multiDexEnabled true
-        versionCode getMyVersionCode()
         versionName "${getMyVersionName()}"
         testApplicationId "de.test.antennapod"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -141,6 +140,7 @@ android {
 
 dependencies {
     freeImplementation project(":core")
+
     // free build hack: skip some dependencies
     if (!doFreeBuild()) {
         playImplementation project(":core")
@@ -169,24 +169,19 @@ dependencies {
     implementation "de.greenrobot:eventbus:$eventbusVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-
     implementation "com.joanzapata.iconify:android-iconify-fontawesome:$iconifyVersion"
     implementation "com.joanzapata.iconify:android-iconify-material:$iconifyVersion"
     implementation("com.afollestad.material-dialogs:commons:$materialDialogsVersion") {
         transitive = true
     }
     implementation "com.yqritc:recyclerview-flexibledivider:$recyclerviewFlexibledividerVersion"
-    implementation("com.githang:viewpagerindicator:2.5.1@aar") {
+    implementation('com.githang:viewpagerindicator:2.5.1@aar') {
         exclude module: "support-v4"
     }
-
     implementation "com.github.shts:TriangleLabelView:$triangleLabelViewVersion"
-
     implementation "com.github.AntennaPod:AntennaPod-AudioPlayer:$audioPlayerVersion"
-
     implementation 'com.github.mfietz:fyydlin:v0.4.1'
     implementation 'com.github.ByteHamster:SearchPreference:v1.0.8'
-
     androidTestImplementation "com.jayway.android.robotium:robotium-solo:$robotiumSoloVersion"
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
