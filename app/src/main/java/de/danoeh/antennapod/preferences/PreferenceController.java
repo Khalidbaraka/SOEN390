@@ -215,6 +215,7 @@ public class PreferenceController implements SharedPreferences.OnSharedPreferenc
                             return true;
                         }
                 );
+        //returns selected font option, used in userPreferences.java
         ui.findPreference(UserPreferences.PREF_FONT)
                 .setOnPreferenceChangeListener(
                         (preference, newValue) -> {
