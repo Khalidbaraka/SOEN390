@@ -168,8 +168,6 @@ public class UserPreferences {
 
         if (theme == R.style.Theme_AntennaPod_Dark) {
             return R.style.Theme_AntennaPod_Dark_NoTitle;
-        } else if (theme == R.style.Theme_AntennaPod_Pink) {
-            return R.style.Theme_AntennaPod_Pink;
         } else if (theme == R.style.DarkWithLobster) {
             return R.style.DarkWithLobster;
         } else if (theme == R.style.DarkWithUbuntu) {
@@ -184,6 +182,12 @@ public class UserPreferences {
             return R.style.LightWithLobster;
         } else if (theme == R.style.LightWithUbuntu) {
             return R.style.LightWithUbuntu;
+        } else if (theme == R.style.Theme_AntennaPod_Pink) {
+                return R.style.Theme_AntennaPod_Pink;
+        } else if (theme == R.style.PinkWithLobster) {
+            return R.style.PinkWithLobster;
+        } else if (theme == R.style.PinkWithUbuntu) {
+            return R.style.PinkWithUbuntu;
         }else {
             return R.style.Theme_AntennaPod_Light_NoTitle;
         }
@@ -648,7 +652,7 @@ public class UserPreferences {
                 case 2:
                     return R.style.BlackWithLobster;
                 case 4:
-                    return R.style.Theme_AntennaPod_Pink;
+                    return R.style.PinkWithLobster;
                 default:
                     return R.style.Theme_AntennaPod_Light;
             }
@@ -662,7 +666,7 @@ public class UserPreferences {
                 case 2:
                     return R.style.BlackWithUbuntu;
                 case 4:
-                    return R.style.Theme_AntennaPod_Pink;
+                    return R.style.PinkWithUbuntu;
                 default:
                     return R.style.Theme_AntennaPod_Light;
             }

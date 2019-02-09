@@ -409,11 +409,6 @@
         <item name="colorPrimaryDark">@color/primary_pink</item>
         <item name="colorControlNormal">@color/white</item>
 
-        <item type="attr" name="about_screen_background">#303030</item>
-        <item type="attr" name="about_screen_card_background">#424242</item>
-        <item type="attr" name="about_screen_card_border">#262626</item>
-        <item type="attr" name="about_screen_font_color">#ffffff</item>
-
         <!-- Icons  -->
         <item type="attr" name="storage">@drawable/ic_sd_white_24dp</item>
         <item type="attr" name="ic_swap">@drawable/ic_swap_vertical_white_24dp</item>
@@ -467,6 +462,14 @@
         <item type="attr" name="ic_question_answer">@drawable/ic_baseline_question_answer_white_24dp</item>
         <item type="attr" name="ic_bug">@drawable/ic_bug_white_24dp</item>
         <item type="attr" name="ic_known_issues">@drawable/ic_format_list_bulleted_white_24dp</item>
+    </style>
+
+    <style name="PinkWithLobster" parent="Theme.AntennaPod.Pink">
+        <item name="android:fontFamily">@font/lobster</item>
+    </style>
+
+    <style name="PinkWithUbuntu" parent="Theme.AntennaPod.Pink">
+        <item name="android:fontFamily">@font/ubuntu</item>
     </style>
 
 
