@@ -6,7 +6,6 @@
     <color name="grey600">#757575</color>
     <color name="light_gray">#bfbfbf</color>
     <color name="black">#000000</color>
-    <color name="light_pink">#fff2f2</color>
     <color name="holo_blue_light">#33B5E5</color>
     <color name="holo_blue_dark">#0099CC</color>
     <color name="ics_gray">#858585</color>
@@ -27,16 +26,20 @@
     <color name="selection_background_color_dark">#286E8A</color>
     <color name="selection_background_color_light">#81CFEA</color>
 
-    <!-- Theme colors -->
-    <color name="primary_light">#FFFFFF</color>
+    <!-- Pink Theme -->
+    <color name="holo_burgundy">#5E1616</color>
     <color name="primary_pink">#e15450</color>
     <color name="nav_drawer_background_pink">#de6161</color>
     <color name="windowBackground">#E47F7F</color>
+    <color name="textColorSecondary">#FDD6D6</color>
+    <color name="currently_playing_background">#963B3B</color>
+
+    <!-- Theme colors -->
+    <color name="primary_light">#FFFFFF</color>
+
     <color name="highlight_light">#DDDDDD</color>
     <color name="highlight_dark">#414141</color>
     <color name="highlight_trueblack">#414141</color>
-    <color name="hightlight_pink">#ffbaba</color>
-
     <color name="antennapod_blue">#147BAF</color>
 
     <color name="master_switch_background_light">#DDDDDD</color>

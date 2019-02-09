@@ -395,12 +395,11 @@
         <item type="attr" name="overlay_background">@color/primary_pink</item>
         <item type="attr" name="overlay_drawable">@drawable/overlay_drawable_dark_trueblack</item>
         <item type="attr" name="dragview_background">@drawable/ic_drag_vertical_white_48dp</item>
-        <item type="attr" name="dragview_float_background">@color/hightlight_pink</item>
         <item type="attr" name="nav_drawer_background">@color/nav_drawer_background_pink</item>
-        <item type="attr" name="currently_playing_background">@color/highlight_trueblack</item>
+        <item type="attr" name="currently_playing_background">@color/currently_playing_background</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/white</item>
-        <item name="colorAccent">@color/holo_blue_dark</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="colorAccent">@color/holo_burgundy</item>
 
         <item name="android:color">@color/white</item>
         <item name="android:colorBackground">@color/primary_pink</item>
