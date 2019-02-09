@@ -413,6 +413,12 @@
     <string name="pref_font_title_Blue">Blue</string>
     <string name="pref_font_title_Red">Red</string>
     <string name="pref_font_title_Yellow">Yellow</string>
+    <string name="pref_font_title_small">Small</string>
+    <string name="pref_font_title_medium">Medium</string>
+    <string name="pref_font_title_large">Large</string>
+    <string name="pref_font_title_light">Light</string>
+    <string name="pref_font_title_normal">Normal</string>
+    <string name="pref_font_title_bold">Bold</string>
     <string name="pref_episode_cache_unlimited">Unlimited</string>
     <string name="pref_update_interval_hours_plural">hours</string>
     <string name="pref_update_interval_hours_singular">hour</string>

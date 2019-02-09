@@ -51,6 +51,22 @@
             android:summary="@string/pref_set_font_color_sum"
             android:defaultValue="0"
             app:useStockLayout="true"/>
+        <ListPreference
+            android:entryValues="@array/font_size_values"
+            android:entries="@array/font_size_options"
+            android:title="Select Font Size"
+            android:key="prefFont_size"
+            android:summary="Change the font size of AntennaPod"
+            android:defaultValue="0"
+            app:useStockLayout="true"/>
+        <ListPreference
+            android:entryValues="@array/font_weight_values"
+            android:entries="@array/font_weight_options"
+            android:title="Select Font Weight"
+            android:key="prefFont_weight"
+            android:summary="Change the font weight of AntennaPod"
+            android:defaultValue="0"
+            app:useStockLayout="true"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/external_elements">
         <SwitchPreference
