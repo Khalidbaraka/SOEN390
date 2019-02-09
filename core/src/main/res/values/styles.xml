@@ -484,13 +484,17 @@
         <item type="attr" name="nav_drawer_background">@color/holo_blue_light</item>
         <item type="attr" name="currently_playing_background">@color/currently_playing_background</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/textColorSecondary</item>
-        <item name="colorAccent">@color/holo_burgundy</item>
+        <!-- this is where you can change the summary for each list preferences -->
+        <item name="android:textColorSecondary">@color/dark_grey</item>
+        <!--this is where we can change the titles color  -->
+        <item name="colorAccent">@color/white</item>
 
         <item name="android:color">@color/holo_blue_light</item>
         <item name="android:colorBackground">@color/holo_blue_light</item>
-        <item name="android:windowBackground">@color/holo_blue_light</item>
+        <!-- changing the main page color-->
+        <item name="android:windowBackground">@color/blue5</item>
         <item name="android:actionBarStyle">@color/holo_blue_light</item>
+        <!-- this is where we chnage the action bar -->
         <item name="colorPrimary">@color/holo_blue_light</item>
         <item name="colorPrimaryDark">@color/holo_blue_light</item>
         <!-- this is where the action bar's icons colors can be changed-->
@@ -558,19 +562,6 @@
     <style name="BlueWithUbuntu" parent="Theme.AntennaPod.Blue">
         <item name="android:fontFamily">@font/ubuntu</item>
     </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
