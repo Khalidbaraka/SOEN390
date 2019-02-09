@@ -493,6 +493,7 @@
         <item name="android:actionBarStyle">@color/holo_blue_light</item>
         <item name="colorPrimary">@color/holo_blue_light</item>
         <item name="colorPrimaryDark">@color/holo_blue_light</item>
+        <!-- this is where the action bar's icons colors can be changed-->
         <item name="colorControlNormal">@color/white</item>
 
         <!-- Icons  -->
@@ -550,11 +551,11 @@
         <item type="attr" name="ic_known_issues">@drawable/ic_format_list_bulleted_white_24dp</item>
     </style>
 
-    <style name="BlueLobster" parent="Theme.AntennaPod.Blue">
+    <style name="BlueWithLobster" parent="Theme.AntennaPod.Blue">
         <item name="android:fontFamily">@font/lobster</item>
     </style>
 
-    <style name="BlueUbuntu" parent="Theme.AntennaPod.Blue">
+    <style name="BlueWithUbuntu" parent="Theme.AntennaPod.Blue">
         <item name="android:fontFamily">@font/ubuntu</item>
     </style>
 

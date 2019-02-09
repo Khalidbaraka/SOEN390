@@ -190,7 +190,11 @@ public class UserPreferences {
             return R.style.PinkWithUbuntu;
         } else if (theme == R.style.Theme_AntennaPod_Blue) {
             return R.style.Theme_AntennaPod_Blue;
-        }else {
+        } else if (theme == R.style.BlueWithLobster) {
+            return R.style.BlueWithLobster;
+        } else if(theme == R.style.BlueWithUbuntu){
+            return R.style.BlueWithUbuntu;
+        } else {
             return R.style.Theme_AntennaPod_Light_NoTitle;
         }
     }
@@ -655,6 +659,8 @@ public class UserPreferences {
                     return R.style.DarkWithLobster;
                 case 2:
                     return R.style.BlackWithLobster;
+                case 3:
+                    return R.style.BlueWithLobster;
                 case 4:
                     return R.style.PinkWithLobster;
                 default:
@@ -669,6 +675,8 @@ public class UserPreferences {
                     return R.style.DarkWithUbuntu;
                 case 2:
                     return R.style.BlackWithUbuntu;
+                case 3:
+                    return R.style.BlueWithUbuntu;
                 case 4:
                     return R.style.PinkWithUbuntu;
                 default:
