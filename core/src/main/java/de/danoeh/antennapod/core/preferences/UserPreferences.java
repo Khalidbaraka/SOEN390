@@ -188,6 +188,8 @@ public class UserPreferences {
             return R.style.PinkWithLobster;
         } else if (theme == R.style.PinkWithUbuntu) {
             return R.style.PinkWithUbuntu;
+        } else if (theme == R.style.Theme_AntennaPod_Blue) {
+            return R.style.Theme_AntennaPod_Blue;
         }else {
             return R.style.Theme_AntennaPod_Light_NoTitle;
         }
@@ -637,6 +639,8 @@ public class UserPreferences {
                     return R.style.Theme_AntennaPod_Dark;
                 case 2:
                     return R.style.Theme_AntennaPod_TrueBlack;
+                case 3:
+                    return R.style.Theme_AntennaPod_Blue;
                 case 4:
                     return R.style.Theme_AntennaPod_Pink;
                 default:
