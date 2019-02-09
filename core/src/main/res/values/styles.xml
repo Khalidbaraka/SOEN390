@@ -389,6 +389,8 @@
         <item name="colorPrimaryDark">@color/black</item>
     </style>
 
+    <!-- Pink Theme -->
+
     <style name="Theme.AntennaPod.Pink" parent="Theme.Base.AntennaPod.Light.NoTitle">
         <item name="progressBarTheme">@style/ProgressBarTrueBlack</item>
         <item type="attr" name="non_transparent_background">@color/primary_pink</item>
@@ -464,6 +466,8 @@
         <item type="attr" name="ic_known_issues">@drawable/ic_format_list_bulleted_white_24dp</item>
     </style>
 
+    <!-- Pink Theme with different fonts -->
+
     <style name="PinkWithLobster" parent="Theme.AntennaPod.Pink">
         <item name="android:fontFamily">@font/lobster</item>
     </style>
@@ -473,7 +477,7 @@
     </style>
 
 
-
+    <!-- Blue Theme -->
 
     <style name="Theme.AntennaPod.Blue" parent="Theme.Base.AntennaPod.Light.NoTitle">
         <item name="progressBarTheme">@style/ProgressBarTrueBlack</item>
@@ -488,13 +492,12 @@
         <item name="android:textColorSecondary">@color/dark_grey</item>
         <!--this is where we can change the titles color  -->
         <item name="colorAccent">@color/white</item>
-
         <item name="android:color">@color/holo_blue_light</item>
         <item name="android:colorBackground">@color/holo_blue_light</item>
         <!-- changing the main page color-->
         <item name="android:windowBackground">@color/blue5</item>
         <item name="android:actionBarStyle">@color/holo_blue_light</item>
-        <!-- this is where we chnage the action bar -->
+        <!-- this is where we change the action bar -->
         <item name="colorPrimary">@color/holo_blue_light</item>
         <item name="colorPrimaryDark">@color/holo_blue_light</item>
         <!-- this is where the action bar's icons colors can be changed-->
@@ -554,6 +557,8 @@
         <item type="attr" name="ic_bug">@drawable/ic_bug_white_24dp</item>
         <item type="attr" name="ic_known_issues">@drawable/ic_format_list_bulleted_white_24dp</item>
     </style>
+
+    <!-- Blue Theme WITH different fonts -->
 
     <style name="BlueWithLobster" parent="Theme.AntennaPod.Blue">
         <item name="android:fontFamily">@font/lobster</item>
