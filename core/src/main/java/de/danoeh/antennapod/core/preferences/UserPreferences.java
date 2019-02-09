@@ -633,7 +633,8 @@ public class UserPreferences {
              .apply();
     }
     //Returns theme with selected font
-    private static int readThemeValue(String valueFromPrefs) {
+    public static int readThemeValue(String valueFromPrefs) {
+        Log.i("TESTing", "number"+ R.style.Theme_AntennaPod_Light);
         String font = getFont();
         if(font.equals("Default")){
             switch (Integer.parseInt(valueFromPrefs)) {
@@ -689,7 +690,7 @@ public class UserPreferences {
     }
 
     //returns selection from font preference dialog
-    private static String readFontValue(String valueFromPrefs) {
+    public static String readFontValue(String valueFromPrefs) {
         switch (Integer.parseInt(valueFromPrefs)) {
             case 0:
                 return "Default";
