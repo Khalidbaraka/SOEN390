@@ -182,7 +182,19 @@ public class UserPreferences {
             return R.style.LightWithLobster;
         } else if (theme == R.style.LightWithUbuntu) {
             return R.style.LightWithUbuntu;
-        }else {
+        } else if (theme == R.style.Theme_AntennaPod_Pink) {
+                return R.style.Theme_AntennaPod_Pink;
+        } else if (theme == R.style.PinkWithLobster) {
+            return R.style.PinkWithLobster;
+        } else if (theme == R.style.PinkWithUbuntu) {
+            return R.style.PinkWithUbuntu;
+        } else if (theme == R.style.Theme_AntennaPod_Blue) {
+            return R.style.Theme_AntennaPod_Blue;
+        } else if (theme == R.style.BlueWithLobster) {
+            return R.style.BlueWithLobster;
+        } else if(theme == R.style.BlueWithUbuntu){
+            return R.style.BlueWithUbuntu;
+        } else {
             return R.style.Theme_AntennaPod_Light_NoTitle;
         }
     }
@@ -631,6 +643,10 @@ public class UserPreferences {
                     return R.style.Theme_AntennaPod_Dark;
                 case 2:
                     return R.style.Theme_AntennaPod_TrueBlack;
+                case 3:
+                    return R.style.Theme_AntennaPod_Blue;
+                case 4:
+                    return R.style.Theme_AntennaPod_Pink;
                 default:
                     return R.style.Theme_AntennaPod_Light;
             }
@@ -643,6 +659,10 @@ public class UserPreferences {
                     return R.style.DarkWithLobster;
                 case 2:
                     return R.style.BlackWithLobster;
+                case 3:
+                    return R.style.BlueWithLobster;
+                case 4:
+                    return R.style.PinkWithLobster;
                 default:
                     return R.style.Theme_AntennaPod_Light;
             }
@@ -655,6 +675,10 @@ public class UserPreferences {
                     return R.style.DarkWithUbuntu;
                 case 2:
                     return R.style.BlackWithUbuntu;
+                case 3:
+                    return R.style.BlueWithUbuntu;
+                case 4:
+                    return R.style.PinkWithUbuntu;
                 default:
                     return R.style.Theme_AntennaPod_Light;
             }

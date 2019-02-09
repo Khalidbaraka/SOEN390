@@ -26,13 +26,33 @@
     <color name="selection_background_color_dark">#286E8A</color>
     <color name="selection_background_color_light">#81CFEA</color>
 
+    <!-- Pink Theme -->
+    <color name="holo_burgundy">#5E1616</color>
+    <color name="primary_pink">#e15450</color>
+    <color name="nav_drawer_background_pink">#de6161</color>
+    <color name="windowBackground">#E47F7F</color>
+    <color name="textColorSecondary">#FDD6D6</color>
+    <color name="currently_playing_background">#963B3B</color>
+
+
+    <!-- Blue Theme -->
+    <color name="blue1">#1194d6</color>
+    <color name="blue2">#67cfef</color>
+    <color name="blue3">#05c5ff</color>
+    <color name="blue4">#0d78a9</color>
+    <color name="blue5">#98d7fc</color>
+    <color name="blue6">#00c8ff</color>
+
+
+
+
+
     <!-- Theme colors -->
     <color name="primary_light">#FFFFFF</color>
 
     <color name="highlight_light">#DDDDDD</color>
     <color name="highlight_dark">#414141</color>
     <color name="highlight_trueblack">#414141</color>
-
     <color name="antennapod_blue">#147BAF</color>
 
     <color name="master_switch_background_light">#DDDDDD</color>
