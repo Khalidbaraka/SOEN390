@@ -31,6 +31,8 @@
     <string name="episode_cache_full_title">Episode cache full</string>
     <string name="episode_cache_full_message">The episode cache limit has been reached. You can increase the cache size in the Settings.</string>
     <string name="synchronizing">Synchronizing…</string>
+    <string name="discover_page_label">Discover Page</string>
+
 
     <!-- Statistics fragment -->
     <string name="total_time_listened_to_podcasts">Total time of podcasts played:</string>
