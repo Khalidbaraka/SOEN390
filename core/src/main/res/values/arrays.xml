@@ -138,11 +138,16 @@
         <item>@string/pref_theme_title_light</item>
         <item>@string/pref_theme_title_dark</item>
         <item>@string/pref_theme_title_trueblack</item>
+        <item>@string/pref_theme_title_blue</item>
+        <item>@string/pref_theme_title_pink</item>
+
     </string-array>
     <string-array name="theme_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
+        <item>4</item>
     </string-array>
 
     <string-array name="font_options">
@@ -150,8 +155,6 @@
         <item>@string/pref_font_title_lobster</item>
         <item>@string/pref_font_title_ubuntu</item>
     </string-array>
-
-
     <string-array name="font_values">
         <item>0</item>
         <item>1</item>
@@ -164,9 +167,29 @@
         <item>@string/pref_font_title_Red</item>
         <item>@string/pref_font_title_Yellow</item>
     </string-array>
-
-
     <string-array name="font_color_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="font_size_options">
+        <item>@string/pref_font_title_small</item>
+        <item>@string/pref_font_title_medium</item>
+        <item>@string/pref_font_title_large</item>
+    </string-array>
+    <string-array name="font_size_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="font_weight_options">
+        <item>@string/pref_font_title_light</item>
+        <item>@string/pref_font_title_normal</item>
+        <item>@string/pref_font_title_bold</item>
+    </string-array>
+    <string-array name="font_weight_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>

@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import de.danoeh.antennapod.core.R;
@@ -166,25 +168,25 @@ public class UserPreferences {
     public static int getNoTitleTheme() {
         int theme = getTheme();
 
-        if (theme == R.style.Theme_AntennaPod_Dark) {
-            return R.style.Theme_AntennaPod_Dark_NoTitle;
-        } else if (theme == R.style.DarkWithLobster) {
-            return R.style.DarkWithLobster;
-        } else if (theme == R.style.DarkWithUbuntu) {
-            return R.style.DarkWithUbuntu;
-        } else if (theme == R.style.Theme_AntennaPod_TrueBlack) {
-            return R.style.Theme_AntennaPod_TrueBlack_NoTitle;
-        } else if (theme == R.style.BlackWithLobster) {
-            return R.style.BlackWithLobster;
-        } else if (theme == R.style.BlackWithUbuntu) {
-            return R.style.BlackWithUbuntu;
-        } else if (theme == R.style.LightWithLobster) {
-            return R.style.LightWithLobster;
-        } else if (theme == R.style.LightWithUbuntu) {
-            return R.style.LightWithUbuntu;
-        }else {
-            return R.style.Theme_AntennaPod_Light_NoTitle;
-        }
+        Map<Object, Integer> themeSelector = new HashMap<Object, Integer>();
+
+        themeSelector.put(R.style.Theme_AntennaPod_Dark, R.style.Theme_AntennaPod_Dark_NoTitle);
+        themeSelector.put(R.style.DarkWithLobster, R.style.DarkWithLobster);
+        themeSelector.put(R.style.DarkWithUbuntu, R.style.DarkWithUbuntu);
+        themeSelector.put(R.style.Theme_AntennaPod_TrueBlack, R.style.Theme_AntennaPod_TrueBlack_NoTitle);
+        themeSelector.put(R.style.BlackWithLobster, R.style.BlackWithLobster);
+        themeSelector.put(R.style.BlackWithUbuntu, R.style.BlackWithUbuntu);
+        themeSelector.put(R.style.LightWithLobster, R.style.LightWithLobster);
+        themeSelector.put(R.style.LightWithUbuntu, R.style.LightWithUbuntu);
+        themeSelector.put(R.style.Theme_AntennaPod_Light, R.style.Theme_AntennaPod_Light_NoTitle);
+        themeSelector.put(R.style.Theme_AntennaPod_Pink, R.style.Theme_AntennaPod_Pink);
+        themeSelector.put(R.style.PinkWithLobster, R.style.PinkWithLobster);
+        themeSelector.put(R.style.PinkWithUbuntu, R.style.PinkWithUbuntu);
+        themeSelector.put(R.style.Theme_AntennaPod_Blue, R.style.Theme_AntennaPod_Blue);
+        themeSelector.put(R.style.BlueWithLobster, R.style.BlueWithLobster);
+        themeSelector.put(R.style.BlueWithUbuntu, R.style.BlueWithUbuntu);
+
+        return themeSelector.get(theme);
     }
 
     /**
@@ -621,7 +623,8 @@ public class UserPreferences {
              .apply();
     }
     //Returns theme with selected font
-    private static int readThemeValue(String valueFromPrefs) {
+    public static int readThemeValue(String valueFromPrefs) {
+        Log.i("TESTing", "number"+ R.style.Theme_AntennaPod_Light);
         String font = getFont();
         if(font.equals("Default")){
             switch (Integer.parseInt(valueFromPrefs)) {
@@ -631,6 +634,10 @@ public class UserPreferences {
                     return R.style.Theme_AntennaPod_Dark;
                 case 2:
                     return R.style.Theme_AntennaPod_TrueBlack;
+                case 3:
+                    return R.style.Theme_AntennaPod_Blue;
+                case 4:
+                    return R.style.Theme_AntennaPod_Pink;
                 default:
                     return R.style.Theme_AntennaPod_Light;
             }
@@ -643,6 +650,10 @@ public class UserPreferences {
                     return R.style.DarkWithLobster;
                 case 2:
                     return R.style.BlackWithLobster;
+                case 3:
+                    return R.style.BlueWithLobster;
+                case 4:
+                    return R.style.PinkWithLobster;
                 default:
                     return R.style.Theme_AntennaPod_Light;
             }
@@ -655,6 +666,10 @@ public class UserPreferences {
                     return R.style.DarkWithUbuntu;
                 case 2:
                     return R.style.BlackWithUbuntu;
+                case 3:
+                    return R.style.BlueWithUbuntu;
+                case 4:
+                    return R.style.PinkWithUbuntu;
                 default:
                     return R.style.Theme_AntennaPod_Light;
             }
@@ -665,7 +680,7 @@ public class UserPreferences {
     }
 
     //returns selection from font preference dialog
-    private static String readFontValue(String valueFromPrefs) {
+    public static String readFontValue(String valueFromPrefs) {
         switch (Integer.parseInt(valueFromPrefs)) {
             case 0:
                 return "Default";
