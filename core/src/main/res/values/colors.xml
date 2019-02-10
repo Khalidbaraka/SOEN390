@@ -6,6 +6,7 @@
     <color name="grey600">#757575</color>
     <color name="light_gray">#bfbfbf</color>
     <color name="black">#000000</color>
+    <color name="blue">#061E96</color>
     <color name="holo_blue_light">#33B5E5</color>
     <color name="holo_blue_dark">#0099CC</color>
     <color name="ics_gray">#858585</color>
@@ -57,5 +58,7 @@
 
     <color name="master_switch_background_light">#DDDDDD</color>
     <color name="master_switch_background_dark">#191919</color>
+
+
 
 </resources>

@@ -1,16 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/CategoriesBtn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="205dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="85dp"
+        android:background="@color/blue6"
+        android:text="Categories"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/NewPodBtn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="210dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="205dp"
+        android:layout_marginTop="85dp"
+        android:background="@color/antennapod_blue"
+        android:text="New"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/RecentlyBtn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="205dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="280dp"
+        android:background="@color/antennapod_blue"
+        android:text="Recently Played"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/TopPodBtn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="210dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="205dp"
+        android:layout_marginTop="280dp"
+        android:background="@color/blue6"
+        android:text="Top 9"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/info_bar"
-        android:layout_width="match_parent"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="Discover Your AntennaPod Podcasts!"/>
+        android:background="@color/gray"
+        android:paddingLeft="153dp"
+        android:paddingTop="@dimen/screen_percentage_12"
+        android:paddingRight="153dp"
+        android:paddingBottom="25dp"
+        android:text="Discovery"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
 
 </RelativeLayout>

@@ -662,4 +662,17 @@
         <item name="android:progressDrawable">@drawable/progress_bar_horizontal_trueblack</item>
     </style>
 
+
+    <!-- Text Font Blue -->
+
+    <style name="Theme.AntennaPod.TextBlue" parent="Theme.Base.AntennaPod.Light.NoTitle">
+
+        <item name="android:color">@color/blue</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/blue</item>
+        <item name="colorControlNormal">@color/blue</item>
+
+    </style>
+
+
 </resources>
