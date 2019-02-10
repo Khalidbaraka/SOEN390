@@ -21,5 +21,6 @@ before_script:
     
 script:
   #Initial test to run all tests already implemented
-  - ./gradlew test
+    - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
+    - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle
   
