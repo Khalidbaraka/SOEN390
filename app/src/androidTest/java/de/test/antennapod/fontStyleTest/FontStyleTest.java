@@ -9,8 +9,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.shredzone.flattr4j.model.User;
-import static org.mockito.Mockito.*;
 
 import de.danoeh.antennapod.activity.PreferenceActivity;
 import de.danoeh.antennapod.core.preferences.UserPreferences;
