@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import de.danoeh.antennapod.core.R;
@@ -166,37 +168,25 @@ public class UserPreferences {
     public static int getNoTitleTheme() {
         int theme = getTheme();
 
-        if (theme == R.style.Theme_AntennaPod_Dark) {
-            return R.style.Theme_AntennaPod_Dark_NoTitle;
-        } else if (theme == R.style.DarkWithLobster) {
-            return R.style.DarkWithLobster;
-        } else if (theme == R.style.DarkWithUbuntu) {
-            return R.style.DarkWithUbuntu;
-        } else if (theme == R.style.Theme_AntennaPod_TrueBlack) {
-            return R.style.Theme_AntennaPod_TrueBlack_NoTitle;
-        } else if (theme == R.style.BlackWithLobster) {
-            return R.style.BlackWithLobster;
-        } else if (theme == R.style.BlackWithUbuntu) {
-            return R.style.BlackWithUbuntu;
-        } else if (theme == R.style.LightWithLobster) {
-            return R.style.LightWithLobster;
-        } else if (theme == R.style.LightWithUbuntu) {
-            return R.style.LightWithUbuntu;
-        } else if (theme == R.style.Theme_AntennaPod_Pink) {
-                return R.style.Theme_AntennaPod_Pink;
-        } else if (theme == R.style.PinkWithLobster) {
-            return R.style.PinkWithLobster;
-        } else if (theme == R.style.PinkWithUbuntu) {
-            return R.style.PinkWithUbuntu;
-        } else if (theme == R.style.Theme_AntennaPod_Blue) {
-            return R.style.Theme_AntennaPod_Blue;
-        } else if (theme == R.style.BlueWithLobster) {
-            return R.style.BlueWithLobster;
-        } else if(theme == R.style.BlueWithUbuntu){
-            return R.style.BlueWithUbuntu;
-        } else {
-            return R.style.Theme_AntennaPod_Light_NoTitle;
-        }
+        Map<Object, Integer> themeSelector = new HashMap<Object, Integer>();
+
+        themeSelector.put(R.style.Theme_AntennaPod_Dark, R.style.Theme_AntennaPod_Dark_NoTitle);
+        themeSelector.put(R.style.DarkWithLobster, R.style.DarkWithLobster);
+        themeSelector.put(R.style.DarkWithUbuntu, R.style.DarkWithUbuntu);
+        themeSelector.put(R.style.Theme_AntennaPod_TrueBlack, R.style.Theme_AntennaPod_TrueBlack_NoTitle);
+        themeSelector.put(R.style.BlackWithLobster, R.style.BlackWithLobster);
+        themeSelector.put(R.style.BlackWithUbuntu, R.style.BlackWithUbuntu);
+        themeSelector.put(R.style.LightWithLobster, R.style.LightWithLobster);
+        themeSelector.put(R.style.LightWithUbuntu, R.style.LightWithUbuntu);
+        themeSelector.put(R.style.Theme_AntennaPod_Light, R.style.Theme_AntennaPod_Light_NoTitle);
+        themeSelector.put(R.style.Theme_AntennaPod_Pink, R.style.Theme_AntennaPod_Pink);
+        themeSelector.put(R.style.PinkWithLobster, R.style.PinkWithLobster);
+        themeSelector.put(R.style.PinkWithUbuntu, R.style.PinkWithUbuntu);
+        themeSelector.put(R.style.Theme_AntennaPod_Blue, R.style.Theme_AntennaPod_Blue);
+        themeSelector.put(R.style.BlueWithLobster, R.style.BlueWithLobster);
+        themeSelector.put(R.style.BlueWithUbuntu, R.style.BlueWithUbuntu);
+
+        return themeSelector.get(theme);
     }
 
     /**
