@@ -131,14 +131,19 @@ public class ChangeThemeTest {
 
 
         int otherTheme;
-        int x= switchThemePinkToBlue(theme);
 
-        if(x != 0){
-            otherTheme=switchThemePinkToBlue(theme);
+        if(switchThemePinkToBlue(theme) != 0){
+            otherTheme = switchThemePinkToBlue(theme);
+        }else if(switchThemeBlackToBlue(theme)!= 0){
+            otherTheme = switchThemeBlackToBlue(theme);
+        }else if (switchThemeLightToBlue(theme) != 0){
+           otherTheme = switchThemeLightToBlue(theme);
+        }else if(switchThemeDarkBlackToBlue(theme)!= 0){
+            otherTheme= switchThemeDarkBlackToBlue(theme);
         }else {
-            otherTheme = R.string.pref_theme_title_trueblack;
-
+            otherTheme= R.string.pref_theme_title_light;
         }
+
 
 
 //        if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
