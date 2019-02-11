@@ -310,14 +310,11 @@ public class ChangeThemeTest {
     @Test
     public void switchThemeLightToBlackTest(){
         final int theme= UserPreferences.getTheme();
-        int otherTheme=0;
+        int otherTheme=R.string.pref_theme_title_pink;
 
-        if(theme == de.danoeh.antennapod.core.R.style.LightWithLobster|
-                theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
-                theme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_Light){
+        if(theme == 0){
             otherTheme= R.string.pref_theme_title_trueblack;
         }
-
 
 
         clickPreference(withText(R.string.user_interface_label));
@@ -325,7 +322,7 @@ public class ChangeThemeTest {
         onView(withText(otherTheme)).perform(click());
 
 
-        assertTrue(solo.waitForCondition(() -> (UserPreferences.getTheme() == theme || UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
+        assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
 
 
