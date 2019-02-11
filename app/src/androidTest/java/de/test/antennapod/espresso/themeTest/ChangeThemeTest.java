@@ -23,7 +23,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.shredzone.flattr4j.model.User;
 
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
@@ -79,76 +81,85 @@ public class ChangeThemeTest {
         onView(withText(newTheme)).perform(click());
     }
 
-    //switch any theme to light theme
+    //switch any theme to light theme. Makes sure the theme is light before other tests starts
     @Test
-    public void testSwitch() {
+    public void switchThemeLight() {
 
         final int theme= UserPreferences.getTheme();
         int otherTheme=0;
         if(theme >0){
 
             otherTheme=R.string.pref_theme_title_light;
-
+        } else{
+            otherTheme=R.string.pref_theme_title_light;
         }
         switchThemes(otherTheme);
         assertTrue(solo.waitForCondition(() -> (UserPreferences.getTheme() == theme || UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
-    // switch between light to black
+    // switch between light to blue
     @Test
-    public void switchThemeLightToBlackTest(){
+    public void switchThemeLightToBlueAfter(){
         final int theme= UserPreferences.getTheme();
-        int otherTheme=R.string.pref_theme_title_pink;
+        int otherTheme;
 
         if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
                 theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu) {
 
-            otherTheme= R.string.pref_theme_title_trueblack;
-        }
-        switchThemes(otherTheme);
-        assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
-    }
-
-    // switch between black to pink
-    @Test
-    public void switchThemeBlackToPinkTest(){
-        final int theme= UserPreferences.getTheme();
-        int otherTheme=R.string.pref_theme_title_blue;
-
-        if(theme == de.danoeh.antennapod.core.R.style.BlackWithLobster | theme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
-                theme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_TrueBlack){
-
-            otherTheme= R.string.pref_theme_title_pink;
-        }
-        switchThemes(otherTheme);
-        assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
-    }
-
-    // switch between pink to blue
-    @Test
-    public void switchThemPinktoBlueTest(){
-        final int theme= UserPreferences.getTheme();
-        int otherTheme=R.string.pref_theme_title_light;
-
-        if(theme == de.danoeh.antennapod.core.R.style.PinkWithLobster | theme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
-                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
-
             otherTheme= R.string.pref_theme_title_blue;
+        }else{
+            otherTheme = R.string.pref_theme_title_light;
         }
         switchThemes(otherTheme);
         assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
 
-
-    // switch between blue to dark
+    // switch back between blue to light
     @Test
-    public void switchThemBluetoDarkTest(){
+    public void switchThemeLightToBlueBack(){
         final int theme= UserPreferences.getTheme();
-        int otherTheme=R.string.pref_theme_title_light;
+        int otherTheme;
 
         if(theme == de.danoeh.antennapod.core.R.style.BlueWithLobster | theme == de.danoeh.antennapod.core.R.style.BlueWithUbuntu |
                 theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Blue){
 
-            otherTheme= R.string.pref_theme_title_dark;
+            otherTheme= R.string.pref_theme_title_light;
+        }else{
+            otherTheme = R.string.pref_theme_title_blue;
+        }
+        switchThemes(otherTheme);
+        assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
+    }
+
+    // switch between light to pink
+    @Test
+    public void switchThemeLightToPink(){
+        final int theme= UserPreferences.getTheme();
+        int otherTheme;
+
+        if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
+                theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu) {
+
+            otherTheme= R.string.pref_theme_title_pink;
+        }else{
+            otherTheme = R.string.pref_theme_title_light;
+        }
+        switchThemes(otherTheme);
+        assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
+    }
+
+
+    // switch back pink to light
+    @Test
+    public void switchThemLightToPinkBack(){
+        final int theme= UserPreferences.getTheme();
+        int otherTheme;
+
+        if(theme == de.danoeh.antennapod.core.R.style.PinkWithLobster | theme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
+                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink) {
+
+            otherTheme = R.string.pref_theme_title_light;
+        }else{
+            otherTheme = R.string.pref_theme_title_pink;
         }
         switchThemes(otherTheme);
         assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
