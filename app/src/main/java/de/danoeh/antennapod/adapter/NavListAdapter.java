@@ -41,6 +41,7 @@ import de.danoeh.antennapod.fragment.EpisodesFragment;
 import de.danoeh.antennapod.fragment.NewEpisodesFragment;
 import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
+import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
 
 /**
@@ -118,6 +119,9 @@ public class NavListAdapter extends BaseAdapter
         switch (tag) {
             case QueueFragment.TAG:
                 icon = R.attr.stat_playlist;
+                break;
+            case DiscoveryPageFragment.TAG:
+                icon = R.attr.feed;
                 break;
             case NewEpisodesFragment.TAG:
                 icon = R.attr.ic_new;
