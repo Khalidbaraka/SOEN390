@@ -182,9 +182,9 @@ public class ChangeThemeTest {
 
     private int switchThemeLightToBlack(int currentTheme){
         int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.BlackWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_TrueBlack){
+        if(currentTheme == de.danoeh.antennapod.core.R.style.LightWithLobster|
+                currentTheme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
+                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_Light){
             newTheme= R.string.pref_theme_title_trueblack;
         }
         return newTheme;
@@ -196,6 +196,49 @@ public class ChangeThemeTest {
                 currentTheme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
                 currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
             newTheme= R.string.pref_theme_title_trueblack;
+        }
+        return newTheme;
+    }
+
+    // changing all themes to dark black theme
+
+    private int switchThemeBlueToDarkBlack(int currentTheme){
+        int newTheme=0;
+        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Blue |
+                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithUbuntu |
+                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithLobster){
+            newTheme= R.string.pref_theme_title_dark;
+        }
+        return newTheme;
+    }
+
+
+    private int switchThemeBlackToDarkBlack(int currentTheme){
+        int newTheme=0;
+        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_TrueBlack |
+                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
+                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu){
+            newTheme= R.string.pref_theme_title_dark;
+        }
+        return newTheme;
+    }
+
+    private int switchThemeLightToDarkBlack(int currentTheme){
+        int newTheme=0;
+        if(currentTheme == de.danoeh.antennapod.core.R.style.LightWithLobster |
+                currentTheme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
+                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_Light){
+            newTheme= R.string.pref_theme_title_dark;
+        }
+        return newTheme;
+    }
+
+    private int switchThemePinkToDarkBlack(int currentTheme){
+        int newTheme=0;
+        if(currentTheme == de.danoeh.antennapod.core.R.style.PinkWithLobster |
+                currentTheme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
+                currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
+            newTheme= R.string.pref_theme_title_dark;
         }
         return newTheme;
     }
@@ -264,7 +307,22 @@ public class ChangeThemeTest {
 
             otherTheme= switchThemeLightToBlack(theme);
 
-        } else {
+        } else  if (switchThemeLightToDarkBlack(theme) != 0){
+
+            otherTheme= switchThemeLightToDarkBlack(theme);
+
+        }else if(switchThemeBlackToDarkBlack(theme)!= 0){
+
+          otherTheme = switchThemeBlackToDarkBlack(theme);
+
+        }else if(switchThemePinkToDarkBlack(theme)!= 0){
+
+            otherTheme = switchThemePinkToDarkBlack(theme);
+
+        }else if (switchThemeBlueToDarkBlack(theme)!= 0) {
+
+            otherTheme= switchThemeBlueToDarkBlack(theme);
+        }else {
             otherTheme= R.string.pref_theme_title_pink;
         }
 
