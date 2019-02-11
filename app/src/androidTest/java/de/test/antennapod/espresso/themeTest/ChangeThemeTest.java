@@ -176,15 +176,38 @@ public class ChangeThemeTest {
         int otherTheme;
 
         if(switchThemePinkToBlue(theme) != 0){
+
             otherTheme = switchThemePinkToBlue(theme);
+
         }else if(switchThemeBlackToBlue(theme)!= 0){
+
             otherTheme = switchThemeBlackToBlue(theme);
+
         }else if (switchThemeLightToBlue(theme) != 0){
+
            otherTheme = switchThemeLightToBlue(theme);
+
         }else if(switchThemeDarkBlackToBlue(theme)!= 0){
+
             otherTheme= switchThemeDarkBlackToBlue(theme);
+
+        }else if(switchThemePinkToLight(theme) != 0){
+
+            otherTheme= switchThemePinkToLight(theme);
+
+        }else if(switchThemeBlackToLight(theme) != 0){
+
+            otherTheme= switchThemeBlackToLight(theme);
+
+        }else if(switchThemeDarkBlackToLight(theme)!= 0) {
+
+            otherTheme = switchThemeDarkBlackToLight(theme);
+
+        } else if(switchThemeBlueToLight(theme)!= 0){
+
+            otherTheme= switchThemeBlueToLight(theme);
         }else {
-            otherTheme= R.string.pref_theme_title_light;
+            otherTheme= R.string.pref_theme_title_trueblack;
         }
 
 
