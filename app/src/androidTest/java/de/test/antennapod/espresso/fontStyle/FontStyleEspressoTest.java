@@ -65,25 +65,37 @@ public class FontStyleEspressoTest {
 
     @Test
     public void testSwitchFont(){
-        final String font = UserPreferences.getFont();
-        String otherFont="";
-        if(font == "Default"){
-            otherFont = "Lobster";
-        }
-        else if(font == "Lobster"){
-            otherFont = "Default";
-        }
-        else{
-            otherFont = "Default";
-        }
-        clickPreference(withText(R.string.user_interface_label));
-        clickPreference(withText(R.string.pref_set_font_title));
-        onView(withText(otherFont)).perform(click());
-        assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() != font, Timeout.getLargeTimeout()));
+
+        final String defaultFont = "Default";
+        final String lobsterFont = "Lobster";
+        final String ubuntuFont = "Ubuntu";
+
+        //Set font to default font before beginning the test
+        changeFontTo(defaultFont);
+        assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == defaultFont, Timeout.getLargeTimeout()));
+
+        //Change font to Lobster and validate that it changed, then change font back to default font
+        changeFontTo(lobsterFont);
+        assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == lobsterFont, Timeout.getLargeTimeout()));
+        changeFontTo(defaultFont);
+        assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == defaultFont, Timeout.getLargeTimeout()));
+
+        //Change font to Ubuntu and validate that it changed, then change font back to default font
+        changeFontTo(ubuntuFont);
+        assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == ubuntuFont, Timeout.getLargeTimeout()));
+        changeFontTo(defaultFont);
+        assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == defaultFont, Timeout.getLargeTimeout()));
+
     }
 
     private void clickPreference(Matcher<View> matcher) {
         onView(withId(R.id.list))
                 .perform(RecyclerViewActions.actionOnItem(hasDescendant(matcher), click()));
+    }
+
+    private void changeFontTo(String newFont) {
+        clickPreference(withText(R.string.user_interface_label));
+        clickPreference(withText(R.string.pref_set_font_title));
+        onView(withText(newFont)).perform(click());
     }
 }
