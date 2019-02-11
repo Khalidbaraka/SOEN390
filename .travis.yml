@@ -24,4 +24,5 @@ script:
     - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
     - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle
     - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
+    - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage
 
