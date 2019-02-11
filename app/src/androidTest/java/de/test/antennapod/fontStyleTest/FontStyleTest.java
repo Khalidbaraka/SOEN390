@@ -28,9 +28,14 @@ public class FontStyleTest {
     }
 
     @Test
-    public void testReadFontValue(){
-
-        String fontValue = UserPreferences.readFontValue("2");
+    public void testReadFontValue() {
+        String fontValue = UserPreferences.readFontValue("0");
+        assertEquals(fontValue, "Default");
+        fontValue = UserPreferences.readFontValue("1");
+        assertEquals(fontValue, "Lobster");
+        fontValue = UserPreferences.readFontValue("2");
         assertEquals(fontValue, "Ubuntu");
+        fontValue = UserPreferences.readFontValue("3000");
+        assertEquals(fontValue, "Default");
     }
 }
