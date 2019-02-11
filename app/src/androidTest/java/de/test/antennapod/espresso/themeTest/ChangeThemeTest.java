@@ -312,7 +312,8 @@ public class ChangeThemeTest {
         final int theme= UserPreferences.getTheme();
         int otherTheme=R.string.pref_theme_title_pink;
 
-        if(theme == 0){
+        if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
+                theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu) {
             otherTheme= R.string.pref_theme_title_trueblack;
         }
 
@@ -325,6 +326,25 @@ public class ChangeThemeTest {
         assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
 
+    @Test
+    public void switchThemeBlackToPinkTest(){
+        final int theme= UserPreferences.getTheme();
+        int otherTheme=R.string.pref_theme_title_blue;
+
+        if(theme == de.danoeh.antennapod.core.R.style.BlackWithLobster |
+                theme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
+                theme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_TrueBlack){
+
+            otherTheme= R.string.pref_theme_title_pink;
+        }
+
+        clickPreference(withText(R.string.user_interface_label));
+        clickPreference(withText(R.string.pref_set_theme_title));
+        onView(withText(otherTheme)).perform(click());
+
+
+        assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
+    }
 
 
 
