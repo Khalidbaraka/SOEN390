@@ -289,14 +289,8 @@ public class ChangeThemeTest {
 
     @Test
     public void testSwitch() {
+
         final int theme= UserPreferences.getTheme();
-        final int blueTheme = R.string.pref_theme_title_blue;
-        final int darkTheme = R.string.pref_theme_title_dark;
-        final int blackTheme = R.string.pref_theme_title_trueblack;
-        final int pinkTheme = R.string.pref_theme_title_pink;
-        final int lightTheme = R.string.pref_theme_title_light;
-
-
         int otherTheme;
 
         if(switchThemePinkToBlue(theme) != 0){
@@ -362,24 +356,24 @@ public class ChangeThemeTest {
         }else if (switchThemeBlueToDarkBlack(theme)!= 0) {
 
             otherTheme= switchThemeBlueToDarkBlack(theme);
-        }else {
-            otherTheme= R.string.pref_theme_title_pink;
+
+        }else if(switchThemeBlackToPink(theme) != 0){
+
+            otherTheme= switchThemeBlackToPink(theme);
+
+        } else if(switchThemeDarkBlackToPink(theme)!=0){
+
+            otherTheme= switchThemeDarkBlackToPink(theme);
+
+        } else if (switchThemeLightToPink(theme)!=0){
+
+            otherTheme= switchThemeLightToPink(theme);
+
+        }else{
+
+            otherTheme= switchThemeBlueToPink(theme);
         }
 
-
-
-//        if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
-//                theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
-//                theme== de.danoeh.antennapod.core.R.style.DarkWithLobster |
-//                theme== de.danoeh.antennapod.core.R.style.DarkWithUbuntu |
-//                theme== de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
-//                theme==de.danoeh.antennapod.core.R.style.BlackWithLobster |
-//                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
-//                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_TrueBlack ){
-//
-//            otherTheme = R.string.pref_theme_title_blue;
-//        }
-//        otherTheme = R.string.pref_theme_title_pink;
         clickPreference(withText(R.string.user_interface_label));
         clickPreference(withText(R.string.pref_set_theme_title));
         onView(withText(otherTheme)).perform(click());
