@@ -41,6 +41,10 @@ public class FontStyleEspressoTest {
     private Resources res;
     private SharedPreferences prefs;
 
+    private final String defaultFont = "Default";
+    private final String lobsterFont = "Lobster";
+    private final String ubuntuFont = "Ubuntu";
+
     @Rule
     public ActivityTestRule<PreferenceActivity> mActivityRule = new ActivityTestRule<>(PreferenceActivity.class);
 
@@ -64,29 +68,35 @@ public class FontStyleEspressoTest {
     }
 
     @Test
-    public void testSwitchFont(){
-
-        final String defaultFont = "Default";
-        final String lobsterFont = "Lobster";
-        final String ubuntuFont = "Ubuntu";
-
-        //Set font to default font before beginning the test
+    public void testSwitchFontToDefault() {
         changeFontTo(defaultFont);
         assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == defaultFont, Timeout.getLargeTimeout()));
+    }
 
-        //Change font to Lobster and validate that it changed, then change font back to default font
+    @Test
+    public void testSwitchFontToLobster(){
         changeFontTo(lobsterFont);
         assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == lobsterFont, Timeout.getLargeTimeout()));
+    }
+
+    @Test
+    public void testSwitchBackFromLobster(){
         changeFontTo(defaultFont);
         assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == defaultFont, Timeout.getLargeTimeout()));
+    }
 
-        //Change font to Ubuntu and validate that it changed, then change font back to default font
+    @Test
+    public void testSwitchFontToUbuntu(){
         changeFontTo(ubuntuFont);
         assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == ubuntuFont, Timeout.getLargeTimeout()));
+    }
+
+    @Test
+    public void testSwitchBackFromUbuntu(){
         changeFontTo(defaultFont);
         assertTrue(solo.waitForCondition(() -> UserPreferences.getFont() == defaultFont, Timeout.getLargeTimeout()));
-
     }
+
 
     private void clickPreference(Matcher<View> matcher) {
         onView(withId(R.id.list))
