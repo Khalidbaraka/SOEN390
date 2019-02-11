@@ -38,12 +38,6 @@ import static org.junit.Assert.assertEquals;
 public class DiscoveryPageEspressoTest {
 
     private Solo solo;
-    private Resources res;
-    private SharedPreferences prefs;
-
-    private final String defaultFont = "Default";
-    private final String lobsterFont = "Lobster";
-    private final String ubuntuFont = "Ubuntu";
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
