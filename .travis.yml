@@ -23,4 +23,4 @@ script:
   #Initial test to run all tests already implemented
     - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
     - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle
-  
+    - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
