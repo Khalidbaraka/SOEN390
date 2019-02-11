@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 import android.view.View;
 
 import com.robotium.solo.Solo;
@@ -294,29 +295,12 @@ public class ChangeThemeTest {
         int otherTheme=0;
         if(theme >0){
 
-            if(switchThemePinkToLight(theme) != 0){
-
-                otherTheme= switchThemePinkToLight(theme);
-
-            }else if(switchThemeBlackToLight(theme) != 0){
-
-                otherTheme= switchThemeBlackToLight(theme);
-
-            }else if(switchThemeDarkBlackToLight(theme)!= 0) {
-
-                otherTheme = switchThemeDarkBlackToLight(theme);
-
-            } else {
-
-                otherTheme= switchThemeBlueToLight(theme);
-
-            }
+            otherTheme=R.string.pref_theme_title_light;
 
         }
-
-
         clickPreference(withText(R.string.user_interface_label));
         clickPreference(withText(R.string.pref_set_theme_title));
+        Log.i("otherTHEME", (String.valueOf(otherTheme) ));
         onView(withText(otherTheme)).perform(click());
 
 
@@ -328,10 +312,12 @@ public class ChangeThemeTest {
         final int theme= UserPreferences.getTheme();
         int otherTheme=0;
 
-        if(theme == de.danoeh.antennapod.core.R.style.LightWithLobster| theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
-               theme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_Light){
+        if(theme == de.danoeh.antennapod.core.R.style.LightWithLobster|
+                theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
+                theme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_Light){
             otherTheme= R.string.pref_theme_title_trueblack;
         }
+
 
 
         clickPreference(withText(R.string.user_interface_label));
