@@ -73,6 +73,53 @@ public class ChangeThemeTest {
                 .perform(RecyclerViewActions.actionOnItem(hasDescendant(matcher), click()));
     }
 
+
+    private int switchThemeLightToBlue(int currentTheme){
+        int newTheme=0;
+        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light |
+                currentTheme == de.danoeh.antennapod.core.R.style.LightWithLobster |
+                currentTheme == de.danoeh.antennapod.core.R.style.LightWithUbuntu){
+            newTheme= R.string.pref_theme_title_blue;
+        }
+        return newTheme;
+    }
+
+
+    private int switchThemeDarkBlackToBlue(int currentTheme){
+        int newTheme=0;
+        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
+                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithLobster |
+                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithUbuntu){
+            newTheme= R.string.pref_theme_title_blue;
+        }
+        return newTheme;
+    }
+
+    private int switchThemeBlackToBlue(int currentTheme){
+        int newTheme=0;
+        if(currentTheme == de.danoeh.antennapod.core.R.style.BlackWithLobster |
+                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
+                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_TrueBlack){
+            newTheme= R.string.pref_theme_title_blue;
+        }
+        return newTheme;
+    }
+
+    private int switchThemePinkToBlue(int currentTheme){
+        int newTheme=0;
+        if(currentTheme == de.danoeh.antennapod.core.R.style.PinkWithLobster |
+                currentTheme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
+                currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
+            newTheme= R.string.pref_theme_title_blue;
+        }
+        return newTheme;
+    }
+
+
+
+
+
+
     @Test
     public void testSwitch() {
         final int theme= UserPreferences.getTheme();
@@ -84,19 +131,28 @@ public class ChangeThemeTest {
 
 
         int otherTheme;
+        int x= switchThemePinkToBlue(theme);
 
-        if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
-                theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
-                theme== de.danoeh.antennapod.core.R.style.DarkWithLobster |
-                theme== de.danoeh.antennapod.core.R.style.DarkWithUbuntu |
-                theme== de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
-                theme==de.danoeh.antennapod.core.R.style.BlackWithLobster |
-                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
-                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_TrueBlack ){
+        if(x != 0){
+            otherTheme=switchThemePinkToBlue(theme);
+        }else {
+            otherTheme = R.string.pref_theme_title_trueblack;
 
-            otherTheme = R.string.pref_theme_title_blue;
         }
-        otherTheme = R.string.pref_theme_title_pink;
+
+
+//        if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
+//                theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
+//                theme== de.danoeh.antennapod.core.R.style.DarkWithLobster |
+//                theme== de.danoeh.antennapod.core.R.style.DarkWithUbuntu |
+//                theme== de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
+//                theme==de.danoeh.antennapod.core.R.style.BlackWithLobster |
+//                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
+//                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_TrueBlack ){
+//
+//            otherTheme = R.string.pref_theme_title_blue;
+//        }
+//        otherTheme = R.string.pref_theme_title_pink;
         clickPreference(withText(R.string.user_interface_label));
         clickPreference(withText(R.string.pref_set_theme_title));
         onView(withText(otherTheme)).perform(click());
