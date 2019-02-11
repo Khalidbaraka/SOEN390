@@ -83,13 +83,28 @@ public class ChangeThemeTest {
         final int lightTheme = R.string.pref_theme_title_light;
 
 
-            clickPreference(withText(R.string.user_interface_label));
-            clickPreference(withText(R.string.pref_set_theme_title));
-            onView(withText(blueTheme)).perform(click());
+        int otherTheme;
+
+        if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
+                theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
+                theme== de.danoeh.antennapod.core.R.style.DarkWithLobster |
+                theme== de.danoeh.antennapod.core.R.style.DarkWithUbuntu |
+                theme== de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
+                theme==de.danoeh.antennapod.core.R.style.BlackWithLobster |
+                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
+                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_TrueBlack ){
+
+            otherTheme = R.string.pref_theme_title_blue;
+        }
+        otherTheme = R.string.pref_theme_title_pink;
+        clickPreference(withText(R.string.user_interface_label));
+        clickPreference(withText(R.string.pref_set_theme_title));
+        onView(withText(otherTheme)).perform(click());
 
 
         assertTrue(solo.waitForCondition(() -> (UserPreferences.getTheme() == theme || UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
+
 
 }
 
