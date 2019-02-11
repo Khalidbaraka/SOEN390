@@ -291,88 +291,29 @@ public class ChangeThemeTest {
     public void testSwitch() {
 
         final int theme= UserPreferences.getTheme();
-        int otherTheme;
+        int otherTheme=0;
+        if(theme >0){
 
-        if(switchThemePinkToBlue(theme) != 0){
+            if(switchThemePinkToLight(theme) != 0){
 
-            otherTheme = switchThemePinkToBlue(theme);
+                otherTheme= switchThemePinkToLight(theme);
 
-        }else if(switchThemeBlackToBlue(theme)!= 0){
+            }else if(switchThemeBlackToLight(theme) != 0){
 
-            otherTheme = switchThemeBlackToBlue(theme);
+                otherTheme= switchThemeBlackToLight(theme);
 
-        }else if (switchThemeLightToBlue(theme) != 0){
+            }else if(switchThemeDarkBlackToLight(theme)!= 0) {
 
-           otherTheme = switchThemeLightToBlue(theme);
+                otherTheme = switchThemeDarkBlackToLight(theme);
 
-        }else if(switchThemeDarkBlackToBlue(theme)!= 0){
+            } else {
 
-            otherTheme= switchThemeDarkBlackToBlue(theme);
+                otherTheme= switchThemeBlueToLight(theme);
 
-        }else if(switchThemePinkToLight(theme) != 0){
+            }
 
-            otherTheme= switchThemePinkToLight(theme);
-
-        }else if(switchThemeBlackToLight(theme) != 0){
-
-            otherTheme= switchThemeBlackToLight(theme);
-
-        }else if(switchThemeDarkBlackToLight(theme)!= 0) {
-
-            otherTheme = switchThemeDarkBlackToLight(theme);
-
-        } else if(switchThemeBlueToLight(theme)!= 0){
-
-            otherTheme= switchThemeBlueToLight(theme);
-
-        }else if(switchThemeBlueToBlack(theme)!= 0){
-
-            otherTheme= switchThemeBlueToBlack(theme);
-
-        }else if(switchThemePinkToBlack(theme)!= 0){
-
-            otherTheme= switchThemePinkToBlack(theme);
-
-        } else if(switchThemeDarkBlackToBlack(theme)!= 0){
-
-            otherTheme= switchThemeDarkBlackToBlack(theme);
-
-        } else if (switchThemeLightToBlack(theme) != 0){
-
-            otherTheme= switchThemeLightToBlack(theme);
-
-        } else  if (switchThemeLightToDarkBlack(theme) != 0){
-
-            otherTheme= switchThemeLightToDarkBlack(theme);
-
-        }else if(switchThemeBlackToDarkBlack(theme)!= 0){
-
-          otherTheme = switchThemeBlackToDarkBlack(theme);
-
-        }else if(switchThemePinkToDarkBlack(theme)!= 0){
-
-            otherTheme = switchThemePinkToDarkBlack(theme);
-
-        }else if (switchThemeBlueToDarkBlack(theme)!= 0) {
-
-            otherTheme= switchThemeBlueToDarkBlack(theme);
-
-        }else if(switchThemeBlackToPink(theme) != 0){
-
-            otherTheme= switchThemeBlackToPink(theme);
-
-        } else if(switchThemeDarkBlackToPink(theme)!=0){
-
-            otherTheme= switchThemeDarkBlackToPink(theme);
-
-        } else if (switchThemeLightToPink(theme)!=0){
-
-            otherTheme= switchThemeLightToPink(theme);
-
-        }else{
-
-            otherTheme= switchThemeBlueToPink(theme);
         }
+
 
         clickPreference(withText(R.string.user_interface_label));
         clickPreference(withText(R.string.pref_set_theme_title));
@@ -381,6 +322,32 @@ public class ChangeThemeTest {
 
         assertTrue(solo.waitForCondition(() -> (UserPreferences.getTheme() == theme || UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
+
+    @Test
+    public void switchThemeLightToBlackTest(){
+        final int theme= UserPreferences.getTheme();
+        int otherTheme=0;
+
+        if(theme == de.danoeh.antennapod.core.R.style.LightWithLobster| theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
+               theme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_Light){
+            otherTheme= R.string.pref_theme_title_trueblack;
+        }
+
+
+        clickPreference(withText(R.string.user_interface_label));
+        clickPreference(withText(R.string.pref_set_theme_title));
+        onView(withText(otherTheme)).perform(click());
+
+
+        assertTrue(solo.waitForCondition(() -> (UserPreferences.getTheme() == theme || UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
+    }
+
+
+
+
+
+
+
 
 
 }
