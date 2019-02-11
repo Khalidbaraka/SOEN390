@@ -67,227 +67,19 @@ public class ChangeThemeTest {
         prefs.edit().clear();
     }
 
-    
-
     private void clickPreference(Matcher<View> matcher) {
         onView(withId(R.id.list))
                 .perform(RecyclerViewActions.actionOnItem(hasDescendant(matcher), click()));
     }
 
-    // changing any theme to blue theme
-    private int switchThemeLightToBlue(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light |
-                currentTheme == de.danoeh.antennapod.core.R.style.LightWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.LightWithUbuntu){
-            newTheme= R.string.pref_theme_title_blue;
-        }
-        return newTheme;
+    // allow to change between themes
+    private void switchThemes(int newTheme){
+        clickPreference(withText(R.string.user_interface_label));
+        clickPreference(withText(R.string.pref_set_theme_title));
+        onView(withText(newTheme)).perform(click());
     }
 
-
-    private int switchThemeDarkBlackToBlue(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
-                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithUbuntu){
-            newTheme= R.string.pref_theme_title_blue;
-        }
-        return newTheme;
-    }
-
-    private int switchThemeBlackToBlue(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.BlackWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_TrueBlack){
-            newTheme= R.string.pref_theme_title_blue;
-        }
-        return newTheme;
-    }
-
-    private int switchThemePinkToBlue(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.PinkWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
-            newTheme= R.string.pref_theme_title_blue;
-        }
-        return newTheme;
-    }
-
-    // changing any theme to light theme
-    private int switchThemeBlueToLight(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Blue |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithLobster){
-            newTheme= R.string.pref_theme_title_light;
-        }
-        return newTheme;
-    }
-
-
-    private int switchThemeDarkBlackToLight(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
-                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithUbuntu){
-            newTheme= R.string.pref_theme_title_light;
-        }
-        return newTheme;
-    }
-
-    private int switchThemeBlackToLight(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.BlackWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_TrueBlack){
-            newTheme= R.string.pref_theme_title_light;
-        }
-        return newTheme;
-    }
-
-    private int switchThemePinkToLight(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.PinkWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
-            newTheme= R.string.pref_theme_title_light;
-        }
-        return newTheme;
-    }
-
-    // changing all themes to true black theme
-
-    private int switchThemeBlueToBlack(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Blue |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithLobster){
-            newTheme= R.string.pref_theme_title_trueblack;
-        }
-        return newTheme;
-    }
-
-
-    private int switchThemeDarkBlackToBlack(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
-                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithUbuntu){
-            newTheme= R.string.pref_theme_title_trueblack;
-        }
-        return newTheme;
-    }
-
-    private int switchThemeLightToBlack(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.LightWithLobster|
-                currentTheme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_Light){
-            newTheme= R.string.pref_theme_title_trueblack;
-        }
-        return newTheme;
-    }
-
-    private int switchThemePinkToBlack(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.PinkWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
-            newTheme= R.string.pref_theme_title_trueblack;
-        }
-        return newTheme;
-    }
-
-    // changing all themes to dark black theme
-
-    private int switchThemeBlueToDarkBlack(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Blue |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithLobster){
-            newTheme= R.string.pref_theme_title_dark;
-        }
-        return newTheme;
-    }
-
-
-    private int switchThemeBlackToDarkBlack(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_TrueBlack |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu){
-            newTheme= R.string.pref_theme_title_dark;
-        }
-        return newTheme;
-    }
-
-    private int switchThemeLightToDarkBlack(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.LightWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.LightWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_Light){
-            newTheme= R.string.pref_theme_title_dark;
-        }
-        return newTheme;
-    }
-
-    private int switchThemePinkToDarkBlack(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.PinkWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
-            newTheme= R.string.pref_theme_title_dark;
-        }
-        return newTheme;
-    }
-
-    // changing all the themes to pink theme
-    private int switchThemeLightToPink(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light |
-                currentTheme == de.danoeh.antennapod.core.R.style.LightWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.LightWithUbuntu){
-            newTheme= R.string.pref_theme_title_pink;
-        }
-        return newTheme;
-    }
-
-
-    private int switchThemeDarkBlackToPink(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Dark |
-                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.DarkWithUbuntu){
-            newTheme= R.string.pref_theme_title_pink;
-        }
-        return newTheme;
-    }
-
-    private int switchThemeBlackToPink(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.BlackWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_TrueBlack){
-            newTheme= R.string.pref_theme_title_pink;
-        }
-        return newTheme;
-    }
-
-    private int switchThemeBlueToPink(int currentTheme){
-        int newTheme=0;
-        if(currentTheme == de.danoeh.antennapod.core.R.style.BlueWithLobster |
-                currentTheme == de.danoeh.antennapod.core.R.style.BlueWithUbuntu |
-                currentTheme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Blue){
-            newTheme= R.string.pref_theme_title_pink;
-        }
-        return newTheme;
-    }
-
-
-
+    //switch any theme to light theme
     @Test
     public void testSwitch() {
 
@@ -298,15 +90,10 @@ public class ChangeThemeTest {
             otherTheme=R.string.pref_theme_title_light;
 
         }
-        clickPreference(withText(R.string.user_interface_label));
-        clickPreference(withText(R.string.pref_set_theme_title));
-        Log.i("otherTHEME", (String.valueOf(otherTheme) ));
-        onView(withText(otherTheme)).perform(click());
-
-
+        switchThemes(otherTheme);
         assertTrue(solo.waitForCondition(() -> (UserPreferences.getTheme() == theme || UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
-
+    // switch between light to black
     @Test
     public void switchThemeLightToBlackTest(){
         final int theme= UserPreferences.getTheme();
@@ -314,44 +101,58 @@ public class ChangeThemeTest {
 
         if(theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Light | theme == de.danoeh.antennapod.core.R.style.LightWithLobster |
                 theme == de.danoeh.antennapod.core.R.style.LightWithUbuntu) {
+
             otherTheme= R.string.pref_theme_title_trueblack;
         }
-
-
-        clickPreference(withText(R.string.user_interface_label));
-        clickPreference(withText(R.string.pref_set_theme_title));
-        onView(withText(otherTheme)).perform(click());
-
-
+        switchThemes(otherTheme);
         assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
 
+    // switch between black to pink
     @Test
     public void switchThemeBlackToPinkTest(){
         final int theme= UserPreferences.getTheme();
         int otherTheme=R.string.pref_theme_title_blue;
 
-        if(theme == de.danoeh.antennapod.core.R.style.BlackWithLobster |
-                theme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
+        if(theme == de.danoeh.antennapod.core.R.style.BlackWithLobster | theme == de.danoeh.antennapod.core.R.style.BlackWithUbuntu |
                 theme == de.danoeh.antennapod.core.R.style.Theme_Base_AntennaPod_TrueBlack){
 
             otherTheme= R.string.pref_theme_title_pink;
         }
+        switchThemes(otherTheme);
+        assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
+    }
 
-        clickPreference(withText(R.string.user_interface_label));
-        clickPreference(withText(R.string.pref_set_theme_title));
-        onView(withText(otherTheme)).perform(click());
+    // switch between pink to blue
+    @Test
+    public void switchThemPinktoBlueTest(){
+        final int theme= UserPreferences.getTheme();
+        int otherTheme=R.string.pref_theme_title_light;
 
+        if(theme == de.danoeh.antennapod.core.R.style.PinkWithLobster | theme == de.danoeh.antennapod.core.R.style.PinkWithUbuntu |
+                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Pink){
 
+            otherTheme= R.string.pref_theme_title_blue;
+        }
+        switchThemes(otherTheme);
         assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
     }
 
 
+    // switch between blue to dark
+    @Test
+    public void switchThemBluetoDarkTest(){
+        final int theme= UserPreferences.getTheme();
+        int otherTheme=R.string.pref_theme_title_light;
 
+        if(theme == de.danoeh.antennapod.core.R.style.BlueWithLobster | theme == de.danoeh.antennapod.core.R.style.BlueWithUbuntu |
+                theme == de.danoeh.antennapod.core.R.style.Theme_AntennaPod_Blue){
 
-
-
-
+            otherTheme= R.string.pref_theme_title_dark;
+        }
+        switchThemes(otherTheme);
+        assertTrue(solo.waitForCondition(() -> ( UserPreferences.getTheme() != theme), Timeout.getLargeTimeout()));
+    }
 
 }
 
