@@ -75,12 +75,12 @@ public class DiscoveryPageEspressoTest {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         String currentPage = getActionbarTitle();
         if (currentPage.equals("Queue")){
-            solo.clickOnText(solo.getString(R.string.discover_page_label));
+            solo.clickOnText(solo.getString(R.string.discovery_page_label));
             solo.waitForView(android.R.id.list);
-            assertEquals(solo.getString(R.string.discover_page_label), getActionbarTitle());
+            assertEquals(solo.getString(R.string.discovery_page_label), getActionbarTitle());
 
         }else{
-            assertEquals(solo.getString(R.string.discover_page_label), getActionbarTitle());
+            assertEquals(solo.getString(R.string.discovery_page_label), getActionbarTitle());
         }
     }
     private String getActionbarTitle() {
