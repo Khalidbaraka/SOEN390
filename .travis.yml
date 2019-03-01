@@ -26,12 +26,14 @@ jobs:
           name: Release 1
           script: 
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
+        #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
+        #Uncomment below when unit tests are ready to integrate to travis
+        #  script:
         #Put unit tests for release 2 here, follow the format from release 1.
-          name: Release 2
-          script:
+        #  name: Release 2
+        #  script: 
         #Release 3 unit tests
-          name: Release 3
-          script: 
+        #  name: Release 3
         #Put your UI tests here
         - stage: UI tests
           name: Release 1
@@ -39,9 +41,11 @@ jobs:
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage
+        #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
+        #Uncomment below when UI tests are ready to integrate to travis
+        #  script:
         #Put your UI tests for release 2 here, follor the format from release 1.
-          name: Release 2
-          script:
-        #Release 3 UI tests
-          name: Release 3
-          script:
+        #  name: Release 2
+        #  script:
+        #  #Release 3 UI tests
+        #  name: Release 3
