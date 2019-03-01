@@ -21,9 +21,11 @@ before_script:
 
 jobs:
     include:
-        - stage: Release 1 - Unit tests
+        - stage: Unit tests
+          name: Release 1
           script: ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
-        - stage: Release 1 - UI tests
+        - stage: UI tests
+          name: Release 1
           script: 
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
