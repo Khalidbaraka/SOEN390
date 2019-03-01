@@ -21,12 +21,27 @@ before_script:
 
 jobs:
     include:
+        # Put your unit tests here 
         - stage: Unit tests
           name: Release 1
-          script: ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
+          script: 
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
+        #Put unit tests for release 2 here, follow the format from release 1.
+          name: Release 2
+          script:
+        #Release 3 unit tests
+          name: Release 3
+          script: 
+        #Put your UI tests here
         - stage: UI tests
           name: Release 1
           script: 
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage
+        #Put your UI tests for release 2 here, follor the format from release 1.
+          name: Release 2
+          script:
+        #Release 3 UI tests
+          name: Release 3
+          script:
