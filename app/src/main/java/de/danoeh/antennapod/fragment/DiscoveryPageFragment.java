@@ -62,6 +62,8 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
             case R.id.CategoriesBtn:
                 startActivity(new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
 
+//FOR FUTURE BUTTONS - test with Toast
+                
 //                Toast.makeText(getActivity(),"Categories!",Toast.LENGTH_SHORT).show();
                 break;
 //            case R.id.RecentBtn:
