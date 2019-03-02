@@ -1,5 +1,7 @@
+
+
 package de.danoeh.antennapod.fragment;
-import android.content.Intent;
+
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 /**
  * Shows Categories, Top Podcast, & More.
@@ -21,7 +24,8 @@ import android.os.Bundle;
 
 public class DiscoveryPageFragment extends Fragment implements View.OnClickListener {
 
-    Button categoriesBtn;
+
+    private View DiscoveryView;
     private TextView txtHome;
     public static final String TAG = "DiscoveryPageFragment";
 
@@ -34,9 +38,9 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
+        DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
 
-        categoriesBtn = (Button) getView().findViewById(R.id.CategoriesBtn);
+        Button categoriesBtn = getView().findViewById(R.id.CategoriesBtn);
         categoriesBtn.setOnClickListener(this);
 
         // Inflate the layout for this fragment
@@ -53,6 +57,11 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        // implements your things
+        switch (v.getId()) {
+            case R.id.CategoriesBtn:
+                break;
+            default:
+                break;
+        }
     }
 }
