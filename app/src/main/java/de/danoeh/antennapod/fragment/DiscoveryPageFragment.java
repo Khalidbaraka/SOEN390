@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.activity.CategoriesActivity;
 import de.danoeh.antennapod.activity.MainActivity;
 
 import android.os.Bundle;
@@ -59,9 +60,9 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.CategoriesBtn:
-                Toast.makeText(getActivity(),"Categories!",Toast.LENGTH_SHORT).show();
-//                Intent i = new Intent(ChildrensList.this.getActivity(),downtown.class);
-//                startActivity(i);
+                startActivity(new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
+
+//                Toast.makeText(getActivity(),"Categories!",Toast.LENGTH_SHORT).show();
                 break;
 //            case R.id.RecentBtn:
 //                Intent i = new Intent(ChildrensList.this.getActivity(),downtown.class);
