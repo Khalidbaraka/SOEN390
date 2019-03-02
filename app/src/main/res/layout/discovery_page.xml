@@ -15,7 +15,7 @@ android:layout_height="match_parent" >
         android:paddingTop="@dimen/screen_percentage_12"
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
-        android:text="Discovery"
+        android:text="@string/discover_page_header"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="24dp" />
@@ -35,34 +35,35 @@ android:layout_height="match_parent" >
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button4">
+            app:layout_constraintTop_toBottomOf="@+id/recentBtn">
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/categoriesBtn"
             android:layout_width="161dp"
             android:layout_height="76dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="@string/discover_page_button_categories"
             android:textSize="14dp"
+            android:onClick="onClick"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/recentBtn"
             android:layout_width="161dp"
             android:layout_height="76dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:text="@string/discover_page_button_recently_played"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintTop_toBottomOf="@+id/categoriesBtn" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/newBtn"
             android:layout_width="161dp"
             android:layout_height="76dp"
             android:layout_marginTop="8dp"
@@ -73,7 +74,7 @@ android:layout_height="match_parent" >
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/top10Btn"
             android:layout_width="161dp"
             android:layout_height="76dp"
             android:layout_marginTop="8dp"
@@ -81,7 +82,7 @@ android:layout_height="match_parent" >
             android:text="@string/discover_page_button_top10"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+            app:layout_constraintTop_toBottomOf="@+id/newBtn" />
 
         <EditText
             android:id="@+id/editText"
@@ -96,7 +97,7 @@ android:layout_height="match_parent" >
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button4" />
+            app:layout_constraintTop_toBottomOf="@+id/recentBtn" />
 
         <Button
             android:id="@+id/button6"
