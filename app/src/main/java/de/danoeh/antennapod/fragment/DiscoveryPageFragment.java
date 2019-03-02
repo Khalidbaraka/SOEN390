@@ -19,8 +19,9 @@ import android.os.Bundle;
  * Links to categories pages
  */
 
-public class DiscoveryPageFragment extends Fragment {
+public class DiscoveryPageFragment extends Fragment implements View.OnClickListener {
 
+    Button categoriesBtn;
     private TextView txtHome;
     public static final String TAG = "DiscoveryPageFragment";
 
@@ -33,10 +34,13 @@ public class DiscoveryPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Button categoriesBtn = (Button) getView().findViewById(R.id.CategoriesBtn);
+        View DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
+
+        categoriesBtn = (Button) getView().findViewById(R.id.CategoriesBtn);
+        categoriesBtn.setOnClickListener(this);
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.discovery_page, container, false);
+        return DiscoveryView;
 
 
     }
@@ -45,5 +49,10 @@ public class DiscoveryPageFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        // implements your things
     }
 }
