@@ -41,7 +41,7 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
 
         DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
 
-        Button categoriesBtn = DiscoveryView.findViewById(R.id.CategoriesBtn);
+        Button categoriesBtn = DiscoveryView.findViewById(R.id.categoriesBtn);
         categoriesBtn.setOnClickListener(this);
 
         // Inflate the layout for this fragment
@@ -59,23 +59,22 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.CategoriesBtn:
+            case R.id.categoriesBtn:
                 startActivity(new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
 
 //FOR FUTURE BUTTONS - test with Toast
-
 //                Toast.makeText(getActivity(),"Categories!",Toast.LENGTH_SHORT).show();
                 break;
-//            case R.id.RecentBtn:
-//                Intent i = new Intent(ChildrensList.this.getActivity(),downtown.class);
+//            case R.id.recentBtn:
+//                Intent i = new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
 //                startActivity(i);
 //                break;
-//            case R.id.NewBtn:
-//                Intent i = new Intent(ChildrensList.this.getActivity(),downtown.class);
+//            case R.id.newBtn:
+//                Intent i = new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
 //                startActivity(i);
 //                break;
-//            case R.id.Top10Btn:
-//                Intent i = new Intent(ChildrensList.this.getActivity(),downtown.class);
+//            case R.id.top10Btn:
+//                Intent i = new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
 //                startActivity(i);
 //                break;
             default:
