@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.CategoriesActivity;
-import de.danoeh.antennapod.activity.MainActivity;
 
 import android.os.Bundle;
-import android.widget.Toast;
+
+//Uncomment for later use
+//import android.widget.Toast;
+//import de.danoeh.antennapod.activity.MainActivity;
 
 /**
  * Shows Categories, Top Podcast, & More.
