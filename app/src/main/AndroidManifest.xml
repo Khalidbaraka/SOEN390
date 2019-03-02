@@ -86,6 +86,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.CategoriesActivity"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.danoeh.antennapod.activity.MainActivity"/>
+        </activity>
+        <activity
             android:name=".activity.CastplayerActivity"
             android:launchMode="singleTop">
             <meta-data
