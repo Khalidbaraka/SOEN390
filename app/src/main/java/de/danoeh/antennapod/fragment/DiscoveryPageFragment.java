@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.CategoriesActivity;
+import de.danoeh.antennapod.activity.FeelingLuckyActivity;
 
 import android.os.Bundle;
 
@@ -46,6 +47,9 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
         Button categoriesBtn = DiscoveryView.findViewById(R.id.categoriesBtn);
         categoriesBtn.setOnClickListener(this);
 
+        Button luckyBtn = DiscoveryView.findViewById(R.id.luckyBtn);
+        luckyBtn.setOnClickListener(this);
+
         // Inflate the layout for this fragment
         return DiscoveryView;
 
@@ -63,10 +67,16 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.categoriesBtn:
                 startActivity(new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
+                break;
+
+            case R.id.luckyBtn:
+                Intent i = new Intent(DiscoveryPageFragment.this.getActivity(), FeelingLuckyActivity.class);
+                startActivity(i);
+               break;
 
 //FOR FUTURE BUTTONS - test with Toast
 //                Toast.makeText(getActivity(),"Categories!",Toast.LENGTH_SHORT).show();
-                break;
+//            break;
 //            case R.id.recentBtn:
 //                Intent i = new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
 //                startActivity(i);
