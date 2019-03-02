@@ -2,7 +2,8 @@ package de.danoeh.antennapod.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ViewFlipper;
+//Uncomment for later use
+//import android.widget.ViewFlipper;
 
 import de.danoeh.antennapod.R;
 
