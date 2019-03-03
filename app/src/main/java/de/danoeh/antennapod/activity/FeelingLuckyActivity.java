@@ -1,12 +1,10 @@
 package de.danoeh.antennapod.activity;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,8 +31,6 @@ import de.danoeh.antennapod.R;
 public class FeelingLuckyActivity extends Activity {
 
     public static final String TAG = "FeelingLuckyActivity";
-
-    private ImageView podcastImage;
     private RandomPodcast randomPodcast;
 
     @Override
@@ -119,10 +115,4 @@ public class FeelingLuckyActivity extends Activity {
 
         return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString();
     }
-
-    private void reroll() {
-
-    }
-
-
 }
