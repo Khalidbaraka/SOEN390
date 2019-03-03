@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 //Uncomment for later use
 //import android.widget.ViewFlipper;
@@ -35,15 +38,20 @@ public class FeelingLuckyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feeling_lucky);
         getRandomPodcast();
+        Button reroll = (Button) findViewById(R.id.reroll_button);
+        reroll.setOnClickListener(view -> getRandomPodcast());
     }
 
     //method to get a random podcast
     private void getRandomPodcast(){
 
+        ImageView podcastImage = (ImageView) findViewById(R.id.randomPodcastImage);
+        TextView podcastTitle = (TextView) findViewById(R.id.random_podcast_title);
+        TextView podcastAuthor = (TextView) findViewById(R.id.random_podcast_author);
+        TextView podcastNbEpisodes = (TextView) findViewById(R.id.random_podcast_nb_episodes);
+
         String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
         String randomPodcastURL = "https://listennotes.p.rapidapi.com/api/v1/just_listen";
-
-        podcastImage = findViewById(R.id.randomPodcastImage);
 
         OkHttpClient client = new OkHttpClient();
 
@@ -62,6 +70,9 @@ public class FeelingLuckyActivity extends Activity {
                     String jsonData = response.body().string();
                     if(response.isSuccessful()){
                         randomPodcast = getPodcastDetails(jsonData);
+                        podcastTitle.setText(randomPodcast.getPodcastTitle());
+                        podcastAuthor.setText(randomPodcast.getPodcastPublisher());
+                        podcastNbEpisodes.setText(randomPodcast.getPodcastDescription());
                     }
                     else{
                         alertUser();
@@ -74,7 +85,6 @@ public class FeelingLuckyActivity extends Activity {
             }
         });
     }
-
 
     private RandomPodcast getPodcastDetails(String jsonData) throws JSONException {
         JSONObject podcastData = new JSONObject(jsonData);

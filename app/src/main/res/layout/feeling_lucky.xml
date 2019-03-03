@@ -16,10 +16,10 @@
         android:text="@string/feeling_lucky_add_to_sub"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/random-podcast-nb-episodes" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/reroll-button"
         android:layout_width="370dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -46,20 +46,24 @@
 
     <ImageView
         android:id="@+id/randomPodcastImage"
-        android:layout_width="476dp"
-        android:layout_height="368dp"
+        android:layout_width="137dp"
+        android:layout_height="136dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/circular_button_normal"
         android:contentDescription="@string/feeling_lucky_podcast_thumbnail"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/star_big_on"
+        app:layout_constraintBottom_toTopOf="@+id/random-podcast-title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars[14]" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/random-podcast-title"
         android:layout_width="368dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
@@ -71,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/randomPodcastImage" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/random-podcast-author"
         android:layout_width="368dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
@@ -81,10 +85,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/random-podcast-title" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/random-podcast-nb-episodes"
         android:layout_width="368dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
@@ -94,5 +98,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/random-podcast-author" />
 </android.support.constraint.ConstraintLayout>
