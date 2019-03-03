@@ -30,7 +30,8 @@ import de.danoeh.antennapod.core.storage.PodDBAdapter;
 public class PlaybackTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private static final String TAG = PlaybackTest.class.getSimpleName();
-    private static final int EPISODES_DRAWER_LIST_INDEX = 1;
+    //INDEX needs to be updated to 2, since Discovery Page took its place.!
+    private static final int EPISODES_DRAWER_LIST_INDEX = 2;
     private static final int QUEUE_DRAWER_LIST_INDEX = 0;
 
     private Solo solo;
