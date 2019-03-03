@@ -20,9 +20,9 @@ import de.danoeh.antennapod.core.feed.CategoryItem;
 public class CategoriesListFragment extends android.support.v4.app.Fragment {
 
     public static final String TAG = "CategoriesListFragment";
-    List<CategoryItem> categoriesList;
-    RecyclerView myRecyclerView;
-    ArrayList<String> itunesCategories;
+    private List<CategoryItem> categoriesList;
+    private RecyclerView myRecyclerView;
+    private ArrayList<String> itunesCategories;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

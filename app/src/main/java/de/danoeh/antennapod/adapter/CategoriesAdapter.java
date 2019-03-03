@@ -52,9 +52,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        CardView myCardView ;
-        TextView category_name;
-        ImageView category_image;
+        private CardView myCardView ;
+        private TextView category_name;
+        private ImageView category_image;
 
         public MyViewHolder(View itemView) {
 
