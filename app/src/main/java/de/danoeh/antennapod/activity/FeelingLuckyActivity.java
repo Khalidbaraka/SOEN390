@@ -3,6 +3,8 @@ package de.danoeh.antennapod.activity;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 //Uncomment for later use
 //import android.widget.ViewFlipper;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,17 +42,18 @@ public class FeelingLuckyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feeling_lucky);
         getRandomPodcast();
-        Button reroll = (Button) findViewById(R.id.reroll_button);
+        Button reroll =  findViewById(R.id.reroll_button);
         reroll.setOnClickListener(view -> getRandomPodcast());
     }
 
     //method to get a random podcast
     private void getRandomPodcast(){
 
-        ImageView podcastImage = (ImageView) findViewById(R.id.randomPodcastImage);
-        TextView podcastTitle = (TextView) findViewById(R.id.random_podcast_title);
-        TextView podcastAuthor = (TextView) findViewById(R.id.random_podcast_author);
-        TextView podcastNbEpisodes = (TextView) findViewById(R.id.random_podcast_nb_episodes);
+        ImageView podcastImage = findViewById(R.id.randomPodcastImage);
+        TextView podcastTitle =  findViewById(R.id.random_podcast_title);
+        TextView podcastAuthor =  findViewById(R.id.random_podcast_author);
+        TextView podcastDescription =  findViewById(R.id.random_podcast_description);
+        podcastDescription.setMovementMethod(new ScrollingMovementMethod());
 
         String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
         String randomPodcastURL = "https://listennotes.p.rapidapi.com/api/v1/just_listen";
@@ -61,7 +66,7 @@ public class FeelingLuckyActivity extends Activity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                //failure handling logic to be added
             }
 
             @Override
@@ -70,9 +75,15 @@ public class FeelingLuckyActivity extends Activity {
                     String jsonData = response.body().string();
                     if(response.isSuccessful()){
                         randomPodcast = getPodcastDetails(jsonData);
-                        podcastTitle.setText(randomPodcast.getPodcastTitle());
-                        podcastAuthor.setText(randomPodcast.getPodcastPublisher());
-                        podcastNbEpisodes.setText(randomPodcast.getPodcastDescription());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Picasso.get().load(randomPodcast.getPodcastImage()).into(podcastImage);
+                                podcastTitle.setText(randomPodcast.getPodcastTitle());
+                                podcastAuthor.setText(randomPodcast.getPodcastPublisher());
+                                podcastDescription.setText(randomPodcast.getPodcastDescription());
+                            }
+                        });
                     }
                     else{
                         alertUser();
@@ -91,8 +102,9 @@ public class FeelingLuckyActivity extends Activity {
 
         RandomPodcast randomPodcast = new RandomPodcast();
 
+        randomPodcast.setPodcastImage(podcastData.getString("image"));
         randomPodcast.setPodcastTitle(podcastData.getString("podcast_title"));
-        randomPodcast.setPodcastDescription(podcastData.getString("description"));
+        randomPodcast.setPodcastDescription(stripHtml(podcastData.getString("description")));
         randomPodcast.setPodcastPublisher(podcastData.getString("publisher"));
 
         return randomPodcast;
@@ -100,6 +112,16 @@ public class FeelingLuckyActivity extends Activity {
 
     private void alertUser() {
         Toast.makeText(getApplicationContext(),"Error!",Toast.LENGTH_LONG).show();
+    }
+
+    //method to remove html tags from description strings
+    public String stripHtml(String html) {
+
+        return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString();
+    }
+
+    private void reroll() {
+
     }
 
 

@@ -4,6 +4,15 @@ public class RandomPodcast {
     private String podcastTitle;
     private String podcastDescription;
     private String podcastPublisher;
+    private String podcastImage;
+
+    public String getPodcastImage() {
+        return podcastImage;
+    }
+
+    public void setPodcastImage(String podcastImage) {
+        this.podcastImage = podcastImage;
+    }
 
     public String getPodcastTitle() {
         return podcastTitle;
