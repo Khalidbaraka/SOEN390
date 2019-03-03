@@ -1,9 +1,11 @@
 package de.danoeh.antennapod.activity;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 //Uncomment for later use
 //import android.widget.ViewFlipper;
 
@@ -12,6 +14,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import de.danoeh.antennapod.model.RandomPodcast;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -25,6 +28,7 @@ public class FeelingLuckyActivity extends Activity {
     public static final String TAG = "FeelingLuckyActivity";
 
     private ImageView podcastImage;
+    private RandomPodcast randomPodcast;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,10 +58,38 @@ public class FeelingLuckyActivity extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String jsonData = response.body().string();
-                Log.v(TAG, response.body().string());
+                try {
+                    String jsonData = response.body().string();
+                    if(response.isSuccessful()){
+                        randomPodcast = getPodcastDetails(jsonData);
+                    }
+                    else{
+                        alertUser();
+                    }
+                } catch (IOException e) {
+                    Log.e(TAG, "IO Exception caught: " , e);
+                } catch (JSONException e){
+                    Log.e(TAG, "JSON Exception caught: " , e);
+                }
             }
         });
+    }
+
+
+    private RandomPodcast getPodcastDetails(String jsonData) throws JSONException {
+        JSONObject podcastData = new JSONObject(jsonData);
+
+        RandomPodcast randomPodcast = new RandomPodcast();
+
+        randomPodcast.setPodcastTitle(podcastData.getString("podcast_title"));
+        randomPodcast.setPodcastDescription(podcastData.getString("description"));
+        randomPodcast.setPodcastPublisher(podcastData.getString("publisher"));
+
+        return randomPodcast;
+    }
+
+    private void alertUser() {
+        Toast.makeText(getApplicationContext(),"Error!",Toast.LENGTH_LONG).show();
     }
 
 
