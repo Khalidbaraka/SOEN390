@@ -33,8 +33,7 @@ import de.danoeh.antennapod.core.storage.PodDBAdapter;
 public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private static final String TAG = PlaybackTest.class.getSimpleName();
-    //INDEX needs to be updated to 2, since Discovery Page took its place.!
-    private static final int EPISODES_DRAWER_LIST_INDEX = 2;
+    private static final int EPISODES_DRAWER_LIST_INDEX = 1;
     private static final int QUEUE_DRAWER_LIST_INDEX = 0;
 
     private Solo solo;
@@ -112,9 +111,8 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         solo.waitForView(targetView);
         solo.clickOnView(targetView);
         getInstrumentation().waitForIdleSync();
-        //This was waiting for the string, before clicking it. switched places.
-        solo.clickOnText(solo.getString(R.string.all_episodes_short_label));
         solo.waitForText(solo.getString(R.string.all_episodes_short_label));
+        solo.clickOnText(solo.getString(R.string.all_episodes_short_label));
         getInstrumentation().waitForIdleSync();
 
         final List<FeedItem> episodes = DBReader.getRecentlyPublishedEpisodes(10);
