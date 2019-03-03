@@ -33,5 +33,7 @@
     <string name="feeling_lucky_podcast_thumbnail" translate="false">Podcast Thumbnail</string>
     <string name="categories_header" translate="false">Categories</string>
     <string name="discover_page_search" translate="false">Search</string>
-    <string name="itunes_categories" translate="false">Itunes Categories</string>
+    <string name="itunes_categories" translate="false">iTunes Categories</string>
+    <string name="itunes_podcast" translate="false">iTunes Podcast</string>
+    <string name="categories" translate="false">Categories</string>
 </resources>
