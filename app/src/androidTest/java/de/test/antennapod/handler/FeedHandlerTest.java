@@ -2,6 +2,7 @@ package de.test.antennapod.handler;
 
 import android.content.Context;
 import android.test.InstrumentationTestCase;
+import android.support.test.InstrumentationRegistry;
 
 import org.xml.sax.SAXException;
 
@@ -28,6 +29,7 @@ import de.test.antennapod.util.syndication.feedgenerator.RSS2Generator;
 /**
  * Tests for FeedHandler
  */
+
 public class FeedHandlerTest extends InstrumentationTestCase {
     private static final String FEEDS_DIR = "testfeeds";
 
@@ -36,7 +38,8 @@ public class FeedHandlerTest extends InstrumentationTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        Context context = getInstrumentation().getContext();
+        //from: https://stackoverflow.com/questions/28960898/getting-context-in-androidtestcase-or-instrumentationtestcase-in-android-studio
+        Context context = InstrumentationRegistry.getTargetContext();
         File destDir = context.getExternalFilesDir(FEEDS_DIR);
         assertNotNull(destDir);
 
@@ -132,12 +135,14 @@ public class FeedHandlerTest extends InstrumentationTestCase {
     public void testRSS2Basic() throws IOException, UnsupportedFeedtypeException, SAXException, ParserConfigurationException {
         Feed f1 = createTestFeed(10, false, true, true);
         Feed f2 = runFeedTest(f1, new RSS2Generator(), "UTF-8", RSS2Generator.FEATURE_WRITE_GUID);
+        f2.setImageUrl(f1.getImageUrl());
         feedValid(f1, f2, Feed.TYPE_RSS2);
     }
 
     public void testAtomBasic() throws IOException, UnsupportedFeedtypeException, SAXException, ParserConfigurationException {
         Feed f1 = createTestFeed(10, false, true, true);
         Feed f2 = runFeedTest(f1, new AtomGenerator(), "UTF-8", 0);
+        f2.setImageUrl(f1.getImageUrl());
         feedValid(f1, f2, Feed.TYPE_ATOM1);
     }
 
