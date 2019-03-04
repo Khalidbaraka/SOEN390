@@ -202,9 +202,7 @@ public class ItunesSearchFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if(categoryName != null) { }
-        else{
-
+        if(categoryName == null) {
             inflater.inflate(R.menu.itunes_search, menu);
             MenuItem searchItem = menu.findItem(R.id.action_search);
             final SearchView sv = (SearchView) MenuItemCompat.getActionView(searchItem);
