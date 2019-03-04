@@ -15,7 +15,6 @@
         android:gravity="center"
         android:paddingTop="10dp"
         android:text="@string/itunes_podcast"
-        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -27,7 +26,6 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/categories"
-        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
 
