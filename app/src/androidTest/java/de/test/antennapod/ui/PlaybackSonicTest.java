@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.FlakyTest;
+import android.support.test.filters.FlakyTest;
 import android.view.View;
 import android.widget.ListView;
 
@@ -116,6 +116,7 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         solo.clickOnText(solo.getString(R.string.all_episodes_short_label));
         solo.waitForText(solo.getString(R.string.all_episodes_short_label));
 
+
         getInstrumentation().waitForIdleSync();
 
         final List<FeedItem> episodes = DBReader.getRecentlyPublishedEpisodes(10);
@@ -132,7 +133,6 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         }, Timeout.getSmallTimeout());
         assertTrue(playing);
     }
-
     private void startLocalPlaybackFromQueue() {
         openNavDrawer();
 
@@ -166,7 +166,7 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         DBWriter.clearQueue().get();
         startLocalPlayback();
     }
-
+    @FlakyTest
     public void testContinousPlaybackOffSingleEpisode() throws Exception {
         setContinuousPlaybackPreference(false);
         uiTestUtils.addLocalFeedData(true);
@@ -174,7 +174,7 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         startLocalPlayback();
     }
 
-    @FlakyTest(tolerance = 3)
+    @FlakyTest
     public void testContinousPlaybackOffMultipleEpisodes() throws Exception {
         setContinuousPlaybackPreference(false);
         uiTestUtils.addLocalFeedData(true);
@@ -199,7 +199,7 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         assertFalse(status.equals(PlayerStatus.PLAYING));
     }
 
-    @FlakyTest(tolerance = 3)
+    @FlakyTest
     public void testContinuousPlaybackOnMultipleEpisodes() throws Exception {
         setContinuousPlaybackPreference(true);
         uiTestUtils.addLocalFeedData(true);
@@ -264,11 +264,11 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         }, Timeout.getLargeTimeout());
         assertTrue(startedReplay);
     }
-
+    @FlakyTest
     public void testReplayEpisodeContinuousPlaybackOn() throws Exception {
         replayEpisodeCheck(true);
     }
-
+    @FlakyTest
     public void testReplayEpisodeContinuousPlaybackOff() throws Exception {
         replayEpisodeCheck(false);
     }

@@ -13,7 +13,7 @@ tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testFreeDebugUnitTest', 'createFreeDebugCoverageReport']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testPlayDebugUnitTest', 'createPlayDebugCoverageReport']) {
 
     reports {
         xml.enabled = true
@@ -27,7 +27,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testFreeDebugUnitTest', '
     sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
-            'jacoco/testFreeDebugUnitTest.exec', 'outputs/code_coverage/debugFreeAndroidTest/connected/**/*.ec'
+            'jacoco/testPlayDebugUnitTest.exec', 'outputs/code_coverage/connected/**/*.ec'
     ])
 }
 
@@ -70,6 +70,7 @@ android {
         versionName "${getMyVersionName()}"
         testApplicationId "de.test.antennapod"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument "notAnnotation", "android.support.test.filters.FlakyTest"
         generatedDensities = []
     }
 
@@ -246,6 +247,12 @@ task copyTextFiles(type: Copy) {
     into "src/main/assets/"
     rename { String fileName ->
         fileName + ".txt"
+    }
+}
+
+project.gradle.taskGraph.whenReady {
+    connectedPlayDebugAndroidTest {
+        ignoreFailures = true
     }
 }
 
