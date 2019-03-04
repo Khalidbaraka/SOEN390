@@ -7,23 +7,6 @@
     <string name="discover_page_button_recently_played" translate="false">Recently Played</string>
     <string name="discover_page_button_top10" translate="false">Top 10</string>
 
-    <string-array name="itunes_podcast_category_list">
-        <item>Arts</item>
-        <item>Business</item>
-        <item>Comedy</item>
-        <item>Education</item>
-        <item>Games &amp; Hobbies</item>
-        <item>Government &amp; Organization</item>
-        <item>Health</item>
-        <item>Music</item>
-        <item>News &amp; Politics</item>
-        <item>Religion &amp; Spirituality</item>
-        <item>Science &amp; Medicine</item>
-        <item>Society &amp; Culture</item>
-        <item>Sports &amp; Recreation</item>
-        <item>Technology</item>
-    </string-array>
-
     <string name="feeling_lucky_Im_feeling_lucky" translate="false">I\'m Feeling Lucky</string>
     <string name="feeling_lucky_add_to_sub" translate="false">Add To Subscriptions</string>
     <string name="feeling_lucky_reroll" translate="false">Re-roll</string>

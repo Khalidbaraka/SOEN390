@@ -356,4 +356,22 @@
         <item>EpisodesFragment</item>
         <item>SubscriptionFragment</item>
     </string-array>
+
+    <string-array name="itunes_podcast_category_list">
+        <item>Arts</item>
+        <item>Business</item>
+        <item>Comedy</item>
+        <item>Education</item>
+        <item>Games &amp; Hobbies</item>
+        <item>Government &amp; Organization</item>
+        <item>Health</item>
+        <item>Music</item>
+        <item>News &amp; Politics</item>
+        <item>Religion &amp; Spirituality</item>
+        <item>Science &amp; Medicine</item>
+        <item>Society &amp; Culture</item>
+        <item>Sports &amp; Recreation</item>
+        <item>Technology</item>
+    </string-array>
+
 </resources>
