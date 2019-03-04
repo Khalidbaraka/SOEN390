@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.CategoriesActivity;
+import de.danoeh.antennapod.activity.MainActivity;
 
 import android.os.Bundle;
 
@@ -46,6 +47,21 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
         Button categoriesBtn = DiscoveryView.findViewById(R.id.categoriesBtn);
         categoriesBtn.setOnClickListener(this);
 
+        Button itunesCategoriesButton = DiscoveryView.findViewById(R.id.itunes_categories_button);
+
+        //Button onClick opens CategoryListFragment
+        itunesCategoriesButton.setOnClickListener(new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+
+                final MainActivity activity = (MainActivity) getActivity();
+
+                //Replaces current Fragment with CategoriesListFragment
+                activity.loadChildFragment(new CategoriesListFragment());
+
+            }
+    });
+
         // Inflate the layout for this fragment
         return DiscoveryView;
 
@@ -63,6 +79,7 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.categoriesBtn:
                 startActivity(new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
+
 
 //FOR FUTURE BUTTONS - test with Toast
 //                Toast.makeText(getActivity(),"Categories!",Toast.LENGTH_SHORT).show();
