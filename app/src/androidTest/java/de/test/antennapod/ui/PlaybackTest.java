@@ -12,8 +12,6 @@ import android.widget.ListView;
 import com.robotium.solo.Solo;
 import com.robotium.solo.Timeout;
 
-import org.junit.Ignore;
-
 import java.util.List;
 
 import de.danoeh.antennapod.R;
