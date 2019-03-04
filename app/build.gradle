@@ -252,7 +252,7 @@ task copyTextFiles(type: Copy) {
 }
 
 project.gradle.taskGraph.whenReady {
-    connectedPlayDebugAndroidTest {
+    connectedFreeDebugAndroidTest {
         ignoreFailures = true
     }
 }
