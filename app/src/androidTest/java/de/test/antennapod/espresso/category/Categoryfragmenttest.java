@@ -71,7 +71,7 @@ import static org.junit.Assert.assertEquals;
         public void test2FragmentAndTestListItem() {
 
             //selects & opens the iTunes Categories button in the Discovery Page
-            onView(ViewMatchers.withId(R.id.itunes_categories_button)).perform(click());
+            onView(withId(R.id.itunes_categories_button)).perform(click());
             solo.waitForView(android.R.id.list);
 
             //Check page text name matches
