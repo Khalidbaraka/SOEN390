@@ -2,7 +2,6 @@ package de.test.antennapod.espresso.category;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import com.robotium.solo.Solo;
 import com.robotium.solo.Timeout;
