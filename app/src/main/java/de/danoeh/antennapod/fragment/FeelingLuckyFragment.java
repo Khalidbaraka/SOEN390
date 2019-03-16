@@ -35,7 +35,7 @@ import de.danoeh.antennapod.R;
 
 public class FeelingLuckyFragment extends android.support.v4.app.Fragment {
 
-    public static final String TAG = "FeelingLuckyActivity";
+    public static final String TAG = "FeelingLuckyFragment";
     private RandomPodcast randomPodcast;
 
     @Override

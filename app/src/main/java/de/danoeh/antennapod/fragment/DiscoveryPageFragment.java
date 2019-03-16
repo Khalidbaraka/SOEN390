@@ -12,8 +12,6 @@ import android.widget.TextView;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.CategoriesActivity;
 
-import de.danoeh.antennapod.activity.FeelingLuckyActivity;
-
 import de.danoeh.antennapod.activity.MainActivity;
 
 
