@@ -18,14 +18,16 @@
             android:id="@+id/category_image_id"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/cover_label"/>
+            android:background="@color/white"
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/category_name_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:text="Category Name"
+            android:textColor="#2d2d2d"
             android:textSize="18sp" />
 
     </LinearLayout>

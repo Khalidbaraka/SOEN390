@@ -16,18 +16,19 @@ import java.util.List;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.core.feed.CategoryItem;
 
-//This Fragment is used to display the cards/list of iTunes Categories with their names & images
+//This Fragment is used to display the cards/list of categories with their names & images
 public class CategoriesListFragment extends android.support.v4.app.Fragment {
 
     public static final String TAG = "CategoriesListFragment";
     private List<CategoryItem> categoriesList;
+    private RecyclerView myRecyclerView;
+    private ArrayList<String> itunesCategories;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        ArrayList<String> itunesCategories;
         categoriesList = new ArrayList<>();
 
         Resources res = getResources();
@@ -67,8 +68,6 @@ public class CategoriesListFragment extends android.support.v4.app.Fragment {
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        RecyclerView myRecyclerView;
 
         View myView = inflater.inflate(R.layout.categories_list, container, false);
 
