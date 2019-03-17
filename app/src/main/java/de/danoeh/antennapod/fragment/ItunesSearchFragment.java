@@ -50,10 +50,12 @@ import static de.danoeh.antennapod.adapter.itunes.ItunesAdapter.Podcast;
 //Searches iTunes store for given string and displays results in a list
 public class ItunesSearchFragment extends Fragment {
 
+    private String categoryName = null;
     private static final String TAG = "ItunesSearchFragment";
 
-    private static final String API_URL = "https://itunes.apple.com/search?media=podcast&term=%s";
+    private static String API_URL;
 
+    //private static final String API_URL;="https://itunes.apple.com/search?term=Technology&media=podcast&attibute=genreIndex";
 
     /**
      * Adapter responsible with the search results
@@ -71,6 +73,7 @@ public class ItunesSearchFragment extends Fragment {
     private List<Podcast> searchResults;
     private List<Podcast> topList;
     private Disposable disposable;
+    public ArrayList arraylist;
 
     /**
      * Replace adapter data with provided search results from SearchTask.
@@ -91,6 +94,7 @@ public class ItunesSearchFragment extends Fragment {
             txtvEmpty.setVisibility(View.VISIBLE);
         }
     }
+
 
     /**
      * Constructor
@@ -175,8 +179,14 @@ public class ItunesSearchFragment extends Fragment {
         butRetry = root.findViewById(R.id.butRetry);
         txtvEmpty = root.findViewById(android.R.id.empty);
 
-        loadToplist();
-
+        //returns view with list of Podcasts from given category
+        if(categoryName != null){
+            search(categoryName);
+        }
+        //returns default top Podcasts
+        else{
+            loadToplist();
+        }
         return root;
     }
 
@@ -192,39 +202,41 @@ public class ItunesSearchFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.itunes_search, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView sv = (SearchView) MenuItemCompat.getActionView(searchItem);
-        MenuItemUtils.adjustTextColor(getActivity(), sv);
-        sv.setQueryHint(getString(R.string.search_itunes_label));
-        sv.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                sv.clearFocus();
-                search(s);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                if(searchResults != null) {
-                    searchResults = null;
-                    updateData(topList);
+        if(categoryName == null) {
+            inflater.inflate(R.menu.itunes_search, menu);
+            MenuItem searchItem = menu.findItem(R.id.action_search);
+            final SearchView sv = (SearchView) MenuItemCompat.getActionView(searchItem);
+            MenuItemUtils.adjustTextColor(getActivity(), sv);
+            sv.setQueryHint(getString(R.string.search_itunes_label));
+            sv.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    sv.clearFocus();
+                    search(s);
+                    return true;
                 }
-                return true;
-            }
-        });
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    return false;
+                }
+            });
+            MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem item) {
+                    return true;
+                }
+
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem item) {
+                    if(searchResults != null) {
+                        searchResults = null;
+                        updateData(topList);
+                    }
+                    return true;
+                }
+            });
+        }
     }
 
     private void loadToplist() {
@@ -291,7 +303,7 @@ public class ItunesSearchFragment extends Fragment {
                 });
     }
 
-    private void search(String query) {
+    public void search(String query) {
         if (disposable != null) {
             disposable.dispose();
         }
@@ -309,6 +321,19 @@ public class ItunesSearchFragment extends Fragment {
                     }
                     if (encodedQuery == null) {
                         encodedQuery = query; // failsafe
+                    }
+
+
+                    //search for Podcast with categoryName in itunes if categoryName was set.
+                    if(categoryName != null){
+
+                        API_URL="https://itunes.apple.com/search?term="
+                                +categoryName
+                                +"&media=podcast&attibute=genreIndex";
+                    }
+                    //default search for Podcast
+                    else {
+                        API_URL = "https://itunes.apple.com/search?media=podcast&term=%s";
                     }
 
                     //Spaces in the query need to be replaced with '+' character.
@@ -355,6 +380,11 @@ public class ItunesSearchFragment extends Fragment {
                     butRetry.setOnClickListener(v -> search(query));
                     butRetry.setVisibility(View.VISIBLE);
                 });
+    }
+
+    public void setCategoryName(String categoryName)
+    {
+        this.categoryName = categoryName;
     }
 
 }
