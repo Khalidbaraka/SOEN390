@@ -12,12 +12,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.core.feed.CategoryItem;
+import de.danoeh.antennapod.fragment.ItunesSearchFragment;
+import de.danoeh.antennapod.fragment.gpodnet.SearchListFragment;
+import android.support.v4.app.Fragment;
 
 public class gpodnetCategoriesAdapter extends RecyclerView.Adapter<gpodnetCategoriesAdapter.MyViewHolder> {
 
     private Context myContext ;
     private List<CategoryItem> categoryItemList ;
+    private Fragment gpodnetSearchFragment = new SearchListFragment();
 
     public gpodnetCategoriesAdapter(Context mycontext, List categoryItemList) {
         this.myContext = mycontext;
@@ -39,6 +44,16 @@ public class gpodnetCategoriesAdapter extends RecyclerView.Adapter<gpodnetCatego
         //Binds name & image to category in categoies_itemView Layout.
         holder.categoryName.setText(categoryItemList.get(position).getName());
         holder.categoryImage.setImageResource(categoryItemList.get(position).getImage());
+
+        holder.myCardView.setOnClickListener(new View.OnClickListener() {
+
+            //When you click in one of the category, returns iTunes Podcasts from this category.
+            @Override
+            public void onClick(View gpodnetPodcastView) {
+                String name = (String)holder.categoryName.getText();
+                ((MainActivity)myContext).loadChildFragment(SearchListFragment.newInstance(name));
+            }
+        });
 
     }
 
