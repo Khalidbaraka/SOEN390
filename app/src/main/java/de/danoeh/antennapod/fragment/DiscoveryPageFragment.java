@@ -48,8 +48,8 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
 
         DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
 
-        Button categoriesBtn = DiscoveryView.findViewById(R.id.categoriesBtn);
-        categoriesBtn.setOnClickListener(this);
+        Button gpodnetCategoriesButton = DiscoveryView.findViewById(R.id.gpodnet_categories_button);
+        // categoriesBtn.setOnClickListener(this);
 
 
         Button luckyBtn = DiscoveryView.findViewById(R.id.luckyBtn);
@@ -68,7 +68,21 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
                 activity.loadChildFragment(new CategoriesListFragment());
 
             }
-    });
+        });
+
+        gpodnetCategoriesButton.setOnClickListener(new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+
+                final MainActivity activity = (MainActivity) getActivity();
+
+                //Replaces current Fragment with CategoriesListFragment
+                activity.loadChildFragment(new GpodnetCategoriesFragment());
+
+            }
+        });
+
+
 
 
         // Inflate the layout for this fragment
@@ -86,9 +100,9 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.categoriesBtn:
-                startActivity(new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
-                break;
+//            case R.id.categoriesBtn:
+//                startActivity(new Intent(DiscoveryPageFragment.this.getActivity(), CategoriesActivity.class));
+//                break;
 
             case R.id.luckyBtn:
                 Intent i = new Intent(DiscoveryPageFragment.this.getActivity(), FeelingLuckyActivity.class);
