@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/CategoriesHeader"
+        android:id="@+id/GpodnetCategoriesHeader"
         android:layout_width="match_parent"
         android:layout_height="86dp"
         android:lineSpacingExtra="24dp"
@@ -17,9 +17,18 @@
         android:paddingTop="@dimen/screen_percentage_12"
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
-        android:text="@string/categories_header"
+        android:text="@string/gpodnet_categories"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="24dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gpodnet_category_list_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
+        android:layout_below="@+id/GpodnetCategoriesHeader">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
