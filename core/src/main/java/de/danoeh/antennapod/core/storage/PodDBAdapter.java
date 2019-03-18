@@ -126,6 +126,7 @@ public class PodDBAdapter {
     static final String TABLE_NAME_QUEUE = "Queue";
     static final String TABLE_NAME_SIMPLECHAPTERS = "SimpleChapters";
     static final String TABLE_NAME_FAVORITES = "Favorites";
+    static final String TABLE_NAME_FAVORITES_PODCASTS = "FavoritesPodcasts";
 
     // SQL Statements for creating new tables
     private static final String TABLE_PRIMARY_KEY = KEY_ID
@@ -218,6 +219,10 @@ public class PodDBAdapter {
             + TABLE_NAME_FAVORITES + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_FEEDITEM + " INTEGER," + KEY_FEED + " INTEGER)";
 
+    static final String CREATE_TABLE_FAVORITES_PODCASTS = "CREATE TABLE "
+            + TABLE_NAME_FAVORITES_PODCASTS + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_FEED + " INTEGER)";
+
     /**
      * Select all columns from the feed-table
      */
@@ -281,7 +286,8 @@ public class PodDBAdapter {
             TABLE_NAME_DOWNLOAD_LOG,
             TABLE_NAME_QUEUE,
             TABLE_NAME_SIMPLECHAPTERS,
-            TABLE_NAME_FAVORITES
+            TABLE_NAME_FAVORITES,
+            TABLE_NAME_FAVORITES_PODCASTS
     };
 
     /**
@@ -815,6 +821,26 @@ public class PodDBAdapter {
         }
     }
 
+    public void setFavoritesPodcasts(List<Feed> favoritesPodcasts) {
+        ContentValues values = new ContentValues();
+        try {
+            db.beginTransactionNonExclusive();
+            db.delete(TABLE_NAME_FAVORITES_PODCASTS, null, null);
+            for (int i = 0; i <favoritesPodcasts.size(); i++) {
+                Feed item = favoritesPodcasts.get(i);
+                values.put(KEY_ID, i);
+                values.put(KEY_FEED, item.getId());
+                db.insertWithOnConflict(TABLE_NAME_FAVORITES_PODCASTS, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            }
+            db.setTransactionSuccessful();
+        } catch (SQLException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+
     /**
      * Adds the item to favorites
      */
@@ -830,11 +856,32 @@ public class PodDBAdapter {
         db.insert(TABLE_NAME_FAVORITES, null, values);
     }
 
+    /**
+     * Adds the podcast to favoritesPodcastsitem
+     */
+    public void addFavoritePodcastItem (Feed item) {
+        // don't add an item that's already there...
+        if (isPodcastItemInFavorites(item)) {
+            Log.d(TAG, "item already in favorites");
+            return;
+        }
+        ContentValues values = new ContentValues();
+        values.put(KEY_FEED, item.getId());
+        db.insert(TABLE_NAME_FAVORITES_PODCASTS, null, values);
+    }
+
     public void removeFavoriteItem(FeedItem item) {
         String deleteClause = String.format("DELETE FROM %s WHERE %s=%s AND %s=%s",
                 TABLE_NAME_FAVORITES,
                 KEY_FEEDITEM, item.getId(),
                 KEY_FEED, item.getFeedId());
+        db.execSQL(deleteClause);
+    }
+
+    public void removeFavoritePodcastItem(Feed item) {
+        String deleteClause = String.format("DELETE FROM %s WHERE %s=%s AND %s=%s",
+                TABLE_NAME_FAVORITES,
+                KEY_FEED, item.getId());
         db.execSQL(deleteClause);
     }
 
@@ -846,6 +893,17 @@ public class PodDBAdapter {
         c.close();
         return count > 0;
     }
+
+    private boolean isPodcastItemInFavorites(Feed item) {
+        String query = String.format("SELECT %s from %s WHERE %s=%d",
+                KEY_ID, TABLE_NAME_FAVORITES_PODCASTS, KEY_FEED, item.getId());
+        Cursor c = db.rawQuery(query, null);
+        int count = c.getCount();
+        c.close();
+        return count > 0;
+    }
+
+
 
     public void setQueue(List<FeedItem> queue) {
         ContentValues values = new ContentValues();
@@ -1562,6 +1620,7 @@ public class PodDBAdapter {
             db.execSQL(CREATE_TABLE_QUEUE);
             db.execSQL(CREATE_TABLE_SIMPLECHAPTERS);
             db.execSQL(CREATE_TABLE_FAVORITES);
+            db.execSQL(CREATE_TABLE_FAVORITES_PODCASTS);
 
             db.execSQL(CREATE_INDEX_FEEDITEMS_FEED);
             db.execSQL(CREATE_INDEX_FEEDITEMS_PUBDATE);

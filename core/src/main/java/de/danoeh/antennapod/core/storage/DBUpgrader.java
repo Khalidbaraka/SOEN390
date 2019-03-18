@@ -204,6 +204,9 @@ class DBUpgrader {
         if (oldVersion < 1040001) {
             db.execSQL(PodDBAdapter.CREATE_TABLE_FAVORITES);
         }
+        if (oldVersion < 1040001) {
+            db.execSQL(PodDBAdapter.CREATE_TABLE_FAVORITES_PODCASTS);
+        }
         if (oldVersion < 1040002) {
             db.execSQL("ALTER TABLE " + PodDBAdapter.TABLE_NAME_FEED_MEDIA
                     + " ADD COLUMN " + PodDBAdapter.KEY_LAST_PLAYED_TIME + " INTEGER DEFAULT 0");
