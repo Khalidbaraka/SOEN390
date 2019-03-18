@@ -1,35 +1,28 @@
-package de.test.antennapod.feelingLuckyTest;
+package de.test.antennapod.feelingluckytest;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InOrder;
-import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.fragment.FeelingLuckyFragment;
 import de.danoeh.antennapod.model.RandomPodcast;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FeelingLuckyUnitTests {
-    private JSONObject jsn;
-    @Before
-    public void setup(){
-		jsn = mock(JSONObject.class);
-	}
 
 	@Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
+    @Before
+    public void setUp(){
+        JSONObject jsn = mock(JSONObject.class);
+    }
 
     @Test
     public void getPodcastDetailsTest(){
