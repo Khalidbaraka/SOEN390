@@ -1,4 +1,4 @@
-package de.test.antennapod.espresso.feelingLuckyFeature;
+package de.test.antennapod.espresso.feelingluckyfeature;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
