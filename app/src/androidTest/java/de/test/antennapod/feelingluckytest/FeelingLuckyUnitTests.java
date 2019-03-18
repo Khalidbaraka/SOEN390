@@ -19,11 +19,6 @@ public class FeelingLuckyUnitTests {
 	@Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
-    @Before
-    public void setUp(){
-        JSONObject jsn = mock(JSONObject.class);
-    }
-
     @Test
     public void getPodcastDetailsTest(){
         RandomPodcast randomPodcast = new RandomPodcast();
