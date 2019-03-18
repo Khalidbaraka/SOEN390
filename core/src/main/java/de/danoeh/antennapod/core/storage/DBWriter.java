@@ -485,7 +485,7 @@ public class DBWriter {
     public static Future<?> removeFavoritePodcastItem(final Feed item) {
         return dbExec.submit(() -> {
             final PodDBAdapter adapter = PodDBAdapter.getInstance().open();
-            adapter.removeFavoritePodcastItem(item)
+            adapter.removeFavoritePodcastItem(item);
             adapter.close();
             //No tags were added, so there is nothing to remove.
             //item.removeTag(FeedItem.TAG_FAVORITE);
