@@ -53,6 +53,7 @@ jobs:
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage
         - stage: Code Coverage
+          if: branch = master
           script:
             - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
             - emulator -avd test -no-skin -no-audio -no-window &
