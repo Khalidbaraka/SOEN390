@@ -59,10 +59,10 @@ import static org.junit.Assert.assertEquals;
             }
 
             //Checks button is there
-            onView(withId(R.id.itunes_categories_button)).check(matches(notNullValue() ));
+            onView(withId(R.id.categories_button)).check(matches(notNullValue() ));
 
             //Checks button name matches
-            onView(withId(R.id.itunes_categories_button)).check(matches(withText("iTunes Categories")));
+            onView(withId(R.id.categories_button)).check(matches(withText("iTunes Categories")));
             assertEquals("iTunes Categories", solo.getString(R.string.itunes_categories));
         }
 
@@ -70,12 +70,12 @@ import static org.junit.Assert.assertEquals;
         public void test2FragmentAndTestListItem() {
 
             //selects & opens the iTunes Categories button in the Discovery Page
-            onView(withId(R.id.itunes_categories_button)).perform(click());
+            onView(withId(R.id.categories_button)).perform(click());
             solo.waitForView(android.R.id.list);
 
             //Check page text name matches
-            onView(withId(R.id.itunesCategoriesTextView1)).check(matches(withText("iTunes Podcast")));
-            assertEquals("iTunes Podcast", solo.getString(R.string.itunes_podcast));
+//            onView(withId(R.id.itunesCategoriesTextView1)).check(matches(withText("iTunes Podcast")));
+//            assertEquals("iTunes Podcast", solo.getString(R.string.itunes_podcast));
 
             //selects & opens the category list item Arts
             onView(withId(R.id.category_list_id)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("Arts")), click()));
