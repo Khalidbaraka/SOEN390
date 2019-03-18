@@ -38,6 +38,10 @@ public class FeelingLuckyFragment extends android.support.v4.app.Fragment {
     public static final String TAG = "FeelingLuckyFragment";
     private RandomPodcast randomPodcast;
 
+    public static String podcast_title;
+    public static String podcast_publisher;
+    public static String podcast_description;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +115,11 @@ public class FeelingLuckyFragment extends android.support.v4.app.Fragment {
                             public void run() {
                                 Picasso.get().load(randomPodcast.getPodcastImage()).into(podcastImage);
                                 podcastTitle.setText(randomPodcast.getPodcastTitle());
+                                FeelingLuckyFragment.podcast_title = randomPodcast.getPodcastTitle();
                                 podcastAuthor.setText(randomPodcast.getPodcastPublisher());
+                                FeelingLuckyFragment.podcast_publisher = randomPodcast.getPodcastPublisher();
                                 podcastDescription.setText(randomPodcast.getPodcastDescription());
+                                FeelingLuckyFragment.podcast_description = randomPodcast.getPodcastDescription();
                             }
                         });
                     }
