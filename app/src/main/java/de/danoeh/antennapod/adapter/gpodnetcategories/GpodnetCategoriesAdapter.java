@@ -15,7 +15,6 @@ import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.core.feed.CategoryItem;
 import de.danoeh.antennapod.fragment.gpodnet.SearchListFragment;
-import android.support.v4.app.Fragment;
 
 public class GpodnetCategoriesAdapter extends RecyclerView.Adapter<GpodnetCategoriesAdapter.MyViewHolder> {
 
