@@ -115,7 +115,9 @@ public class ItunesSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         //getting random podcast title name
         Bundle randomPodcastData = this.getArguments();
-        randomPodcastName = randomPodcastData.getString("random_podcast",null);
+        if (randomPodcastData != null && randomPodcastData.containsKey("random_podcast")) {
+            randomPodcastName = randomPodcastData.getString("random_podcast",null);
+        }
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_itunes_search, container, false);
         gridView = root.findViewById(R.id.gridView);
