@@ -880,7 +880,7 @@ public class PodDBAdapter {
 
     public void removeFavoritePodcastItem(Feed item) {
         String deleteClause = String.format("DELETE FROM %s WHERE %s=%s AND %s=%s",
-                TABLE_NAME_FAVORITES,
+                TABLE_NAME_FAVORITES_PODCASTS,
                 KEY_FEED, item.getId());
         db.execSQL(deleteClause);
     }
