@@ -16,9 +16,6 @@ import java.util.List;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.core.feed.CategoryItem;
 
-/**
- *
- */
 public class GpodnetCategoriesFragment extends android.support.v4.app.Fragment {
 
     public static final String TAG = "GpodnetCategoriesFragment";

@@ -1,12 +1,10 @@
 package de.danoeh.antennapod.adapter;
-
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +15,10 @@ public class CategoriesViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private FragmentManager fragmentManager;
 
-//    private Context myContext;
 
     public CategoriesViewPagerAdapter(FragmentManager fm) {
         super(fm);
         this.fragmentManager = fm;
-//        this.myContext = myContext;
     }
 
     @Override

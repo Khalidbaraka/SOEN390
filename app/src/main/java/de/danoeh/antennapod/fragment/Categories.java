@@ -2,7 +2,6 @@ package de.danoeh.antennapod.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,12 +12,7 @@ import android.view.ViewGroup;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.adapter.CategoriesViewPagerAdapter;
 
-
 public class Categories extends Fragment {
-
-
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +22,9 @@ public class Categories extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        TabLayout tabLayout;
+        ViewPager viewPager;
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_categories, container, false);
         tabLayout = myView.findViewById(R.id.categories_tablayout_id);
