@@ -50,14 +50,14 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
 
         Button categoriesButton = DiscoveryView.findViewById(R.id.categories_button);
 
-        Button gpodnetCategoriesButton = DiscoveryView.findViewById(R.id.gpodnet_categories_button);
+        // Button gpodnetCategoriesButton = DiscoveryView.findViewById(R.id.gpodnet_categories_button);
         // categoriesBtn.setOnClickListener(this);
 
 
         Button luckyBtn = DiscoveryView.findViewById(R.id.luckyBtn);
         luckyBtn.setOnClickListener(this);
 
-        Button itunesCategoriesButton = DiscoveryView.findViewById(R.id.itunes_categories_button);
+        // Button itunesCategoriesButton = DiscoveryView.findViewById(R.id.itunes_categories_button);
 
         // Categories Button
         categoriesButton.setOnClickListener(new View.OnClickListener () {
@@ -73,30 +73,30 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
         });
 
         //Button onClick opens CategoryListFragment
-        itunesCategoriesButton.setOnClickListener(new View.OnClickListener () {
-            @Override
-            public void onClick(View view) {
-
-                final MainActivity activity = (MainActivity) getActivity();
-
-                //Replaces current Fragment with CategoriesListFragment
-                activity.loadChildFragment(new CategoriesListFragment());
-
-            }
-        });
+//        itunesCategoriesButton.setOnClickListener(new View.OnClickListener () {
+//            @Override
+//            public void onClick(View view) {
+//
+//                final MainActivity activity = (MainActivity) getActivity();
+//
+//                //Replaces current Fragment with CategoriesListFragment
+//                activity.loadChildFragment(new CategoriesListFragment());
+//
+//            }
+//        });
 
         // Gpodnet Categories Button
-        gpodnetCategoriesButton.setOnClickListener(new View.OnClickListener () {
-            @Override
-            public void onClick(View view) {
-
-                final MainActivity activity = (MainActivity) getActivity();
-
-                //Replaces current Fragment with CategoriesListFragment
-                activity.loadChildFragment(new GpodnetCategoriesFragment());
-
-            }
-        });
+//        gpodnetCategoriesButton.setOnClickListener(new View.OnClickListener () {
+//            @Override
+//            public void onClick(View view) {
+//
+//                final MainActivity activity = (MainActivity) getActivity();
+//
+//                //Replaces current Fragment with CategoriesListFragment
+//                activity.loadChildFragment(new GpodnetCategoriesFragment());
+//
+//            }
+//        });
 
 
 

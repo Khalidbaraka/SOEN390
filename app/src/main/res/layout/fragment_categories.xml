@@ -30,8 +30,11 @@
         app:tabGravity="fill"
         app:tabMode="fixed"
         android:background="@color/antennapod_blue"
-        app:tabIndicatorColor="@color/antennapod_blue"
-        app:tabTextColor="@color/white"
+        app:tabIndicatorColor="@color/red"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="@color/vpi__bright_foreground_inverse_holo_light"
+        app:tabIndicatorHeight="1dp"
+        app:tabBackground="@color/holo_blue_dark"
         android:id="@+id/categories_tablayout_id"/>
     
     <android.support.v4.view.ViewPager

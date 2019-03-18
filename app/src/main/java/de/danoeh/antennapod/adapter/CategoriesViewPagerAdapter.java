@@ -59,29 +59,6 @@ public class CategoriesViewPagerAdapter extends FragmentStatePagerAdapter {
         fragmentListTitle.add(title);
     }
 
-//    @Override
-//    public Object instantiateItem(ViewGroup container, int position) {
-//
-//        Object obj = super.instantiateItem(container, position);
-//        if (obj instanceof  Fragment) {
-//            // record the fragment
-//            Fragment f = (Fragment) obj;
-//            String tag = f.getTag();
-//            fragmentListTitle.add(tag);
-//        }
-//        return obj;
-//    }
-//
-//    public Fragment getFragment(int position) {
-//        String tag = fragmentListTitle.get(position);
-//        if (tag == null) {
-//            return null;
-//        }
-//
-//        return
-//
-//    }
-
 
     @Override
     public Parcelable saveState() {
