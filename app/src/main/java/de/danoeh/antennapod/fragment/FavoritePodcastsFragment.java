@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import java.util.List;
+
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.adapter.FavoritePodcastsAdapter;
@@ -82,7 +84,7 @@ public class FavoritePodcastsFragment extends Fragment{
 
         favoritePodcastsGridLayout.setAdapter(favoritePodcastsAdapter);
 
-        //loadSubscriptions();
+        loadSubscriptions();
 
         favoritePodcastsGridLayout.setOnItemClickListener(favoritePodcastsAdapter);
 
@@ -100,7 +102,7 @@ public class FavoritePodcastsFragment extends Fragment{
             disposable.dispose();
         }
     }
-
+/*
     private void loadSubscriptions() {
         if(disposable != null) {
             disposable.dispose();
@@ -113,6 +115,24 @@ public class FavoritePodcastsFragment extends Fragment{
                     favoritePodcastsAdapter.notifyDataSetChanged();
                 }, error -> Log.e(TAG, Log.getStackTraceString(error)));
     }
+    */
+
+
+    private void loadSubscriptions() {
+        if(disposable != null) {
+            disposable.dispose();
+        }
+        disposable = Observable.fromCallable(DBReader::getFavoritePodcastItemsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    List<Feed> listfeed = result;
+                    List<Feed> temAccess = listfeed;
+                    favoritePodcastsAdapter.notifyDataSetChanged();
+                }, error -> Log.e(TAG, Log.getStackTraceString(error)));
+    }
+
+
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -138,6 +158,7 @@ public class FavoritePodcastsFragment extends Fragment{
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+
 
         final int position = mPosition;
         mPosition = -1; // reset
@@ -199,7 +220,7 @@ public class FavoritePodcastsFragment extends Fragment{
                     @Override
                     protected void onPostExecute(Void result) {
                         super.onPostExecute(result);
-                        //loadSubscriptions();
+                        loadSubscriptions();
                     }
                 };
                 ConfirmationDialog conDialog = new ConfirmationDialog(getContext(),
@@ -233,7 +254,7 @@ public class FavoritePodcastsFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        //loadSubscriptions();
+        loadSubscriptions();
     }
 
     private final EventDistributor.EventListener contentUpdate = new EventDistributor.EventListener() {
@@ -241,7 +262,7 @@ public class FavoritePodcastsFragment extends Fragment{
         public void update(EventDistributor eventDistributor, Integer arg) {
             if ((EVENTS & arg) != 0) {
                 Log.d(TAG, "Received contentUpdate Intent.");
-                //loadSubscriptions();
+                loadSubscriptions();
             }
         }
     };
