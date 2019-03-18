@@ -221,6 +221,17 @@ public final class DBReader {
         return result;
     }
 
+    private static List<Feed> extractFavPodcastItemlistFromCursor(PodDBAdapter adapter, Cursor cursor) {
+        List<Feed> result = new ArrayList<>(cursor.getCount());
+
+        LongList itemIds = new LongList(cursor.getCount());
+        if (cursor.moveToFirst()) {
+                Feed item = Feed.fromCursor(cursor);
+                result.add(item);
+        }
+        return result;
+    }
+
     private static Map<Long, FeedMedia> getFeedMedia(PodDBAdapter adapter, LongList itemIds) {
         List<String> ids = new ArrayList<>(itemIds.size());
         for (long item : itemIds.toArray()) {
@@ -379,6 +390,24 @@ public final class DBReader {
             cursor = adapter.getFavoritesCursor();
             List<FeedItem> items = extractItemlistFromCursor(adapter, cursor);
             loadAdditionalFeedItemListData(items);
+            return items;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            adapter.close();
+        }
+    }
+
+    public static List<Feed> getFavoritePodcastItemsList() {
+        Log.d(TAG, "getFavoriteItemsList() called");
+
+        PodDBAdapter adapter = PodDBAdapter.getInstance();
+        adapter.open();
+        Cursor cursor = null;
+        try {
+            cursor = adapter.getFavoritesPodcastsCursor();
+            List<Feed> items = extractFavPodcastItemlistFromCursor(adapter, cursor);
             return items;
         } finally {
             if (cursor != null) {
