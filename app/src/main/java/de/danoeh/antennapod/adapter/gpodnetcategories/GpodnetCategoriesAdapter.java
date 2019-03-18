@@ -1,4 +1,4 @@
-package de.danoeh.antennapod.adapter.gpodnetCategories;
+package de.danoeh.antennapod.adapter.gpodnetcategories;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -14,28 +14,26 @@ import java.util.List;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.core.feed.CategoryItem;
-import de.danoeh.antennapod.fragment.ItunesSearchFragment;
 import de.danoeh.antennapod.fragment.gpodnet.SearchListFragment;
 import android.support.v4.app.Fragment;
 
-public class gpodnetCategoriesAdapter extends RecyclerView.Adapter<gpodnetCategoriesAdapter.MyViewHolder> {
+public class GpodnetCategoriesAdapter extends RecyclerView.Adapter<GpodnetCategoriesAdapter.MyViewHolder> {
 
     private Context myContext ;
     private List<CategoryItem> categoryItemList ;
-    private Fragment gpodnetSearchFragment = new SearchListFragment();
 
-    public gpodnetCategoriesAdapter(Context mycontext, List categoryItemList) {
+    public GpodnetCategoriesAdapter(Context mycontext, List categoryItemList) {
         this.myContext = mycontext;
         this.categoryItemList = categoryItemList;
     }
 
     @Override
-    public gpodnetCategoriesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GpodnetCategoriesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view ;
         LayoutInflater mInflater = LayoutInflater.from(myContext);
         view = mInflater.inflate(R.layout.gpodnet_categories_items,parent,false);
-        return new gpodnetCategoriesAdapter.MyViewHolder(view);
+        return new GpodnetCategoriesAdapter.MyViewHolder(view);
     }
 
     @Override

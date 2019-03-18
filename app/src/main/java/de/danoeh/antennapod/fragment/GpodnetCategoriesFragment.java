@@ -1,11 +1,8 @@
 package de.danoeh.antennapod.fragment;
-import de.danoeh.antennapod.adapter.gpodnetCategories.gpodnetCategoriesAdapter;
+import de.danoeh.antennapod.adapter.gpodnetcategories.GpodnetCategoriesAdapter;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -79,7 +76,7 @@ public class GpodnetCategoriesFragment extends android.support.v4.app.Fragment {
         View myView = inflater.inflate(R.layout.categories, container, false);
         recyclerView = myView.findViewById(R.id.gpodnet_category_list_id);
 
-        gpodnetCategoriesAdapter categoriesAdapter = new gpodnetCategoriesAdapter(getContext(), categoriesList);
+        GpodnetCategoriesAdapter categoriesAdapter = new GpodnetCategoriesAdapter(getContext(), categoriesList);
 
         //Layout into Grid with 2 columns
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
