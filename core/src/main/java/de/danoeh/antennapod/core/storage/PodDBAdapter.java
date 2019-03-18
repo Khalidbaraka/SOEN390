@@ -301,6 +301,16 @@ public class PodDBAdapter {
     }
 
     /**
+     * Contains FEED_SEL_STD as comma-separated list. Useful for raw queries.
+     */
+    private static final String SEL_STD_STR;
+
+    static {
+        String selStd = Arrays.toString(FEED_SEL_STD);
+        SEL_STD_STR = selStd.substring(1, selStd.length() - 1);
+    }
+
+    /**
      * Select id, description and content-encoded column from feeditems.
      */
     private static final String[] SEL_FI_EXTRA = {KEY_ID, KEY_DESCRIPTION,
@@ -1122,6 +1132,17 @@ public class PodDBAdapter {
                 TABLE_NAME_FEED_ITEMS + "." + KEY_ID,
                 TABLE_NAME_FAVORITES + "." + KEY_FEEDITEM,
                 TABLE_NAME_FEED_ITEMS + "." + KEY_PUBDATE};
+        String query = String.format("SELECT %s FROM %s INNER JOIN %s ON %s=%s ORDER BY %s DESC", args);
+        return db.rawQuery(query, null);
+    }
+    public final Cursor getFavoritesPodcastsCursor() {
+        Object[] args = new String[]{
+                SEL_STD_STR,
+                TABLE_NAME_FEEDS, TABLE_NAME_FAVORITES_PODCASTS,
+                TABLE_NAME_FEEDS + "." + KEY_ID,
+                TABLE_NAME_FAVORITES_PODCASTS + "." + KEY_FEED,
+                TABLE_NAME_FEEDS + "." + KEY_DESCRIPTION
+        };
         String query = String.format("SELECT %s FROM %s INNER JOIN %s ON %s=%s ORDER BY %s DESC", args);
         return db.rawQuery(query, null);
     }
