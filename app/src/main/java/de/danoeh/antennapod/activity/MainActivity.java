@@ -38,6 +38,7 @@ import java.util.List;
 
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.adapter.NavListAdapter;
+import de.danoeh.antennapod.adapter.SubscriptionFavoritePodcastsAdapter;
 import de.danoeh.antennapod.core.asynctask.FeedRemover;
 import de.danoeh.antennapod.core.dialog.ConfirmationDialog;
 import de.danoeh.antennapod.core.event.MessageEvent;
@@ -68,6 +69,7 @@ import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
 import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
+import de.danoeh.antennapod.fragment.SubscriptionFavoritePodcastsFragment;
 import de.danoeh.antennapod.menuhandler.NavDrawerActivity;
 import de.greenrobot.event.EventBus;
 import io.reactivex.Observable;
@@ -102,7 +104,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             QueueFragment.TAG,
             DiscoveryPageFragment.TAG,
             EpisodesFragment.TAG,
-            SubscriptionFragment.TAG,
+            SubscriptionFavoritePodcastsFragment.TAG,
             DownloadsFragment.TAG,
             PlaybackHistoryFragment.TAG,
             AddFeedFragment.TAG,
@@ -312,9 +314,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             case AddFeedFragment.TAG:
                 fragment = new AddFeedFragment();
                 break;
-            case SubscriptionFragment.TAG:
-                SubscriptionFragment subscriptionFragment = new SubscriptionFragment();
-                fragment = subscriptionFragment;
+            case SubscriptionFavoritePodcastsFragment.TAG:
+                SubscriptionFavoritePodcastsFragment subscriptionFavoritePodcastsFragment = new SubscriptionFavoritePodcastsFragment();
+                fragment = subscriptionFavoritePodcastsFragment;
                 break;
             default:
                 // default to the queue
@@ -531,7 +533,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
                 case DownloadsFragment.TAG:
                 case PlaybackHistoryFragment.TAG:
                 case AddFeedFragment.TAG:
-                case SubscriptionFragment.TAG:
+                case SubscriptionFavoritePodcastsFragment.TAG:
                     return retVal;
                 default:
                     requestCastButton(MenuItem.SHOW_AS_ACTION_NEVER);

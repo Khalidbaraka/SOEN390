@@ -43,6 +43,7 @@ import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
 import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
+import de.danoeh.antennapod.fragment.SubscriptionFavoritePodcastsFragment;
 
 /**
  * BaseAdapter for the navigation drawer
@@ -59,7 +60,7 @@ public class NavListAdapter extends BaseAdapter
      * a tag used as a placeholder to indicate if the subscription list should be displayed or not
      * This tag doesn't correspond to any specific activity.
      */
-    public static final String SUBSCRIPTION_LIST_TAG = "SubscriptionList";
+    public static final String SUBSCRIPTION_LIST_TAG = "SubscriptionFavoritePodcastsFragment";
 
     private static List<String> tags;
     private static String[] titles;
@@ -138,7 +139,7 @@ public class NavListAdapter extends BaseAdapter
             case PlaybackHistoryFragment.TAG:
                 icon = R.attr.ic_history;
                 break;
-            case SubscriptionFragment.TAG:
+            case SubscriptionFavoritePodcastsFragment.TAG:
                 icon = R.attr.ic_folder;
                 break;
             case AddFeedFragment.TAG:
@@ -267,7 +268,7 @@ public class NavListAdapter extends BaseAdapter
                 holder.count.setText(String.valueOf(unreadItems));
                 holder.count.setVisibility(View.VISIBLE);
             }
-        } else if (tag.equals(SubscriptionFragment.TAG)) {
+        } else if (tag.equals(SubscriptionFavoritePodcastsFragment.TAG)) {
             int sum = itemAccess.getFeedCounterSum();
             if (sum > 0) {
                 holder.count.setText(String.valueOf(sum));
