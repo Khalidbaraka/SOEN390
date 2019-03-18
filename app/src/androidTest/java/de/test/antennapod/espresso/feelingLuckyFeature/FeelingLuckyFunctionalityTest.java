@@ -1,12 +1,8 @@
 package de.test.antennapod.espresso.feelingLuckyFeature;
 
-import android.app.Fragment;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.android21buttons.fragmenttestrule.FragmentTestRule;
-
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
