@@ -6,36 +6,12 @@
     tools:context="de.danoeh.antennapod.activity.MainActivity"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/itunesCategoriesTextView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:paddingTop="10dp"
-        android:text="@string/itunes_podcast"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/itunesCategoriesTextView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/itunesCategoriesTextView1"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/categories"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/category_list_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/itunesCategoriesTextView2">
+        android:paddingTop="5dp">
 
     </android.support.v7.widget.RecyclerView>
 

@@ -13,7 +13,7 @@ repositories {
 
 buildscript {
     repositories {
-       jcenter()
+        jcenter()
     }
     dependencies {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
@@ -141,7 +141,8 @@ android {
 }
 
 dependencies {
-    freeImplementation project(":core")
+    implementation 'com.android.support:support-v4:26.1.0'
+freeImplementation project(":core")
 
     // free build hack: skip some dependencies
     if (!doFreeBuild()) {
@@ -200,7 +201,7 @@ play {
 }
 
 // about.html is templatized so that we can automatically insert
-// our version string in to it at build time.
+// our version string in to it at build time.D
 task filterAbout {
     inputs.files files(["src/main/templates/about.html",
                         "src/main/AndroidManifest.xml"])
