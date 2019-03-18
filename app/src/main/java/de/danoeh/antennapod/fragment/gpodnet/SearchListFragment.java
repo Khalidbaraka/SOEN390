@@ -20,6 +20,8 @@ import de.danoeh.antennapod.menuhandler.MenuItemUtils;
 /**
  * Performs a search on the gpodder.net directory and displays the results.
  */
+
+
 public class SearchListFragment extends PodcastListFragment {
 
     private static final String ARG_QUERY = "query";
