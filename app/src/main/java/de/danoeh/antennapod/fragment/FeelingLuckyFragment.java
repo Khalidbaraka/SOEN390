@@ -1,16 +1,17 @@
-package de.danoeh.antennapod.activity;
+package de.danoeh.antennapod.fragment;
 
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-//Uncomment for later use
-//import android.widget.ViewFlipper;
 
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.model.RandomPodcast;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -26,29 +28,65 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
+
+
 import de.danoeh.antennapod.R;
 
-public class FeelingLuckyActivity extends Activity {
+public class FeelingLuckyFragment extends android.support.v4.app.Fragment {
 
-    public static final String TAG = "FeelingLuckyActivity";
+    public static final String TAG = "FeelingLuckyFragment";
     private RandomPodcast randomPodcast;
+
+    public static String podcast_title;
+    public static String podcast_publisher;
+    public static String podcast_description;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.feeling_lucky);
-        getRandomPodcast();
-        Button reroll =  findViewById(R.id.reroll_button);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View mView = inflater.inflate(R.layout.feeling_lucky, null);
+        Button reroll =  mView.findViewById(R.id.reroll_button);
         reroll.setOnClickListener(view -> getRandomPodcast());
+        Button add =  mView.findViewById(R.id.add_button);
+        add.setOnClickListener(view -> searchItunes());
+
+        return mView;
+
+    }
+
+    public void onActivityCreated (Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        getRandomPodcast();
+    }
+
+    private void searchItunes(){
+
+        //passing the randomly generated podcasts name to itunes search
+        ItunesSearchFragment fragment = new ItunesSearchFragment();
+        Bundle args = new Bundle();
+        args.putString("random_podcast", randomPodcast.getPodcastTitle());
+        fragment.setArguments(args);
+
+        final MainActivity activity = (MainActivity) getActivity();
+
+        activity.loadChildFragment(fragment);
+
     }
 
     //method to get a random podcast
     private void getRandomPodcast(){
 
-        ImageView podcastImage = findViewById(R.id.randomPodcastImage);
-        TextView podcastTitle =  findViewById(R.id.random_podcast_title);
-        TextView podcastAuthor =  findViewById(R.id.random_podcast_author);
-        TextView podcastDescription =  findViewById(R.id.random_podcast_description);
+        ImageView podcastImage = getView().findViewById(R.id.randomPodcastImage);
+        TextView podcastTitle =  getView().findViewById(R.id.random_podcast_title);
+        TextView podcastAuthor =  getView().findViewById(R.id.random_podcast_author);
+        TextView podcastDescription =  getView().findViewById(R.id.random_podcast_description);
         podcastDescription.setMovementMethod(new ScrollingMovementMethod());
 
         String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
@@ -62,22 +100,26 @@ public class FeelingLuckyActivity extends Activity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //failure handling logic to be added
+                alertUser();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 try {
                     String jsonData = response.body().string();
                     if(response.isSuccessful()){
                         randomPodcast = getPodcastDetails(jsonData);
-                        runOnUiThread(new Runnable() {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Picasso.get().load(randomPodcast.getPodcastImage()).into(podcastImage);
                                 podcastTitle.setText(randomPodcast.getPodcastTitle());
+                                FeelingLuckyFragment.podcast_title = randomPodcast.getPodcastTitle();
                                 podcastAuthor.setText(randomPodcast.getPodcastPublisher());
+                                FeelingLuckyFragment.podcast_publisher = randomPodcast.getPodcastPublisher();
                                 podcastDescription.setText(randomPodcast.getPodcastDescription());
+                                FeelingLuckyFragment.podcast_description = randomPodcast.getPodcastDescription();
                             }
                         });
                     }
@@ -107,7 +149,7 @@ public class FeelingLuckyActivity extends Activity {
     }
 
     private void alertUser() {
-        Toast.makeText(getApplicationContext(),"Error!",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Error!",Toast.LENGTH_LONG).show();
     }
 
     //method to remove html tags from description strings
