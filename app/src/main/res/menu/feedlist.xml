@@ -71,7 +71,10 @@
         android:menuCategory="container"
         android:title="@string/rename_feed_label"
         custom:showAsAction="never" />
-
+    <item
+        android:id="@+id/add_to_favorites_podcasts"
+        android:menuCategory="container"
+        android:title="Add To Favorite Podcast" />
     <item
         android:id="@+id/remove_item"
         android:icon="?attr/content_discard"
@@ -80,5 +83,6 @@
         android:visible="true"
         custom:showAsAction="collapseActionView">
     </item>
+
 
 </menu>

@@ -45,11 +45,10 @@ public class SubscriptionFragment extends Fragment {
     private GridView subscriptionGridLayout;
     private DBReader.NavDrawerData navDrawerData;
     private SubscriptionsAdapter subscriptionAdapter;
-
+    private View root;
     private int mPosition = -1;
 
     private Disposable disposable;
-
     public SubscriptionFragment() {
     }
 
@@ -67,7 +66,7 @@ public class SubscriptionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_subscriptions, container, false);
+        root = inflater.inflate(R.layout.fragment_subscriptions, container, false);
         subscriptionGridLayout = root.findViewById(R.id.subscriptions_grid);
         registerForContextMenu(subscriptionGridLayout);
         return root;
@@ -188,6 +187,9 @@ public class SubscriptionFragment extends Fragment {
                 return true;
             case R.id.rename_item:
                 new RenameFeedDialog(getActivity(), feed).show();
+                return true;
+            case R.id.add_to_favorites_podcasts:
+                DBWriter.addFavoritePodcastItem(feed);
                 return true;
             case R.id.remove_item:
                 final FeedRemover remover = new FeedRemover(getContext(), feed) {

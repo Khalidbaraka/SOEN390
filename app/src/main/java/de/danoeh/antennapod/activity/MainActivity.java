@@ -613,6 +613,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             case R.id.rename_item:
                 new RenameFeedDialog(this, feed).show();
                 return true;
+            case R.id.add_to_favorites_podcasts:
+                DBWriter.addFavoritePodcastItem(feed);
+                return true;
             case R.id.remove_item:
                 final FeedRemover remover = new FeedRemover(this, feed) {
                     @Override

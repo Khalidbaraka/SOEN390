@@ -19,4 +19,5 @@
     <string name="itunes_categories" translate="false">iTunes Categories</string>
     <string name="itunes_podcast" translate="false">iTunes Podcast</string>
     <string name="categories" translate="false">Categories</string>
+    <string name="add_to_favorites_podcasts">Add to favorites Podcasts</string>
 </resources>
