@@ -8,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.CategoriesActivity;
 
 import de.danoeh.antennapod.activity.FeelingLuckyActivity;
-
 import de.danoeh.antennapod.activity.MainActivity;
 
 
@@ -70,6 +70,28 @@ public class DiscoveryPageFragment extends Fragment implements View.OnClickListe
             }
     });
 
+        //Where user writes text to Search
+        EditText searchText = DiscoveryView.findViewById(R.id.editText);
+
+        //Button used to submit Search
+        Button searchButton = DiscoveryView.findViewById(R.id.button6);
+
+        searchButton.setOnClickListener(new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+
+                final MainActivity activity = (MainActivity) getActivity();
+
+                //Create new iTunesSearchFragment
+                Fragment myItunesSearchFragment = new ItunesSearchFragment();
+
+                //setCategoryName to the text written in the search box (EditText).Search it in the iTunesAPI.
+                ((ItunesSearchFragment) myItunesSearchFragment).setCategoryName(searchText.getText().toString());
+
+                //Loads iTunesSearchFragment with the podcasts related to the search result
+                activity.loadChildFragment(myItunesSearchFragment);
+            }
+        });
 
         // Inflate the layout for this fragment
         return DiscoveryView;
