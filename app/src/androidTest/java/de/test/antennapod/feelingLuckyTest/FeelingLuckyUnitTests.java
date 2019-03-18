@@ -34,24 +34,13 @@ public class FeelingLuckyUnitTests {
     @Test
     public void getPodcastDetailsTest(){
 
-
-        //when(pet1.isNew()).thenReturn(true);
-        //		inOrder.verify(pet1).isNew();
         FeelingLuckyFragment f= new FeelingLuckyFragment();
         try{
-        RandomPodcast r1 = f.getPodcastDetails("image:yolo,podcast_title:yoyo, description:test,publisher:keke ");
-        assertNotNull(r1);
+            RandomPodcast r1 = f.getPodcastDetails("image:yolo,podcast_title:yoyo, description:test,publisher:keke ");
+            assertNotNull(r1);
         }
-        catch (Exception e){
+        catch (Exception e) {
             System.out.print("error");
         }
-
-
     }
-
-
-
-
-
-
 }

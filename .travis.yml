@@ -49,6 +49,7 @@ jobs:
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/feelingluckyfeature
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
         #Uncomment below when UI tests are ready to integrate to travis
         #  script:
