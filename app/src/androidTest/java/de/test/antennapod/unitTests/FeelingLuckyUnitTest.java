@@ -1,3 +1,4 @@
+/*
 package de.test.antennapod.unitTests;
 
 import com.android21buttons.fragmenttestrule.FragmentTestRule;
@@ -15,3 +16,4 @@ public class FeelingLuckyUnitTest {
 
 
 }
+*/
