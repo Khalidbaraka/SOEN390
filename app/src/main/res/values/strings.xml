@@ -8,15 +8,18 @@
     <string name="discover_page_button_top10" translate="false">Top 10</string>
 
     <string name="feeling_lucky_Im_feeling_lucky" translate="false">I\'m Feeling Lucky</string>
-    <string name="feeling_lucky_add_to_sub" translate="false">Add To Subscriptions</string>
+    <string name="feeling_lucky_find_itunes" translate="false">Find in iTunes</string>
     <string name="feeling_lucky_reroll" translate="false">Re-roll</string>
     <string name="feeling_lucky_podcast_title" translate="false">Podcast Title</string>
     <string name="feeling_lucky_podcast_author" translate="false">Podcast Author</string>
     <string name="feeling_lucky_description" translate="false">Podcast Description</string>
     <string name="feeling_lucky_podcast_thumbnail" translate="false">Podcast Thumbnail</string>
-    <string name="categories_header" translate="false">Categories</string>
+    <string name="gpodnet_categories" translate="false">Gpodnet Categories</string>
     <string name="discover_page_search" translate="false">Search</string>
     <string name="itunes_categories" translate="false">iTunes Categories</string>
     <string name="itunes_podcast" translate="false">iTunes Podcast</string>
     <string name="categories" translate="false">Categories</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
