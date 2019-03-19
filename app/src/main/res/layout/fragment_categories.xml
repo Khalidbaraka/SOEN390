@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.danoeh.antennapod.fragment.Categories"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/categories_appbar_id"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="@color/antennapod_blue"
+        app:elevation="0dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/category_icon" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        android:background="@color/antennapod_blue"
+        app:tabIndicatorColor="@color/red"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="@color/vpi__bright_foreground_inverse_holo_light"
+        app:tabIndicatorHeight="1dp"
+        app:tabBackground="@color/holo_blue_dark"
+        android:id="@+id/categories_tablayout_id"/>
+    
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/categories_viewpager_id"></android.support.v4.view.ViewPager>
+
+
+
+</LinearLayout>

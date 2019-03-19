@@ -50,6 +50,8 @@ import static de.danoeh.antennapod.adapter.itunes.ItunesAdapter.Podcast;
 //Searches iTunes store for given string and displays results in a list
 public class ItunesSearchFragment extends Fragment {
 
+    private String categoryName = null;
+    private String randomPodcastName = null;
     private static final String TAG = "ItunesSearchFragment";
 
     private static final String API_URL = "https://itunes.apple.com/search?media=podcast&term=%s";
@@ -108,6 +110,11 @@ public class ItunesSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //getting random podcast title name
+        Bundle randomPodcastData = this.getArguments();
+        if (randomPodcastData != null && randomPodcastData.containsKey("random_podcast")) {
+            randomPodcastName = randomPodcastData.getString("random_podcast",null);
+        }
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_itunes_search, container, false);
         gridView = root.findViewById(R.id.gridView);
@@ -175,8 +182,17 @@ public class ItunesSearchFragment extends Fragment {
         butRetry = root.findViewById(R.id.butRetry);
         txtvEmpty = root.findViewById(android.R.id.empty);
 
-        loadToplist();
-
+        //returns view with list of Podcasts from given category
+        if(categoryName != null){
+            search(categoryName);
+        }
+        else if(randomPodcastName != null){
+            search(randomPodcastName);
+        }
+        //returns default top Podcasts
+        else{
+            loadToplist();
+        }
         return root;
     }
 
@@ -192,18 +208,19 @@ public class ItunesSearchFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.itunes_search, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView sv = (SearchView) MenuItemCompat.getActionView(searchItem);
-        MenuItemUtils.adjustTextColor(getActivity(), sv);
-        sv.setQueryHint(getString(R.string.search_itunes_label));
-        sv.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                sv.clearFocus();
-                search(s);
-                return true;
-            }
+        if(categoryName == null && randomPodcastName == null) {
+            inflater.inflate(R.menu.itunes_search, menu);
+            MenuItem searchItem = menu.findItem(R.id.action_search);
+            final SearchView sv = (SearchView) MenuItemCompat.getActionView(searchItem);
+            MenuItemUtils.adjustTextColor(getActivity(), sv);
+            sv.setQueryHint(getString(R.string.search_itunes_label));
+            sv.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    sv.clearFocus();
+                    search(s);
+                    return true;
+                }
 
             @Override
             public boolean onQueryTextChange(String s) {
@@ -311,6 +328,23 @@ public class ItunesSearchFragment extends Fragment {
                         encodedQuery = query; // failsafe
                     }
 
+
+                    //search for Podcast with categoryName in itunes if categoryName was set.
+                    if(categoryName != null){
+
+                        API_URL="https://itunes.apple.com/search?term="
+                                +categoryName
+                                +"&media=podcast&attibute=genreIndex";
+                    }
+                    else if(randomPodcastName != null){
+                        API_URL="https://itunes.apple.com/search?term="
+                                +randomPodcastName;
+                    }
+                    //default search for Podcast
+                    else {
+                        API_URL = "https://itunes.apple.com/search?media=podcast&term=%s";
+                    }
+                    
                     //Spaces in the query need to be replaced with '+' character.
                     String formattedUrl = String.format(API_URL, query).replace(' ', '+');
 
