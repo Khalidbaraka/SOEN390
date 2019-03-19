@@ -10,10 +10,6 @@ import java.util.List;
 
 public class CategoriesViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    public List<Fragment> getFragmentList() {
-        return fragmentList;
-    }
-
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> fragmentListTitle = new ArrayList<>();
 
