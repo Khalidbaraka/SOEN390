@@ -344,7 +344,7 @@ public class ItunesSearchFragment extends Fragment {
                     else {
                         API_URL = "https://itunes.apple.com/search?media=podcast&term=%s";
                     }
-                    
+
                     //Spaces in the query need to be replaced with '+' character.
                     String formattedUrl = String.format(API_URL, query).replace(' ', '+');
 
