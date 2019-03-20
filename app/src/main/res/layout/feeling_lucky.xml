@@ -37,13 +37,13 @@
         app:layout_constraintTop_toBottomOf="@+id/random-podcast-title" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/add_button"
         android:layout_width="370dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:scrollbars="vertical"
-        android:text="@string/feeling_lucky_add_to_sub"
+        android:text="@string/feeling_lucky_find_itunes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/add_button" />
 
     <ImageView
         android:id="@+id/randomPodcastImage"
@@ -109,7 +109,7 @@
     <TextView
         android:id="@+id/random_podcast_description"
         android:layout_width="335dp"
-        android:layout_height="74dp"
+        android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -122,8 +122,8 @@
 
     <TextView
         android:id="@+id/lucky_title"
-        android:layout_width="196dp"
-        android:layout_height="35dp"
+        android:layout_width="184dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"

@@ -63,7 +63,6 @@ import static org.junit.Assert.assertEquals;
                 solo.waitForView(android.R.id.list);
                 assertEquals(solo.getString(R.string.discovery_page_label), getActionbarTitle());
             }
-
         }
 
        @Test
@@ -77,6 +76,7 @@ import static org.junit.Assert.assertEquals;
            onView(withId(R.id.categories_button)).check(matches(withText("Categories")));
            assertEquals("Categories", solo.getString(R.string.categories));
 
+
             //selects & opens the iTunes Categories button in the Discovery Page
             onView(withId(R.id.categories_button)).perform(click());
             solo.waitForView(android.R.id.list);
@@ -87,7 +87,6 @@ import static org.junit.Assert.assertEquals;
            Matcher<View> matcher2 = allOf(withText("iTunes"), isDescendantOfA(withId(R.id.categories_tablayout_id)));
            onView(matcher2).perform(click());
            solo.waitForView(android.R.id.list);
-
 
             //selects & opens the category list item Arts
             onView(withId(R.id.category_list_id)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("Arts")), click()));
