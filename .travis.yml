@@ -75,7 +75,7 @@ jobs:
           - emulator -avd test -no-skin -no-audio -no-window &
           - android-wait-for-emulator
           - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-          - ./gradlew createFreeDebugAndroidTest
+          - ./gradlew createFreeDebugCoverageReport
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
 
         #Uncomment below when UI tests are ready to integrate to travis
