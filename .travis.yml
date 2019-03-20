@@ -26,15 +26,16 @@ jobs:
           name: Release 1
           script: 
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
-            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/feelingluckytest
-            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/unittests
+        - script:
+          - ./gradlew -p app/src/androidTest/java/de/test/antennapod/feelingluckytest
+          - ./gradlew -p app/src/androidTest/java/de/test/antennapod/unitTests
+          name: Release 2
 
         - stage: Static Analysis
           name: Release 1
           script:
           - ./gradlew pmd
           - ./gradlew checkstyle
-
 
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
         #Uncomment below when unit tests are ready to integrate to travis
@@ -51,7 +52,10 @@ jobs:
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage
-            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/feelingluckyfeature
+        - script:
+          - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/feelingluckyfeature
+          - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/category
+          name: Release 2
 
 
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
