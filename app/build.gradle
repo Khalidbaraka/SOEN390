@@ -202,7 +202,7 @@ play {
 }
 
 // about.html is templatized so that we can automatically insert
-// our version string in to it at build time.
+// our version string in to it at build time.D
 task filterAbout {
     inputs.files files(["src/main/templates/about.html",
                         "src/main/AndroidManifest.xml"])
