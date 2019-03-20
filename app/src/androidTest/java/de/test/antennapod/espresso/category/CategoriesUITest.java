@@ -2,13 +2,10 @@ package de.test.antennapod.espresso.category;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.contrib.ViewPagerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
-
 import com.robotium.solo.Solo;
 import com.robotium.solo.Timeout;
-
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +28,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public class Categoryfragmenttest{
+    public class CategoriesUITest {
 
         private Solo solo;
 
@@ -67,8 +64,7 @@ import static org.junit.Assert.assertEquals;
 
        @Test
         public void test2CategorybuttonFragmentsCategoryitems() {
-
-
+            
            //Checks button categories is there
            onView(withId(R.id.categories_button)).check(matches(notNullValue() ));
 
