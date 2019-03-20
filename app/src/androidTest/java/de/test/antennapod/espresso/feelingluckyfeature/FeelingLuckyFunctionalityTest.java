@@ -1,4 +1,4 @@
-/*package de.test.antennapod.espresso.feelingluckyfeature;
+package de.test.antennapod.espresso.feelingluckyfeature;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -57,4 +57,3 @@ public class FeelingLuckyFunctionalityTest {
         assertNotEquals(descriptionBefore, descriptionAfter);
     }
 }
-*/
