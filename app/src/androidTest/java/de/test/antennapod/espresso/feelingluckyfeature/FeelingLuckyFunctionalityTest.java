@@ -157,7 +157,7 @@ public class FeelingLuckyFunctionalityTest {
         assertNotEquals(publisherBefore, publisherAfter);
         assertNotEquals(descriptionBefore, descriptionAfter);
     }
-
+  
     private String getActionbarTitle() {
         return ((MainActivity) solo.getCurrentActivity()).getSupportActionBar().getTitle().toString();
     }
