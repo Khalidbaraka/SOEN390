@@ -12,21 +12,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
-import static org.mockito.Mockito.mock;
 
-import android.view.ViewGroup;
 
-import org.mockito.Mockito;
+
 
 @RunWith(AndroidJUnit4.class)
-public class categoriesViewPagerAdapterUnitTests {
+public class CategoriesViewPagerAdapterUnitTests {
 
     private FragmentManager fragmentManager;
-    private FragmentManager fm1;
     private List<Fragment> fragmentList;
     private Fragment expected;
-    CategoriesViewPagerAdapter c;
-    ViewGroup vg;
+
 
 
     @Rule
@@ -34,16 +30,15 @@ public class categoriesViewPagerAdapterUnitTests {
 
 
     @Before
-    public void setup(){
-        fm1 = Mockito.mock(FragmentManager.class);
+    public void setUp(){
         fragmentList = new ArrayList<>();
         expected = new Fragment();
-        c = new CategoriesViewPagerAdapter(fragmentManager);
     }
 
     // testing methods in CategoriesViewPagerAdapter fragment
     @Test
     public void getItemTest(){
+        CategoriesViewPagerAdapter c = new CategoriesViewPagerAdapter(fragmentManager);
         c.addFragment(expected, "testing");
         Fragment actualObject = c.getItem(0);
         assertEquals(expected, actualObject );
@@ -51,6 +46,7 @@ public class categoriesViewPagerAdapterUnitTests {
 
     @Test
     public void addItemTest(){
+        CategoriesViewPagerAdapter c = new CategoriesViewPagerAdapter(fragmentManager);
         fragmentList.add(expected);
         c.addFragment(expected, "testing");
         List<Fragment> realFrgamentList =c.getFragmentList();
