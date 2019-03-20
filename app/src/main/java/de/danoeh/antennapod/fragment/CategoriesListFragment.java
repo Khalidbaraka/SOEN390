@@ -27,14 +27,13 @@ public class CategoriesListFragment extends android.support.v4.app.Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        ArrayList<String> itunesCategories;
+        String[] catgoriesName;
         categoriesList = new ArrayList<>();
 
         Resources res = getResources();
 
         //Adding all the names for our categories list in a string array
-        String[] catgoriesName = res.getStringArray(R.array.itunes_podcast_category_list);
-        itunesCategories = new ArrayList<>(Arrays.asList(catgoriesName));
+        catgoriesName = res.getStringArray(R.array.itunes_podcast_category_list);
 
         //Adding all icons for categories list into an integer array
         int[] icons = new int[]{
@@ -54,12 +53,13 @@ public class CategoriesListFragment extends android.support.v4.app.Fragment {
                 R.drawable.technology_icon
         };
 
-        //Creating CategoryItems one at a time for every itunesCategories available.
-        //Setting title and icon for each CategoryItem.
-        //Adding CategoryItem to the CategoriesList
-        for (int i = 0; i < itunesCategories.size(); i++) {
+        //Creating CategoryItems one at a time (
+        //(size equals number of categories available determined by length of names in categoryName).
+        //Setting title and icon for CategoryItem.
+        //Adding each CategoryItem to the CategoriesList which holds list of all categoryItem
+        for (int i = 0; i < catgoriesName.length; i++) {
             CategoryItem category = new CategoryItem();
-            category.setName(itunesCategories.get(i));
+            category.setName(catgoriesName[i]);
             category.setImage(icons[i]);
             categoriesList.add(category);
         }
@@ -74,11 +74,14 @@ public class CategoriesListFragment extends android.support.v4.app.Fragment {
 
         myRecyclerView = myView.findViewById(R.id.category_list_id);
 
+        //Create adapter using current context and list of category Item.
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getContext(), categoriesList);
 
-        //Layout into Grid with 2 columns
-        myRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        //Set layout manager to Grid with 2 columns
+        myRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
+        //Set the adapter into our recycler view
+        //i.e. Set the UI row of categories_itemview.xml into our recyclerView category_list.xml
         myRecyclerView.setAdapter(categoriesAdapter);
 
         return myView;
