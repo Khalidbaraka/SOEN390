@@ -1,4 +1,4 @@
-package de.test.antennapod.unitTests;
+package de.test.antennapod.unittests;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import org.junit.Before;
@@ -13,12 +13,10 @@ import android.support.v4.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.*;
+
 import android.view.ViewGroup;
 
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(AndroidJUnit4.class)
 public class categoriesViewPagerAdapterUnitTests {

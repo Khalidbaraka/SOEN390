@@ -26,7 +26,7 @@ jobs:
           name: Release 1
           script: 
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
-            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/unitTests
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/unittests
 
         - stage: Static Analysis
           name: Release 1
