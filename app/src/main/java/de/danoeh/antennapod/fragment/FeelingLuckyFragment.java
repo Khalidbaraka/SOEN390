@@ -135,7 +135,7 @@ public class FeelingLuckyFragment extends android.support.v4.app.Fragment {
         });
     }
 
-    private RandomPodcast getPodcastDetails(String jsonData) throws JSONException {
+    public RandomPodcast getPodcastDetails(String jsonData) throws JSONException {
         JSONObject podcastData = new JSONObject(jsonData);
 
         RandomPodcast randomPodcast = new RandomPodcast();
