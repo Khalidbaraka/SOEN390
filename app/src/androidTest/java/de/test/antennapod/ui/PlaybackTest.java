@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.FlakyTest;
+import android.support.test.filters.FlakyTest;
 import android.view.View;
 import android.widget.ListView;
 
@@ -30,7 +30,8 @@ import de.danoeh.antennapod.core.storage.PodDBAdapter;
 public class PlaybackTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private static final String TAG = PlaybackTest.class.getSimpleName();
-    private static final int EPISODES_DRAWER_LIST_INDEX = 1;
+    //INDEX needs to be updated to 2, since Discovery Page took its place.!
+    private static final int EPISODES_DRAWER_LIST_INDEX = 2;
     private static final int QUEUE_DRAWER_LIST_INDEX = 0;
 
     private Solo solo;
@@ -105,8 +106,8 @@ public class PlaybackTest extends ActivityInstrumentationTestCase2<MainActivity>
         View targetView = drawerView.getChildAt(EPISODES_DRAWER_LIST_INDEX);
         solo.waitForView(targetView);
         solo.clickOnView(targetView);
-        solo.waitForText(solo.getString(R.string.all_episodes_short_label));
         solo.clickOnText(solo.getString(R.string.all_episodes_short_label));
+        solo.waitForText(solo.getString(R.string.all_episodes_short_label));
 
         final List<FeedItem> episodes = DBReader.getRecentlyPublishedEpisodes(10);
         assertTrue(solo.waitForView(solo.getView(R.id.butSecondaryAction)));
@@ -163,7 +164,7 @@ public class PlaybackTest extends ActivityInstrumentationTestCase2<MainActivity>
         startLocalPlayback();
     }
 
-    @FlakyTest(tolerance = 3)
+    @FlakyTest
     public void testContinousPlaybackOffMultipleEpisodes() throws Exception {
         setContinuousPlaybackPreference(false);
         uiTestUtils.addLocalFeedData(true);
@@ -187,7 +188,7 @@ public class PlaybackTest extends ActivityInstrumentationTestCase2<MainActivity>
         assertFalse(status.equals(PlayerStatus.PLAYING));
     }
 
-    @FlakyTest(tolerance = 3)
+    @FlakyTest
     public void testContinuousPlaybackOnMultipleEpisodes() throws Exception {
         setContinuousPlaybackPreference(true);
         uiTestUtils.addLocalFeedData(true);
@@ -251,11 +252,11 @@ public class PlaybackTest extends ActivityInstrumentationTestCase2<MainActivity>
         }, Timeout.getLargeTimeout());
         assertTrue(startedReplay);
     }
-
+    @FlakyTest
     public void testReplayEpisodeContinuousPlaybackOn() throws Exception {
         replayEpisodeCheck(true);
     }
-
+    @FlakyTest
     public void testReplayEpisodeContinuousPlaybackOff() throws Exception {
         replayEpisodeCheck(false);
     }

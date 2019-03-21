@@ -4,11 +4,14 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
 
+import org.junit.Ignore;
+
 import de.danoeh.antennapod.activity.VideoplayerActivity;
 
 /**
  * Test class for VideoplayerActivity
  */
+@Ignore
 public class VideoplayerActivityTest extends ActivityInstrumentationTestCase2<VideoplayerActivity> {
 
     private Solo solo;
@@ -19,8 +22,8 @@ public class VideoplayerActivityTest extends ActivityInstrumentationTestCase2<Vi
 
     @Override
     public void setUp() throws Exception {
-        super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
+        super.setUp();
     }
 
     @Override
