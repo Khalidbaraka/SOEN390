@@ -38,16 +38,16 @@ jobs:
           script: 
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
         - script:
-          - ./gradlew -p app/src/androidTest/java/de/test/antennapod/feelingluckytest
-          - ./gradlew -p app/src/androidTest/java/de/test/antennapod/unitTests
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/feelingluckytest
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/unitTests
           name: Release 2
 
 
         - stage: Static Analysis
           name: Release 1
           script:
-          - ./gradlew pmd
-          - ./gradlew checkstyle
+            - ./gradlew pmd
+            - ./gradlew checkstyle
 
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
         #Uncomment below when unit tests are ready to integrate to travis
@@ -65,17 +65,17 @@ jobs:
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
             - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage
         - script:
-          - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/feelingluckyfeature
-          - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/category
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/feelingluckyfeature
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/category
           name: Release 2
         - stage: Code Coverage
-        if: branch = master
-        script:
-          - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-          - emulator -avd test -no-skin -no-audio -no-window &
-          - android-wait-for-emulator
-          - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-          - ./gradlew createFreeDebugCoverageReport
+          if: branch = master
+          script:
+            - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+            - emulator -avd test -no-skin -no-audio -no-window &
+            - android-wait-for-emulator
+            - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+            - ./gradlew createFreeDebugCoverageReport
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
 
         #Uncomment below when UI tests are ready to integrate to travis
