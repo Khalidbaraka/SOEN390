@@ -13,15 +13,18 @@ android:
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
-    # - tools
-    # - platform-tools
-
+    - tools
+    - platform-tools
     # The BuildTools version used by your project
     - build-tools-27.0.3
     - build-tools-28.0.3
     # The SDK version used to compile your project
     - android-26
     - android-22
+    - extra-android-support
+    - extra-google-m2repository
+    - extra-google-google_play_services
+    - extra-android-m2repository
     - sys-img-armeabi-v7a-android-22
 
   licenses:
@@ -74,7 +77,7 @@ jobs:
             - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
             - emulator -avd test -no-skin -no-audio -no-window &
             - android-wait-for-emulator
-            - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+            - adb shell input keyevent 82 &
             - ./gradlew createFreeDebugCoverageReport
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
 
