@@ -19,7 +19,14 @@
     <string name="itunes_categories" translate="false">iTunes Categories</string>
     <string name="itunes_podcast" translate="false">iTunes Podcast</string>
     <string name="categories" translate="false">Categories</string>
+    <string name="register_and_login" translate="false">Register and Login</string>
+    <string name="register_and_login_footer" translate="false">You can save and sync your subscription and history on all your devices</string>
+    <string name="register" translate="false">Register</string>
+    <string name="login" translate="false">Login</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_register_and_login">RegisterAndLoginActivity</string>
 </resources>
