@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
-    // private ProgressBar progressBar;
+    private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
 
     @Override
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        if (auth.getCurrentUser() != null) {
+        if (auth.getCurrentUser() != null && auth.getCurrentUser().isEmailVerified()) {
            auth.signOut();
 //            startActivity(new Intent(LoginActivity.this, MainActivity.class));
 //            finish();
@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail = (EditText) findViewById(R.id.input_email_login);
         inputPassword = (EditText) findViewById(R.id.input_password_login);
         btnLogin = (Button) findViewById(R.id.btn_login);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -65,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                // progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
 
                 //authenticate user
                 auth.signInWithEmailAndPassword(email, password)
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
-                        // progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                         if (!task.isSuccessful()) {
                             // there was an error
                             if (password.length() < 6) {
@@ -84,10 +85,15 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                            Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
+                            if (auth.getCurrentUser().isEmailVerified()) {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                                Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Please Verify your Email Address", Toast.LENGTH_LONG).show();
+                            }
+
                         }
                     }
                 });

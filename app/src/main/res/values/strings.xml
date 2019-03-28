@@ -29,11 +29,13 @@
     <string name="loginButton" translate="false">LogIn</string>
     <string name="alreadyLoggedIn" translate="false">Don\'t have an account? Sign Up</string>
     <string name="fullName" translate="false">Full Name</string>
-    <string name="emailaddress" translate="false">Email Address</string>
-    <string name="password" translate="false">Password</string>
+    <string name="emailaddress" translate="false">EMAIL ADDRESS</string>
+    <string name="password" translate="false">PASSWORD</string>
 
     <string name="minimum_password" translate="false">The password is too short</string>
     <string name="auth_failed" translate="false">Wrong Password</string>
+
+    <string name="forgot_password" translatable="false">Forgot Password?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
