@@ -2,6 +2,7 @@
 
 package de.danoeh.antennapod.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import de.danoeh.antennapod.R;
 
 import de.danoeh.antennapod.activity.MainActivity;
+import de.danoeh.antennapod.activity.RegisterAndLoginActivity;
 
 
 import android.os.Bundle;
@@ -47,15 +49,11 @@ public class DiscoveryPageFragment extends Fragment {
 
         Button categoriesButton = DiscoveryView.findViewById(R.id.categories_button);
 
-        // Button gpodnetCategoriesButton = DiscoveryView.findViewById(R.id.gpodnet_categories_button);
-        // categoriesBtn.setOnClickListener(this);
-
-
         Button luckyBtn = DiscoveryView.findViewById(R.id.luckyBtn);
-        //luckyBtn.setOnClickListener(this);
 
-        // Button itunesCategoriesButton = DiscoveryView.findViewById(R.id.itunes_categories_button);
-        //Button onClick opens CategoryListFragment
+        Button registerAndLoginButton = DiscoveryView.findViewById(R.id.register_and_login_main_layout_button);
+
+
         luckyBtn.setOnClickListener(new View.OnClickListener () {
             @Override
             public void onClick(View view) {
@@ -89,9 +87,7 @@ public class DiscoveryPageFragment extends Fragment {
             //Button used to submit Search
             Button searchButton = DiscoveryView.findViewById(R.id.button6);
 
-        searchButton.setOnClickListener(new View.OnClickListener()
-
-            {
+        searchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick (View view){
 
@@ -109,7 +105,24 @@ public class DiscoveryPageFragment extends Fragment {
 
             });
 
+        registerAndLoginButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                final MainActivity activity = (MainActivity) getActivity();
+                Intent intent = new Intent(getActivity(), RegisterAndLoginActivity.class);
+                activity.startActivity(intent);
+
+            }
+        });
+
+
+
+
             // Inflate the layout for this fragment
         return DiscoveryView;
         }
+
+
     }
