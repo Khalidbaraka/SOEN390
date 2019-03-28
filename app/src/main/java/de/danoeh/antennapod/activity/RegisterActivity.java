@@ -70,6 +70,10 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = userPassword.getText().toString().trim();
                 String fullName = userFullName.getText().toString().trim();
 
+                if (TextUtils.isEmpty(fullName)) {
+                    Toast.makeText(getApplicationContext(), "Full Name is required!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -82,10 +86,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(fullName)) {
-                    Toast.makeText(getApplicationContext(), "Full Name is required!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -106,40 +106,37 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                     //https://github.com/probelalkhan/GhostApp/tree/master/app/src/main/java/net/simplifiedcoding/ghostapp
                                 } else {
+                                    auth.getCurrentUser().sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Log.d(TAG, "Email sent.");
+                                                        User newUser = new User(email, fullName);
 
-                                    User newUser = new User(email, fullName);
-
-                                    FirebaseDatabase.getInstance().getReference("users")
-                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                            .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            progressBar.setVisibility(View.GONE);
-                                            if (task.isSuccessful()) {
-                                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                                finish();
-                                                Toast.makeText(RegisterActivity.this, "Account registered correctly.",
-                                                        Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(RegisterActivity.this, "Error registration failed." + task.getException(),
-                                                        Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
+                                                        FirebaseDatabase.getInstance().getReference("users")
+                                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                                .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                progressBar.setVisibility(View.GONE);
+                                                                if (task.isSuccessful()) {
+                                                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                                                    finish();
+                                                                    Toast.makeText(RegisterActivity.this, "Account registered correctly. Please check your email for verification. ",
+                                                                            Toast.LENGTH_SHORT).show();
+                                                                } else {
+                                                                    Toast.makeText(RegisterActivity.this, "Error registration failed." + task.getException(),
+                                                                            Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
                                 }
                             }
                         });
-                //Send email verification. Potential enhancement later.
-                /*user = auth.getCurrentUser();
-                user.sendEmailVerification()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d(TAG, "Email sent.");
-                                }
-                            }
-                        });*/
             }
         });
     }
