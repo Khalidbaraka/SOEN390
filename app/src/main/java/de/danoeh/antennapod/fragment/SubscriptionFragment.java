@@ -188,6 +188,9 @@ public class SubscriptionFragment extends Fragment {
                 return true;
             case R.id.find_similar:
                 FindSimilarFragment fragment = new FindSimilarFragment();
+                Bundle args = new Bundle();
+                args.putString("similar_podcast", feed.getDownload_url());
+                fragment.setArguments(args);
                 final MainActivity activity = (MainActivity) getActivity();
                 activity.loadChildFragment(fragment);
                 return true;
