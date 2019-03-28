@@ -32,6 +32,8 @@
     <string name="emailaddress" translate="false">Email Address</string>
     <string name="password" translate="false">Password</string>
 
+    <string name="minimum_password" translate="false">The password is too short</string>
+    <string name="auth_failed" translate="false">Wrong Password</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
