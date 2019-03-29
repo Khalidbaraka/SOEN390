@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "Email Verification ";
     private EditText userEmail, userPassword, userFullName;
-    private TextView btnLogin;
+    private TextView textAlreadyHaveAccount;
     private Button btnRegister;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
@@ -47,16 +47,18 @@ public class RegisterActivity extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        btnLogin = (TextView) findViewById(R.id.alreadyRegistered);
         btnRegister = (Button) findViewById(R.id.registerButton);
         userFullName = (EditText) findViewById(R.id.fullNameRegister);
         userEmail = (EditText) findViewById(R.id.emailRegister);
         userPassword = (EditText) findViewById(R.id.passwordRegister);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        textAlreadyHaveAccount = (TextView) findViewById(R.id.alreadHaveAccount);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        textAlreadyHaveAccount.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
             }
         });

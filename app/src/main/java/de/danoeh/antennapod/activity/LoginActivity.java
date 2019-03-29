@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset, btnResetPassword;
+    private TextView textDontHaveAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +50,19 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        textDontHaveAccount = (TextView) findViewById(R.id.dontHaveAccount);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+
+        textDontHaveAccount.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
+            }
+        });
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-
+        
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
