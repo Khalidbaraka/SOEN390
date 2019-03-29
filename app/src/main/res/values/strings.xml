@@ -31,6 +31,7 @@
     <string name="fullName" translate="false">Full Name</string>
     <string name="emailaddress" translate="false">EMAIL ADDRESS</string>
     <string name="password" translate="false">PASSWORD</string>
+    <string name="logout_button" translate="false">Logout</string>
 
     <string name="minimum_password" translate="false">The password is too short</string>
     <string name="auth_failed" translate="false">Wrong Password</string>
@@ -46,4 +47,4 @@
     <string name="title_activity_register_and_login">RegisterAndLoginActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
-</resources>
+
