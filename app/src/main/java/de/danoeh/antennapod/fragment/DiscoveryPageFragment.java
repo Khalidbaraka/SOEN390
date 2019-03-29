@@ -11,12 +11,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
-
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.activity.RegisterAndLoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import android.widget.Toast;
 
 
 import android.os.Bundle;
+
+import static android.view.View.GONE;
 
 //Uncomment for later use
 //import android.widget.Toast;
@@ -36,14 +39,18 @@ public class DiscoveryPageFragment extends Fragment {
     private View DiscoveryView;
     private TextView txtHome;
     public static final String TAG = "DiscoveryPageFragment";
+    private FirebaseAuth auth;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        auth = FirebaseAuth.getInstance();
 
         DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
 
@@ -53,6 +60,7 @@ public class DiscoveryPageFragment extends Fragment {
 
         Button registerAndLoginButton = DiscoveryView.findViewById(R.id.register_and_login_main_layout_button);
 
+        Button logoutButton = DiscoveryView.findViewById(R.id.logout);
 
         luckyBtn.setOnClickListener(new View.OnClickListener () {
             @Override
@@ -62,7 +70,6 @@ public class DiscoveryPageFragment extends Fragment {
 
                 //Replaces current Fragment with CategoriesListFragment
                 activity.loadChildFragment(new FeelingLuckyFragment());
-
             }
         });
 
@@ -77,7 +84,6 @@ public class DiscoveryPageFragment extends Fragment {
 
                 //Replaces current Fragment with CategoriesListFragment
                 activity.loadChildFragment(new Categories());
-
                 }
             });
 
@@ -113,11 +119,20 @@ public class DiscoveryPageFragment extends Fragment {
                 final MainActivity activity = (MainActivity) getActivity();
                 Intent intent = new Intent(getActivity(), RegisterAndLoginActivity.class);
                 activity.startActivity(intent);
+                activity.finish();
 
             }
         });
 
+        logoutButton.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getContext(), "Successfully Logged Out", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
             // Inflate the layout for this fragment
