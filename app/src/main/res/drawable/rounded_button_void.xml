@@ -15,7 +15,7 @@
 
             <stroke
                 android:width="2dp"
-                android:color="#0189ff" />
+                android:color="@color/antennapod_blue" />
         </shape>
     </item>
 </selector>
