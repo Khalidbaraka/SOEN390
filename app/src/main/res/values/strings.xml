@@ -25,10 +25,10 @@
     <string name="login" translate="false">Login</string>
 
     <string name="registerButton" translate="false">Sign Up</string>
-    <string name="alreadyRegistered" translate="false">Already have an account? LogIn</string>
-    <string name="loginButton" translate="false">LogIn</string>
-    <string name="alreadyLoggedIn" translate="false">Don\'t have an account? Sign Up</string>
-    <string name="fullName" translate="false">Full Name</string>
+    <string name="alreadHaveAccount" translate="false">Already have an account? Login</string>
+    <string name="loginButton" translate="false">Login</string>
+    <string name="DontHaveAccount" translate="false">Don\'t have an account? Sign Up</string>
+    <string name="fullName" translate="false">FULL NAME</string>
     <string name="emailaddress" translate="false">EMAIL ADDRESS</string>
     <string name="password" translate="false">PASSWORD</string>
     <string name="logout_button" translate="false">Logout</string>

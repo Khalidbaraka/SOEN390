@@ -12,11 +12,10 @@
         android:layout_height="138dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher" />
@@ -88,22 +87,23 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="277dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@drawable/rounded_button_fill"
         android:text="@string/registerButton"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
 
     <TextView
-        android:id="@+id/alreadyRegistered"
+        android:id="@+id/alreadHaveAccount"
         android:layout_width="198dp"
         android:layout_height="19dp"
         android:layout_marginStart="8dp"
@@ -112,7 +112,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/alreadyRegistered"
+        android:text="@string/alreadHaveAccount"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="14sp"
         app:color="@color/black"
@@ -120,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerButton"
-        app:layout_constraintVertical_bias="0.842" />
+        app:layout_constraintVertical_bias="0.961" />
 
     <TextView
         android:id="@+id/fullNameWord"
@@ -133,7 +133,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="11dp"
         android:text="@string/fullName"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/fullNameRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.208"
@@ -152,7 +152,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/emailaddress"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/emailRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.208"
@@ -171,7 +171,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/password"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/passwordRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.208"
