@@ -42,6 +42,7 @@ public class RegisterAndLoginActivity extends AppCompatActivity {
         registerAndLoginAvatar = findViewById(R.id.register_and_login_main_layout_avatar);
         registerAndLoginFooter = findViewById(R.id.register_and_login_main_layout_footer);
 
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +50,24 @@ public class RegisterAndLoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(RegisterAndLoginActivity.this, MainActivity.class));
+        finish();
     }
 
 }

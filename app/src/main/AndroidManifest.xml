@@ -39,11 +39,15 @@
         android:logo="@mipmap/ic_launcher"
         android:restoreAnyVersion="true"
         android:roundIcon="@mipmap/ic_launcher_round">
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.RegisterActivity" />
         <activity
             android:name=".activity.RegisterAndLoginActivity"
             android:label="@string/title_activity_register_and_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.car.notification.SmallIcon"
@@ -73,7 +77,7 @@
             android:name=".activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.AudioplayerActivity"
             android:launchMode="singleTop">
@@ -118,17 +122,17 @@
         </activity>
         <activity
             android:name=".activity.FeedInfoActivity"
-            android:label="@string/feed_info_label"></activity>
+            android:label="@string/feed_info_label" />
         <activity
             android:name=".activity.FeedSettingsActivity"
             android:label="@string/feed_settings_label"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
 
         <service
             android:name=".core.service.PlayerWidgetJobService"
             android:enabled="true"
             android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE"></service>
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver android:name=".core.receiver.PlayerWidget">
             <intent-filter>
@@ -147,7 +151,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.StorageErrorActivity"></activity>
+        <activity android:name=".activity.StorageErrorActivity" />
         <activity
             android:name=".activity.FlattrAuthActivity"
             android:label="@string/flattr_auth_label">
@@ -192,7 +196,7 @@
         <activity
             android:name=".activity.OpmlImportFromPathActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/opml_import_label"></activity>
+            android:label="@string/opml_import_label" />
         <activity
             android:name=".activity.OpmlImportFromIntentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -228,7 +232,7 @@
         </activity>
         <activity
             android:name=".activity.OpmlFeedChooserActivity"
-            android:label="@string/opml_import_label"></activity>
+            android:label="@string/opml_import_label" />
         <activity
             android:name=".activity.VideoplayerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
