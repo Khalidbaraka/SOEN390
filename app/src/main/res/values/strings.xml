@@ -31,7 +31,6 @@
     <string name="fullName" translate="false">Full Name</string>
     <string name="emailaddress" translate="false">Email Address</string>
     <string name="password" translate="false">Password</string>
-    <string name="logout_button" translate="false">Logout</string>
 
     <string name="minimum_password" translate="false">The password is too short</string>
     <string name="auth_failed" translate="false">Wrong Password</string>
