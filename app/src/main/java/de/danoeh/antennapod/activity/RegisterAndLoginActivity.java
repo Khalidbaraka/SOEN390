@@ -49,9 +49,17 @@ public class RegisterAndLoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), LoginActivity.class);
                 startActivity(intent);
+                finish();
+
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(RegisterAndLoginActivity.this, MainActivity.class));
+        finish();
     }
 
 }

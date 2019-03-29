@@ -36,9 +36,9 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-           auth.signOut();
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            finish();
+//           auth.signOut();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
         }
         setContentView(R.layout.login_activity);
 
@@ -106,6 +106,12 @@ public class LoginActivity extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(LoginActivity.this, RegisterAndLoginActivity.class));
+        finish();
     }
 
 }
