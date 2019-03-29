@@ -13,9 +13,9 @@
             android:angle="45"
             android:centerX="45"
             android:centerY="45"
-            android:endColor="#01f1fa"
+            android:endColor="@color/blue5"
             android:gradientRadius="45"
-            android:startColor="#0189ff"
+            android:startColor="@color/antennapod_blue"
             android:type="linear" />
 
     </shape>
