@@ -40,9 +40,13 @@
         android:restoreAnyVersion="true"
         android:roundIcon="@mipmap/ic_launcher_round">
         <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.RegisterActivity" />
         <activity
             android:name=".activity.RegisterAndLoginActivity"

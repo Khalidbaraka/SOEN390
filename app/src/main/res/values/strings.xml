@@ -29,15 +29,22 @@
     <string name="loginButton" translate="false">LogIn</string>
     <string name="alreadyLoggedIn" translate="false">Don\'t have an account? Sign Up</string>
     <string name="fullName" translate="false">Full Name</string>
-    <string name="emailaddress" translate="false">Email Address</string>
-    <string name="password" translate="false">Password</string>
+    <string name="emailaddress" translate="false">EMAIL ADDRESS</string>
+    <string name="password" translate="false">PASSWORD</string>
     <string name="logout_button" translate="false">Logout</string>
 
     <string name="minimum_password" translate="false">The password is too short</string>
     <string name="auth_failed" translate="false">Wrong Password</string>
 
+    <string name="forgot_password" translatable="false">Forgot Password?</string>
+    <string name="forgot_password_msg" translatable="false">Please enter your registered email, in order to send you the password reset instructions</string>
+    <string name="hint_email" translatable="false">Email</string>
+    <string name="btn_reset_password" translatable="false">Reset Password</string>
+    <string name="btn_back" translatable="false">Back</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_register_and_login">RegisterAndLoginActivity</string>
     <string name="title_activity_login">LoginActivity</string>
-</resources>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+
