@@ -60,6 +60,15 @@ public class DiscoveryPageFragment extends Fragment {
 
         Button logoutButton = DiscoveryView.findViewById(R.id.logout);
 
+        if (auth.getCurrentUser() != null) {
+            registerAndLoginButton.setVisibility(View.GONE);
+            logoutButton.setVisibility(View.VISIBLE);
+        }
+        if (auth.getCurrentUser() == null) {
+            registerAndLoginButton.setVisibility(View.VISIBLE);
+            logoutButton.setVisibility(View.GONE);
+        }
+        
         luckyBtn.setOnClickListener(new View.OnClickListener () {
             @Override
             public void onClick(View view) {
@@ -129,6 +138,10 @@ public class DiscoveryPageFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getContext(), "Successfully Logged Out", Toast.LENGTH_SHORT).show();
 
+                final MainActivity activity = (MainActivity) getActivity();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                activity.startActivity(intent);
+                activity.loadChildFragment(new DiscoveryPageFragment());
             }
         });
 
