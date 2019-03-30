@@ -72,21 +72,21 @@ public class RegisterActivity extends AppCompatActivity {
                 String fullName = userFullName.getText().toString().trim();
 
                 if (TextUtils.isEmpty(fullName)) {
-                    Toast.makeText(getApplicationContext(), "Full Name is required!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.require_fulll_name, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.require_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.require_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.warn_short_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
                                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                        Toast.makeText(RegisterActivity.this, "User with this email already exist.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, R.string.email_already_exists, Toast.LENGTH_SHORT).show();
                                     }
                                     //https://github.com/probelalkhan/GhostApp/tree/master/app/src/main/java/net/simplifiedcoding/ghostapp
                                 } else {
@@ -124,10 +124,10 @@ public class RegisterActivity extends AppCompatActivity {
                                                                 if (task.isSuccessful()) {
                                                                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                                                     finish();
-                                                                    Toast.makeText(RegisterActivity.this, "Account registered correctly. Please check your email for verification. ",
+                                                                    Toast.makeText(RegisterActivity.this, R.string.register_success,
                                                                             Toast.LENGTH_SHORT).show();
                                                                 } else {
-                                                                    Toast.makeText(RegisterActivity.this, "Error registration failed." + task.getException(),
+                                                                    Toast.makeText(RegisterActivity.this, R.string.register_fail +" "+task.getException(),
                                                                             Toast.LENGTH_SHORT).show();
                                                                 }
                                                             }
