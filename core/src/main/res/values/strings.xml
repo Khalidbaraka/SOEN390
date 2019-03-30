@@ -32,6 +32,7 @@
     <string name="episode_cache_full_message">The episode cache limit has been reached. You can increase the cache size in the Settings.</string>
     <string name="synchronizing">Synchronizing…</string>
     <string name="discovery_page_label">Discovery Page</string>
+    <string name="profile_page_label">Profile Page</string>
 
 
     <!-- Statistics fragment -->

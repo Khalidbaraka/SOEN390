@@ -10,20 +10,17 @@ import android.view.ViewGroup;
 
 import de.danoeh.antennapod.R;
 
-public class UserProfileFragment extends Fragment {
+public class ProfilePageFragment extends Fragment {
 
-    public static final String TAG = "UserProfileFragment";
+    private View profilePageView;
+    public static final String TAG = "ProfilePageFragment";
 
 
-
-    public UserProfileFragment() {
-        // Required empty public constructor
-    }
 
 
     // TODO: Rename and change types and number of parameters
-//    public static UserProfileFragment newInstance(String param1, String param2) {
-//        UserProfileFragment fragment = new UserProfileFragment();
+//    public static ProfilePageFragment newInstance(String param1, String param2) {
+//        ProfilePageFragment fragment = new ProfilePageFragment();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -38,10 +35,10 @@ public class UserProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false);
+        profilePageView = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        return profilePageView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,4 +79,6 @@ public class UserProfileFragment extends Fragment {
 //        // TODO: Update argument type and name
 //        void onFragmentInteraction(Uri uri);
 //    }
+
+
 }
