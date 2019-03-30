@@ -40,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(UserPreferences.getNoTitleTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
 
