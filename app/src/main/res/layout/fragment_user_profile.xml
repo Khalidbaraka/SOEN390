@@ -1,45 +1,74 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="de.danoeh.antennapod.fragment.ProfilePageFragment">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
-        
+        android:background="@color/white"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/first_layer"
                 android:gravity="center"
-                android:background="@drawable/first_layer">
-                
+                android:orientation="vertical">
+
                 <ImageView
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp"
                     android:layout_width="1720dp"
                     android:layout_height="172dp"
-                    android:src="@drawable/register_and_login_icon"/>
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:src="@drawable/register_and_login_icon" />
+
                 <Button
-                    android:id="@+id/profile_register_and_login_button"
+                    android:id="@+id/profile_register_and_login_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:paddingHorizontal="30dp"
                     android:layout_marginBottom="30dp"
-                    android:textColor="@color/white"
+                    android:background="@drawable/rounded_button_fill"
+                    android:paddingHorizontal="30dp"
                     android:text="@string/register_and_login"
-                    android:background="@drawable/rounded_button_fill"/>
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:textSize="24dp"
+                    android:text="@string/register"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/profile_logout_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/white"
+        android:text="@string/logout_button"
+        android:textAllCaps="false"
+        android:drawableLeft="@drawable/outline_forward_black_18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
