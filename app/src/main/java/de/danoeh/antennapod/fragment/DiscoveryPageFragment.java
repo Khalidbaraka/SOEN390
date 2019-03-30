@@ -45,11 +45,15 @@ public class DiscoveryPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mAdView = mAdView.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+
 
         DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
+
+        mAdView = DiscoveryView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
 
         Button categoriesButton = DiscoveryView.findViewById(R.id.categories_button);
 
