@@ -49,4 +49,14 @@
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="title_activity_register" translatable="false"> Register </string>
 
+    <string name="require_fulll_name" translatable="false">Full Name is required!</string>
+    <string name="require_email" translatable="false">Enter email address!</string>
+    <string name="require_password" translatable="false">Enter password!</string>
+    <string name="warn_short_password" translatable="false">Password too short, enter minimum 6 characters!</string>
+    <string name="email_already_exists" translatable="false">User with this email already exists</string>
+    <string name="register_success" translatable="false">Account registered correctly. Please check your email for verification.</string>
+    <string name="register_fail" translatable="false">Error registration failed.</string>
+    <string name="login_sucess" translatable="false">Successful Login</string>
+    <string name="login_unverified" translatable="false">Please Verify your Email Address</string>
+
 </resources>
