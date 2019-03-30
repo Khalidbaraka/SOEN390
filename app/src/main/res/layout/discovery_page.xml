@@ -66,25 +66,25 @@ android:layout_height="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="72dp"
             android:layout_marginEnd="28dp"
-            android:text="@string/discover_page_button_new"
-            android:textSize="14dp"
             android:background="@color/ic_launcher_background"
+            android:text="@string/discover_page_button_new"
             android:textColor="@color/white"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText" />
 
         <!--<Button-->
-            <!--android:id="@+id/top10Btn"-->
-            <!--android:layout_width="161dp"-->
-            <!--android:layout_height="48dp"-->
-            <!--android:layout_marginTop="24dp"-->
-            <!--android:layout_marginEnd="28dp"-->
-            <!--android:text="@string/discover_page_button_top10"-->
-            <!--android:textSize="14dp"-->
-            <!--android:background="@color/ic_launcher_background"-->
-            <!--android:textColor="@color/white"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/newBtn" />-->
+        <!--android:id="@+id/top10Btn"-->
+        <!--android:layout_width="161dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_marginTop="24dp"-->
+        <!--android:layout_marginEnd="28dp"-->
+        <!--android:text="@string/discover_page_button_top10"-->
+        <!--android:textSize="14dp"-->
+        <!--android:background="@color/ic_launcher_background"-->
+        <!--android:textColor="@color/white"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/newBtn" />-->
 
         <EditText
             android:id="@+id/editText"
@@ -106,8 +106,8 @@ android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="72dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/categories"
             android:background="@color/ic_launcher_background"
+            android:text="@string/categories"
             android:textColor="@color/white"
             android:textSize="14dp"
             app:layout_constraintEnd_toStartOf="@+id/newBtn"
@@ -123,13 +123,28 @@ android:layout_height="match_parent"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:background="@color/ic_launcher_background"
-            android:textColor="@color/white"
             android:text="@string/discover_page_search"
+            android:textColor="@color/white"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/editText"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="389dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="665dp"
+            ads:adSize="BANNER"
+
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            ads:layout_constraintTop_toTopOf="parent"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0" />
     </android.support.constraint.ConstraintLayout>
 
 </RelativeLayout>

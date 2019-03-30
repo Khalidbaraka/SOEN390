@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import de.danoeh.antennapod.activity.MainActivity;
 
@@ -30,7 +32,7 @@ import android.os.Bundle;
 
 public class DiscoveryPageFragment extends Fragment {
 
-
+    private AdView mAdView;
     private View DiscoveryView;
     private TextView txtHome;
     public static final String TAG = "DiscoveryPageFragment";
@@ -42,6 +44,10 @@ public class DiscoveryPageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mAdView = mAdView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
 
