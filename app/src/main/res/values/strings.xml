@@ -47,5 +47,7 @@
     <string name="title_activity_register_and_login">RegisterAndLoginActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="viewComments">View Comments</string>
+    <string name="submit">submit</string>
 
 </resources>
