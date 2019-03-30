@@ -1,32 +1,24 @@
 package de.danoeh.antennapod.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.activity.MainActivity;
+import de.danoeh.antennapod.activity.RegisterAndLoginActivity;
 
 public class ProfilePageFragment extends Fragment {
 
     private View profilePageView;
     public static final String TAG = "ProfilePageFragment";
-
-
-
-
-    // TODO: Rename and change types and number of parameters
-//    public static ProfilePageFragment newInstance(String param1, String param2) {
-//        ProfilePageFragment fragment = new ProfilePageFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+    private Button registerAndLoginBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,15 +30,23 @@ public class ProfilePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         profilePageView = inflater.inflate(R.layout.fragment_user_profile, container, false);
+
+        registerAndLoginBtn = (Button) profilePageView.findViewById(R.id.profile_register_and_login_button);
+
+        registerAndLoginBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                final MainActivity activity = (MainActivity) getActivity();
+                Intent intent = new Intent(getActivity(), RegisterAndLoginActivity.class);
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        });
+
         return profilePageView;
     }
-
-    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
 
 //    @Override
 //    public void onAttach(Context context) {
