@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.LoginActivity;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.activity.RegisterAndLoginActivity;
+import de.danoeh.antennapod.model.ProfileItem;
 import de.danoeh.antennapod.model.User;
 
 public class ProfilePageFragment extends Fragment {
@@ -34,6 +38,10 @@ public class ProfilePageFragment extends Fragment {
     private Button registerAndLoginBtn, logoutBtn;
     private TextView profileName;
     private FirebaseAuth auth;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -62,6 +70,10 @@ public class ProfilePageFragment extends Fragment {
         }
 
         loadUserInformation();
+
+        ArrayList<ProfileItem> profileItems = new ArrayList<>();
+        profileItems.add(new ProfileItem(R.drawable.common_google_signin_btn_icon_dark_normal_background, "Line 1"));
+        profileItems.add(new ProfileItem(R.drawable.ic_mr_button_connected_03_dark, "Line 2"));
 
         registerAndLoginBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -153,3 +165,4 @@ public class ProfilePageFragment extends Fragment {
 
 
 }
+
