@@ -3,8 +3,7 @@ package de.danoeh.antennapod.model;
 import java.io.Serializable;
 
 public class Comment implements Serializable {
-    public String user;
-    public String commentId;
+    public String userid;
     public String timestamp;
     public String comment;
     public String podcast;
@@ -13,10 +12,9 @@ public class Comment implements Serializable {
     }
 
 
-    public Comment(String user, String commentId, String timestamp, String comment, String podcast) {
+    public Comment(String userid, String timestamp, String comment, String podcast) {
 
-        this.user = user;
-        this.commentId = commentId;
+        this.userid = userid;
         this.timestamp = timestamp;
         this.comment = comment;
         this.podcast=podcast;
@@ -25,19 +23,11 @@ public class Comment implements Serializable {
 
     public String getUser() {
 
-        return user;
+        return userid;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getTimestamp() {

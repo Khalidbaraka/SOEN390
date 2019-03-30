@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.model.Comment;
 
@@ -56,6 +59,10 @@ public class AddCommentActivity extends Activity {
 
 
     }
+  //public String userid;
+    //    public String timestamp;
+    //    public String comment;
+    //    public String podcast;
 
     private void startPosting(){
 
@@ -67,18 +74,32 @@ public class AddCommentActivity extends Activity {
         if(!TextUtils.isEmpty(content)){
             //start uplodaing
             Log.d("im inside if statment!","insdie if statement");
+                DatabaseReference newComment = mPostDatabase.push();
+            Map<String, String> dataToSave= new HashMap<>();
+            dataToSave.put("userid",mAuth.getUid());
+            dataToSave.put("comment", content);
+            dataToSave.put("timestamp",String.valueOf(java.lang.System.currentTimeMillis()));
+            dataToSave.put("podcast","podcast");
 
-            Comment comment= new Comment("khalid", "CommentID","2019-03-29: 8:09",content,"podcastTitle");
-            mPostDatabase.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+            newComment.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(),"Item added",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(AddCommentActivity.this,OnlineFeedViewActivity.class));
-                    Toast.makeText(getApplicationContext(),"going back to onlineFeedback Class",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(AddCommentActivity.this,CommentListActivity.class));
 
-//                    mProgress.dismiss();
                 }
             });
+//            Comment comment= new Comment("khalid", "CommentID","2019-03-29: 8:09",content,"podcastTitle");
+//            mPostDatabase.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//                    Toast.makeText(getApplicationContext(),"Item added",Toast.LENGTH_LONG).show();
+//                    startActivity(new Intent(AddCommentActivity.this,CommentListActivity.class));
+//                    Toast.makeText(getApplicationContext(),"going back to onlineFeedback Class",Toast.LENGTH_LONG).show();
+//
+////                    mProgress.dismiss();
+//                }
+//            });
         }
 
     }
