@@ -68,6 +68,7 @@ import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
 import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
+import de.danoeh.antennapod.fragment.UserProfileFragment;
 import de.danoeh.antennapod.menuhandler.NavDrawerActivity;
 import de.greenrobot.event.EventBus;
 import io.reactivex.Observable;
@@ -106,6 +107,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             DownloadsFragment.TAG,
             PlaybackHistoryFragment.TAG,
             AddFeedFragment.TAG,
+            UserProfileFragment.TAG,
             NavListAdapter.SUBSCRIPTION_LIST_TAG
     };
 
@@ -315,6 +317,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             case SubscriptionFragment.TAG:
                 SubscriptionFragment subscriptionFragment = new SubscriptionFragment();
                 fragment = subscriptionFragment;
+                break;
+            case UserProfileFragment.TAG:
+                fragment = new UserProfileFragment();
                 break;
             default:
                 // default to the queue
@@ -532,6 +537,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
                 case PlaybackHistoryFragment.TAG:
                 case AddFeedFragment.TAG:
                 case SubscriptionFragment.TAG:
+                case UserProfileFragment.TAG:
                     return retVal;
                 default:
                     requestCastButton(MenuItem.SHOW_AS_ACTION_NEVER);

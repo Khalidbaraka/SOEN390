@@ -42,6 +42,7 @@ import de.danoeh.antennapod.fragment.NewEpisodesFragment;
 import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
 import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
+import de.danoeh.antennapod.fragment.UserProfileFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
 
 /**
@@ -143,6 +144,9 @@ public class NavListAdapter extends BaseAdapter
                 break;
             case AddFeedFragment.TAG:
                 icon = R.attr.content_new;
+                break;
+            case UserProfileFragment.TAG:
+                icon = R.attr.av_download;
                 break;
             default:
                 return null;
