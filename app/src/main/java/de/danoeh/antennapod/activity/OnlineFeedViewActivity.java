@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -392,9 +393,8 @@ public class OnlineFeedViewActivity extends AppCompatActivity {
         TextView author = header.findViewById(R.id.txtvAuthor);
         TextView description = header.findViewById(R.id.txtvDescription);
         Spinner spAlternateUrls = header.findViewById(R.id.spinnerAlternateUrls);
-
+        Button viewComment= (Button) header.findViewById(R.id.viewCommentsBtn);
         subscribeButton = header.findViewById(R.id.butSubscribe);
-
         if (StringUtils.isNotBlank(feed.getImageUrl())) {
             Glide.with(this)
                     .load(feed.getImageUrl())
@@ -432,6 +432,19 @@ public class OnlineFeedViewActivity extends AppCompatActivity {
                 setSubscribeButtonState(feed);
             }
         });
+
+        viewComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "PROCESSING",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(OnlineFeedViewActivity.this, CommentListActivity.class));
+            }
+        });
+
+
+
+
+
 
         if (alternateFeedUrls.isEmpty()) {
             spAlternateUrls.setVisibility(View.GONE);
