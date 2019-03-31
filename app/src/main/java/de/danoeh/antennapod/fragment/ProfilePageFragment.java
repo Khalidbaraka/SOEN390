@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.LoginActivity;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.activity.RegisterAndLoginActivity;
+import de.danoeh.antennapod.adapter.ProfileItemAdapter;
 import de.danoeh.antennapod.model.ProfileItem;
 import de.danoeh.antennapod.model.User;
 
@@ -40,7 +42,7 @@ public class ProfilePageFragment extends Fragment {
     private FirebaseAuth auth;
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private ProfileItemAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
 
@@ -71,9 +73,18 @@ public class ProfilePageFragment extends Fragment {
 
         loadUserInformation();
 
+
+        recyclerView =  (RecyclerView) profilePageView.findViewById(R.id.profile_option_list);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         ArrayList<ProfileItem> profileItems = new ArrayList<>();
-        profileItems.add(new ProfileItem(R.drawable.common_google_signin_btn_icon_dark_normal_background, "Line 1"));
-        profileItems.add(new ProfileItem(R.drawable.ic_mr_button_connected_03_dark, "Line 2"));
+        profileItems.add(new ProfileItem(R.drawable.outline_edit_black_18dp, "Edit Profile"));
+        profileItems.add(new ProfileItem(R.drawable.outline_mode_comment_black_18dp, "My Comments"));
+        recyclerView.setHasFixedSize(true);
+
+        adapter = new ProfileItemAdapter(profileItems);
+        recyclerView.setAdapter(adapter);
 
         registerAndLoginBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -127,26 +138,6 @@ public class ProfilePageFragment extends Fragment {
 
         }
     }
-
-
-
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
 
     /**
      * This interface must be implemented by activities that contain this
