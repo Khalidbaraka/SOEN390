@@ -38,7 +38,7 @@ public class ProfilePageFragment extends Fragment {
     private View profilePageView;
     public static final String TAG = "ProfilePageFragment";
     private Button registerAndLoginBtn, logoutBtn;
-    private TextView profileName;
+    private TextView profileName, profileEmail;
     private FirebaseAuth auth;
 
     private RecyclerView recyclerView;
@@ -62,10 +62,13 @@ public class ProfilePageFragment extends Fragment {
         registerAndLoginBtn = (Button) profilePageView.findViewById(R.id.profile_register_and_login_btn);
         logoutBtn = (Button) profilePageView.findViewById(R.id.profile_logout_btn);
         profileName = (TextView) profilePageView.findViewById(R.id.profile_name);
+        profileEmail = (TextView) profilePageView.findViewById(R.id.profile_email);
 
         if (auth.getCurrentUser() == null) {
             registerAndLoginBtn.setVisibility(View.VISIBLE);
             logoutBtn.setVisibility(View.GONE);
+            profileName.setVisibility(View.GONE);
+            profileEmail.setVisibility(View.GONE);
         } else {
             registerAndLoginBtn.setVisibility(View.GONE);
             logoutBtn.setVisibility(View.VISIBLE);
@@ -80,7 +83,6 @@ public class ProfilePageFragment extends Fragment {
 
         ArrayList<ProfileItem> profileItems = new ArrayList<>();
         profileItems.add(new ProfileItem(R.drawable.outline_edit_black_18dp, "Edit Profile"));
-        profileItems.add(new ProfileItem(R.drawable.outline_mode_comment_black_18dp, "My Comments"));
         recyclerView.setHasFixedSize(true);
 
         adapter = new ProfileItemAdapter(profileItems);
@@ -106,8 +108,6 @@ public class ProfilePageFragment extends Fragment {
                 Toast.makeText(getContext(), "Successfully Logged Out", Toast.LENGTH_SHORT).show();
 
                 final MainActivity activity = (MainActivity) getActivity();
-                Intent intent = new Intent(getActivity(), ProfilePageFragment.class);
-                activity.startActivity(intent);
                 activity.loadChildFragment(new DiscoveryPageFragment());
             }
         });
@@ -127,6 +127,7 @@ public class ProfilePageFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
                     profileName.setText(user.getFullName());
+                    profileEmail.setText(user.getEmail());
                     System.out.println(user);
                 }
 

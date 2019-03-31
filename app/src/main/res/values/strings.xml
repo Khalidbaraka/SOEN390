@@ -23,6 +23,7 @@
     <string name="register_and_login_footer" translate="false">You can save and sync your subscription and history on all your devices</string>
     <string name="register" translate="false">Register</string>
     <string name="login" translate="false">Login</string>
+    <string name="authentication" translatable="false"> Authentication </string>
 
     <string name="registerButton" translate="false">Sign Up</string>
     <string name="alreadHaveAccount" translate="false">Already have an account? Login</string>

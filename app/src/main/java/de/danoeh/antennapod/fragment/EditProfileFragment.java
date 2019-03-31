@@ -53,6 +53,15 @@ public class EditProfileFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
 
+//        if (auth.getCurrentUser() == null) {
+//
+//            Toast.makeText(getActivity(), "Please log in first.  ",
+//                    Toast.LENGTH_SHORT).show();
+//            final MainActivity activity = (MainActivity) getActivity();
+//            //Replaces current Fragment with CategoriesListFragment
+//            activity.loadChildFragment(getTargetFragment());
+//        }
+
         // Inflate the layout for this fragment
         editProfileView =  inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
