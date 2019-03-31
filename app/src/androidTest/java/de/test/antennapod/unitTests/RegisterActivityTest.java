@@ -9,6 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.RegisterActivity;
 import de.danoeh.antennapod.model.Printer;
 
@@ -34,9 +35,9 @@ public class RegisterActivityTest {
         password="password";
         assertFalse(mActivityRule.getActivity().checkFieldsValidation(fullName,email,password, new Printer() {
             @Override
-            public void print(String message) {
-                Log.d(TAG, "testInvalidFullName: " + message);
-                assertEquals(message,"Full Name is required!");
+            public void print(int messageId) {
+                Log.d(TAG, "testInvalidFullName: " + messageId);
+                assertEquals(messageId, R.string.require_fulll_name);
             }
         }));
     }
@@ -47,9 +48,9 @@ public class RegisterActivityTest {
         password="password";
         assertFalse(mActivityRule.getActivity().checkFieldsValidation(fullName,email,password, new Printer() {
             @Override
-            public void print(String message) {
-                Log.d(TAG, "testInvalidEmail: " + message);
-                assertEquals(message,"Enter email address!");
+            public void print(int messageId) {
+                Log.d(TAG, "testInvalidEmail: " + messageId);
+                assertEquals(messageId,R.string.require_email);
             }
         }));
     }
@@ -60,9 +61,9 @@ public class RegisterActivityTest {
         password="";
         assertFalse(mActivityRule.getActivity().checkFieldsValidation(fullName,email,password, new Printer() {
             @Override
-            public void print(String message) {
-                Log.d(TAG, "testInvalidPassword: " + message);
-                assertEquals(message,"Enter password!");
+            public void print(int messageId) {
+                Log.d(TAG, "testInvalidPassword: " + messageId);
+                assertEquals(messageId,R.string.require_password);
             }
         }));
     }
@@ -73,9 +74,9 @@ public class RegisterActivityTest {
         password="12345";
         assertFalse(mActivityRule.getActivity().checkFieldsValidation(fullName,email,password, new Printer() {
             @Override
-            public void print(String message) {
-                Log.d(TAG, "testShortPassword: " + message);
-                assertEquals(message,"Password too short, enter minimum 6 characters!");
+            public void print(int messageId) {
+                Log.d(TAG, "testShortPassword: " + messageId);
+                assertEquals(messageId,R.string.warn_short_password);
             }
         }));
     }

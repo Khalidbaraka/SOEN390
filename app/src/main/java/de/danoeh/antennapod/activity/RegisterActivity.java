@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Printer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,8 +49,8 @@ public class RegisterActivity extends AppCompatActivity implements Printer {
         auth = FirebaseAuth.getInstance();
         printer = new Printer() {
             @Override
-            public void print(String message) {
-                Toast.makeText(getApplicationContext(),message, Toast.LENGTH_SHORT).show();
+            public void print(int messageId) {
+                Toast.makeText(getApplicationContext(),messageId, Toast.LENGTH_SHORT).show();
             }
         };
         btnRegister = (Button) findViewById(R.id.registerButton);
@@ -81,20 +80,20 @@ public class RegisterActivity extends AppCompatActivity implements Printer {
                 if(!checkFieldsValidation(fullName,email,password, printer)){
                     return;
                 }
+
                 progressBar.setVisibility(View.VISIBLE);
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                //Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
                                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                        Toast.makeText(RegisterActivity.this, "User with this email already exist.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, R.string.email_already_exists, Toast.LENGTH_SHORT).show();
                                     }
                                     //https://github.com/probelalkhan/GhostApp/tree/master/app/src/main/java/net/simplifiedcoding/ghostapp
                                 } else {
@@ -115,10 +114,10 @@ public class RegisterActivity extends AppCompatActivity implements Printer {
                                                                 if (task.isSuccessful()) {
                                                                     startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                                                     finish();
-                                                                    Toast.makeText(RegisterActivity.this, "Account registered correctly. Please check your email for verification. ",
+                                                                    Toast.makeText(RegisterActivity.this, R.string.register_success,
                                                                             Toast.LENGTH_SHORT).show();
                                                                 } else {
-                                                                    Toast.makeText(RegisterActivity.this, "Error registration failed." + task.getException(),
+                                                                    Toast.makeText(RegisterActivity.this, R.string.register_fail +" "+task.getException(),
                                                                             Toast.LENGTH_SHORT).show();
                                                                 }
                                                             }
@@ -148,21 +147,21 @@ public class RegisterActivity extends AppCompatActivity implements Printer {
     public boolean checkFieldsValidation(String fullName, String email, String password, Printer printer){
 
         if (fullName == null || fullName.length() == 0) {
-            printer.print("Full Name is required!");
+            printer.print(R.string.require_fulll_name);
             return false;
         }
         if (email == null || email.length() == 0) {
-            printer.print("Enter email address!");
+            printer.print(R.string.require_email);
             return false;
         }
 
         if (password == null || password.length() == 0) {
-            printer.print("Enter password!");
+            printer.print(R.string.require_password);
             return false;
         }
 
         if (password.length() < 6) {
-            printer.print("Password too short, enter minimum 6 characters!");
+            printer.print(R.string.warn_short_password);
             return false;
         }
         return true;
@@ -170,6 +169,6 @@ public class RegisterActivity extends AppCompatActivity implements Printer {
 
     //Required method override from interface printer.
     @Override
-    public void print(String message) {
+    public void print(int messageId) {
     }
 }
