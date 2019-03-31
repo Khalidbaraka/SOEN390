@@ -1,6 +1,7 @@
 package de.danoeh.antennapod.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,7 +36,7 @@ public class EditProfileFragment extends Fragment {
 
     private FirebaseAuth auth;
     private View editProfileView;
-    private EditText editFullName;
+    private EditText editFullName, editPassword;
     private Button submitBtn;
 
     public EditProfileFragment() {
@@ -53,19 +55,23 @@ public class EditProfileFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
 
-//        if (auth.getCurrentUser() == null) {
-//
-//            Toast.makeText(getActivity(), "Please log in first.  ",
-//                    Toast.LENGTH_SHORT).show();
-//            final MainActivity activity = (MainActivity) getActivity();
-//            //Replaces current Fragment with CategoriesListFragment
-//            activity.loadChildFragment(getTargetFragment());
-//        }
+        if (auth.getCurrentUser() == null) {
+
+            Toast.makeText(getActivity(), "Please log in first.  ",
+                    Toast.LENGTH_SHORT).show();
+
+            Fragment mFragment = new ProfilePageFragment();
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_view, mFragment )
+                    .commit();
+        }
 
         // Inflate the layout for this fragment
         editProfileView =  inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
         editFullName = (EditText) editProfileView.findViewById(R.id.edit_full_name);
+        editPassword = (EditText) editProfileView.findViewById(R.id.edit_password);
         submitBtn = (Button) editProfileView.findViewById(R.id.reset_password_btn);
 
         loadUserInformation();
@@ -76,9 +82,18 @@ public class EditProfileFragment extends Fragment {
 
                 editUserInformation();
 
-                final MainActivity activity = (MainActivity) getActivity();
-                //Replaces current Fragment with CategoriesListFragment
-                activity.loadChildFragment(new ProfilePageFragment());
+                // Release the keyboard after submit
+                InputMethodManager inputManager = (InputMethodManager)
+                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow((null == getActivity().getCurrentFocus()) ? null : getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+//                getFragmentManager().popBackStack();
+                Fragment mFragment = new ProfilePageFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, mFragment )
+                        .commit();
             }
         });
 
@@ -96,7 +111,7 @@ public class EditProfileFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
-                    editFullName.setText(user.getFullName());
+                    editFullName.setHint(user.getFullName());
                     System.out.println(user);
                 }
 
@@ -120,20 +135,40 @@ public class EditProfileFragment extends Fragment {
         String fullName = editFullName.getText().toString().trim();
 
         User updatedUser = new User(email, fullName);
+        String updatedPassword = editPassword.getText().toString().trim();
 
         if (currentUser != null) {
-            ref.child(auth.getCurrentUser().getUid()).setValue(updatedUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(), "Profile successfully updated.  ",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getActivity(), "Profile update failed." + task.getException(),
-                                Toast.LENGTH_SHORT).show();
+
+            if (editFullName.getText().toString().trim().length() > 0) {
+
+                ref.child(auth.getCurrentUser().getUid()).setValue(updatedUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Profile successfully updated.  ",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Profile update failed." + task.getException(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
+            }
+
+
+            if (editPassword.getText().toString().trim().length() > 0) {
+                currentUser.updatePassword(updatedPassword)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getActivity(), "Password is updated!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Failed to update password!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+            }
         }
     }
 

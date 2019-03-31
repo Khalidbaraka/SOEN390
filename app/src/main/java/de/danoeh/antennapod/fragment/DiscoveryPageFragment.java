@@ -55,19 +55,6 @@ public class DiscoveryPageFragment extends Fragment {
         Button categoriesButton = DiscoveryView.findViewById(R.id.categories_button);
 
         Button luckyBtn = DiscoveryView.findViewById(R.id.luckyBtn);
-
-        Button registerAndLoginButton = DiscoveryView.findViewById(R.id.register_and_login_main_layout_button);
-
-        Button logoutButton = DiscoveryView.findViewById(R.id.logout);
-
-        if (auth.getCurrentUser() != null) {
-            registerAndLoginButton.setVisibility(View.GONE);
-            logoutButton.setVisibility(View.VISIBLE);
-        }
-        if (auth.getCurrentUser() == null) {
-            registerAndLoginButton.setVisibility(View.VISIBLE);
-            logoutButton.setVisibility(View.GONE);
-        }
         
         luckyBtn.setOnClickListener(new View.OnClickListener () {
             @Override
@@ -116,33 +103,6 @@ public class DiscoveryPageFragment extends Fragment {
                 activity.loadChildFragment(myItunesSearchFragment);
             }
 
-        });
-
-        registerAndLoginButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                final MainActivity activity = (MainActivity) getActivity();
-                Intent intent = new Intent(getActivity(), RegisterAndLoginActivity.class);
-                activity.startActivity(intent);
-                activity.finish();
-
-            }
-        });
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(getContext(), "Successfully Logged Out", Toast.LENGTH_SHORT).show();
-
-                final MainActivity activity = (MainActivity) getActivity();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                activity.startActivity(intent);
-                activity.loadChildFragment(new DiscoveryPageFragment());
-            }
         });
 
 

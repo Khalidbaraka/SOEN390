@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="de.danoeh.antennapod.fragment.EditProfileFragment">
 
 
@@ -15,8 +16,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:textSize="14dp"
+            android:textSize="14sp"
+            android:layout_marginTop="@dimen/screen_percentage_10"
             android:text="@string/fullName"
+
             />
 
         <EditText
@@ -24,6 +27,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="@string/password"
+            android:layout_marginTop="@dimen/screen_percentage_10"
+            android:textSize="14sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/username_text_input_layout"
+            app:passwordToggleEnabled="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                />
+        </android.support.design.widget.TextInputLayout>
+
 
         <Button
             android:id="@+id/reset_password_btn"

@@ -107,8 +107,11 @@ public class ProfilePageFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getContext(), "Successfully Logged Out", Toast.LENGTH_SHORT).show();
 
-                final MainActivity activity = (MainActivity) getActivity();
-                activity.loadChildFragment(new DiscoveryPageFragment());
+                Fragment mFragment = new ProfilePageFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, mFragment )
+                        .commit();
             }
         });
 
