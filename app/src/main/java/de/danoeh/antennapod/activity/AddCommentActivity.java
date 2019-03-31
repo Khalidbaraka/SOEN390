@@ -80,8 +80,7 @@ public class AddCommentActivity extends Activity {
             newComment.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getApplicationContext(),"Item added",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(AddCommentActivity.this,CommentListActivity.class));
+                    Toast.makeText(getApplicationContext(), "Item added", Toast.LENGTH_LONG).show();
                     finish();
                 }
             });
