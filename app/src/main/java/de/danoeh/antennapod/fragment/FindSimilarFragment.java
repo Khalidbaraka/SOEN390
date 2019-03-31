@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -66,6 +67,7 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
             podcastURL = randomPodcastData.getString("similar_podcast",null);
         }
         getPodcastID(podcastURL);
+
         return mView;
 
     }
@@ -178,6 +180,8 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                ProgressBar progressBar = getView().findViewById(R.id.progbarLoading);
+                progressBar.setVisibility(View.GONE);
                 adapter = new SimilarPodcastAdapter(mImageURLs,mNames,mFeeds,getContext());
                 myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 myRecyclerView.setAdapter(adapter);
