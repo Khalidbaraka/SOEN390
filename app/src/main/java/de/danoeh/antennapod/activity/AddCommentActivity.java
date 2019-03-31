@@ -43,8 +43,6 @@ public class AddCommentActivity extends Activity {
 
         mPostDatabase= FirebaseDatabase.getInstance().getReference().child("Comment");
 
-//        mProgress= new ProgressDialog(this);
-
         mComment= (EditText) findViewById(R.id.commentContent);
         mSubmitButton= (Button) findViewById(R.id.submitComment);
 
@@ -59,48 +57,36 @@ public class AddCommentActivity extends Activity {
 
 
     }
-  //public String userid;
-    //    public String timestamp;
-    //    public String comment;
-    //    public String podcast;
+
 
     private void startPosting(){
 
-//        mProgress.setMessage("Posting to blog");
-//        mProgress.show();
-
         String content= mComment.getText().toString().trim();
         Log.d("im HERE!","im here");
+
         if(!TextUtils.isEmpty(content)){
+
             //start uplodaing
             Log.d("im inside if statment!","insdie if statement");
-                DatabaseReference newComment = mPostDatabase.push();
+
+            DatabaseReference newComment = mPostDatabase.push();
             Map<String, String> dataToSave= new HashMap<>();
-            dataToSave.put("userid",mAuth.getUid());
+            dataToSave.put("userid", mAuth.getUid());
+            dataToSave.put("userEmail", mUser.getEmail());
             dataToSave.put("comment", content);
-            dataToSave.put("timestamp",String.valueOf(java.lang.System.currentTimeMillis()));
-            dataToSave.put("podcast","podcast");
+            dataToSave.put("timestamp", String.valueOf(java.lang.System.currentTimeMillis()));
+            dataToSave.put("podcast", "podcast");
 
             newComment.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(),"Item added",Toast.LENGTH_LONG).show();
                     startActivity(new Intent(AddCommentActivity.this,CommentListActivity.class));
-
+                    finish();
                 }
             });
-//            Comment comment= new Comment("khalid", "CommentID","2019-03-29: 8:09",content,"podcastTitle");
-//            mPostDatabase.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                @Override
-//                public void onSuccess(Void aVoid) {
-//                    Toast.makeText(getApplicationContext(),"Item added",Toast.LENGTH_LONG).show();
-//                    startActivity(new Intent(AddCommentActivity.this,CommentListActivity.class));
-//                    Toast.makeText(getApplicationContext(),"going back to onlineFeedback Class",Toast.LENGTH_LONG).show();
-//
-////                    mProgress.dismiss();
-//                }
-//            });
-        }
 
+
+        }
     }
 }

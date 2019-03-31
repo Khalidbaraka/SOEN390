@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 public class Comment implements Serializable {
     public String userid;
+    public String userEmail;
     public String timestamp;
     public String comment;
     public String podcast;
 
+    //Do not remove default constructor
     public Comment() {
     }
 

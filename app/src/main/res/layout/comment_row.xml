@@ -10,7 +10,7 @@
         android:layout_width= "match_parent">
 
         <TextView
-            android:id="@+id/postTitleList"
+            android:id="@+id/commentTitleList"
             android:textSize="18sp"
             android:textStyle="bold"
             android:padding="10dp"
@@ -21,7 +21,7 @@
             />
 
         <TextView
-            android:id="@+id/timestamplist"
+            android:id="@+id/timestampList"
             android:textStyle="italic"
             android:padding="5dp"
             android:text="Date Created"

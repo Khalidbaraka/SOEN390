@@ -7,7 +7,7 @@
         app:showAsAction="always" />
 
 
-    <item android:id="@+id/action_singout"
+    <item android:id="@+id/action_signout"
         android:title="Sign Out"
         app:showAsAction="never" />
 
