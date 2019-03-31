@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.fragment.FeelingLuckyFragment;
-import de.danoeh.antennapod.model.RandomPodcast;
+import de.danoeh.antennapod.model.Podcast;
 
 @RunWith(AndroidJUnit4.class)
 public class FeelingLuckyUnitTests {
@@ -18,7 +18,7 @@ public class FeelingLuckyUnitTests {
 
     @Test
     public void getPodcastDetailsTest(){
-        RandomPodcast randomPodcast = new RandomPodcast();
+        Podcast randomPodcast = new Podcast();
         randomPodcast.setPodcastDescription("test");
         randomPodcast.setPodcastImage("yolo");
         randomPodcast.setPodcastPublisher("keke");
@@ -27,7 +27,7 @@ public class FeelingLuckyUnitTests {
         FeelingLuckyFragment f= new FeelingLuckyFragment();
         try{
 
-        RandomPodcast r1 = f.getPodcastDetails("image:yolo,podcast_title:yoyo, description:test,publisher:keke ");
+        Podcast r1 = f.getPodcastDetails("image:yolo,podcast_title:yoyo, description:test,publisher:keke ");
         assertNotNull(r1);
         assertEquals(randomPodcast.getPodcastImage(),r1.getPodcastImage());
         assertEquals(randomPodcast.getPodcastDescription(),r1.getPodcastDescription());
