@@ -56,15 +56,13 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         View mView = inflater.inflate(R.layout.fragment_find_similar, null);
 
          myRecyclerView = mView.findViewById(R.id.similar_recyclerView);
 
-        Bundle randomPodcastData = this.getArguments();
-        if (randomPodcastData != null && randomPodcastData.containsKey("similar_podcast")) {
-            podcastURL = randomPodcastData.getString("similar_podcast",null);
+        Bundle podcastData = this.getArguments();
+        if (podcastData != null && podcastData.containsKey("similar_podcast")) {
+            podcastURL = podcastData.getString("similar_podcast",null);
         }
         getPodcastID(podcastURL);
 

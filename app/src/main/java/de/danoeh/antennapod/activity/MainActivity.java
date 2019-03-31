@@ -63,6 +63,7 @@ import de.danoeh.antennapod.fragment.AddFeedFragment;
 import de.danoeh.antennapod.fragment.DownloadsFragment;
 import de.danoeh.antennapod.fragment.EpisodesFragment;
 import de.danoeh.antennapod.fragment.ExternalPlayerFragment;
+import de.danoeh.antennapod.fragment.FindSimilarFragment;
 import de.danoeh.antennapod.fragment.ItemlistFragment;
 import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
@@ -609,6 +610,13 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
                     }
                 };
                 markAllReadConfirmationDialog.createNewDialog().show();
+                return true;
+            case R.id.find_similar:
+                FindSimilarFragment fragment = new FindSimilarFragment();
+                Bundle args = new Bundle();
+                args.putString("similar_podcast", feed.getDownload_url());
+                fragment.setArguments(args);
+                this.loadChildFragment(fragment);
                 return true;
             case R.id.rename_item:
                 new RenameFeedDialog(this, feed).show();
