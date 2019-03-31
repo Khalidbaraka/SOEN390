@@ -36,19 +36,18 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
 
     public static final String TAG = "FindSimilarFragment";
     private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mFeeds = new ArrayList<>();
     private ArrayList<String> mImageURLs = new ArrayList<>();
+    private RecyclerView myRecyclerView;
+    private SimilarPodcastAdapter adapter;
 
-    private  String podcastURL = null;
-    private  String podcastID = null;
+    private String podcastURL = null;
+    private String podcastID = null;
+    private String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle randomPodcastData = this.getArguments();
-        if (randomPodcastData != null && randomPodcastData.containsKey("similar_podcast")) {
-            podcastURL = randomPodcastData.getString("similar_podcast",null);
-        }
-        getPodcastID(podcastURL);
 
     }
 
@@ -60,16 +59,17 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
 
         View mView = inflater.inflate(R.layout.fragment_find_similar, null);
 
-        RecyclerView myRecyclerView = mView.findViewById(R.id.similar_recyclerView);
-        SimilarPodcastAdapter adapter = new SimilarPodcastAdapter(mImageURLs,mNames,getContext());
+         myRecyclerView = mView.findViewById(R.id.similar_recyclerView);
 
-        myRecyclerView.setAdapter(adapter);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
+        Bundle randomPodcastData = this.getArguments();
+        if (randomPodcastData != null && randomPodcastData.containsKey("similar_podcast")) {
+            podcastURL = randomPodcastData.getString("similar_podcast",null);
+        }
+        getPodcastID(podcastURL);
         return mView;
 
     }
+
 
     public void onActivityCreated (Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -77,13 +77,10 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
 
     private void getPodcastID(String podcastURL){
 
-        String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
         String podURL = podcastURL;
         String similarPodcastURL = "https://listennotes.p.rapidapi.com/api/v1/podcasts";
 
         OkHttpClient client = new OkHttpClient();
-
-       // Request request = new Request.Builder().url(similarPodcastURL).addHeader("X-RapidAPI-Key",apiKey).build();
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -109,7 +106,6 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
                     String jsonData = response.body().string();
                     if (response.isSuccessful()) {
                         JSONObject podcastData = new JSONObject(jsonData);
-                        //JSONArray jsonArray = podcastData.getJSONArray("podcasts");
                         String podcastInfo = podcastData.getJSONArray("podcasts").getString(0);
                         JSONObject podcastData2 = new JSONObject(podcastInfo);
                         podcastID = podcastData2.getString("id");
@@ -128,23 +124,81 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
     }
 
     private void getSimilarPodcasts(String podcastID){
-        mImageURLs.add("https://d3sv2eduhewoas.cloudfront.net/channel/image/b7c71eae106646e8b1310e53bb2730c8.jpeg");
+
+         ArrayList<String> names = new ArrayList<>();
+         ArrayList<String> images = new ArrayList<>();
+        ArrayList<String> feeds = new ArrayList<>();
+
+        String similarPodcastURL = "https://listennotes.p.rapidapi.com/api/v1/podcasts/" +
+                podcastID + "/recommendations?safe_mode=1";
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(similarPodcastURL).addHeader("X-RapidAPI-Key",apiKey).build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                alertUser();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String jsonData = response.body().string();
+                    if (response.isSuccessful()) {
+                        JSONObject podcastData = new JSONObject(jsonData);
+                        JSONArray jsonArray = podcastData.getJSONArray("recommendations");
+                        for(int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String name = object.getString("title");
+                            String image = object.getString("image");
+                            String feed = object.getString("rss");
+                            names.add(name);
+                            images.add(image);
+                            feeds.add(feed);
+                            /*getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    names.add(name);
+                                    images.add(image);
+                                }
+                            });*/
+                        }
+                        setupRecycler(names,images,feeds);
+                    }
+                    else{
+                        alertUser();
+                    }
+                } catch (IOException e) {
+                    Log.e(TAG, "IO Exception caught: " , e);
+                } catch (JSONException e){
+                    Log.e(TAG, "JSON Exception caught: " , e);
+                }
+            }
+        });
+        //setupRecycler(mNames,mImageURLs);
+       /*mImageURLs = images;
+       mNames = names;*/
+
+     /*   mImageURLs.add("https://d3sv2eduhewoas.cloudfront.net/channel/image/b7c71eae106646e8b1310e53bb2730c8.jpeg");
         mNames.add("testing");
 
         mImageURLs.add("https://d3sv2eduhewoas.cloudfront.net/channel/image/b7c71eae106646e8b1310e53bb2730c8.jpeg");
-        mNames.add("testing");
+        mNames.add("testing");*/
     }
 
-    public Podcast getPodcastDetails(String jsonData) throws JSONException {
-        JSONObject podcastData = new JSONObject(jsonData);
-
-        Podcast randomPodcast = new Podcast();
-
-        randomPodcast.setPodcastImage(podcastData.getString("image"));
-        randomPodcast.setPodcastTitle(podcastData.getString("podcast_title"));
-        randomPodcast.setPodcastPublisher(podcastData.getString("publisher"));
-
-        return randomPodcast;
+    private void setupRecycler(ArrayList<String> mNames, ArrayList<String> mImageURLs,ArrayList<String> mFeeds) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter = new SimilarPodcastAdapter(mImageURLs,mNames,mFeeds,getContext());
+                myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                myRecyclerView.setAdapter(adapter);
+            }
+        });
     }
 
     private void alertUser() {

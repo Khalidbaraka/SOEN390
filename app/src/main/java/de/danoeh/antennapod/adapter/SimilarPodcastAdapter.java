@@ -1,7 +1,10 @@
 package de.danoeh.antennapod.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.activity.MainActivity;
+import de.danoeh.antennapod.activity.OnlineFeedViewActivity;
+import de.danoeh.antennapod.fragment.AddFeedFragment;
+import de.danoeh.antennapod.fragment.ItunesSearchFragment;
 
 import static java.security.AccessController.getContext;
 
@@ -24,11 +31,14 @@ public class SimilarPodcastAdapter extends RecyclerView.Adapter<SimilarPodcastAd
 
     private ArrayList<String> mImages =  new ArrayList<>();
     private ArrayList<String> mPodcastNames =  new ArrayList<>();
+    private ArrayList<String> mFeeds =  new ArrayList<>();
+    private Fragment addFragment = new AddFeedFragment();
     private Context mContext;
 
-    public SimilarPodcastAdapter(ArrayList<String> mImages, ArrayList<String> mPodcastNames, Context mContext) {
+    public SimilarPodcastAdapter(ArrayList<String> mImages, ArrayList<String> mPodcastNames, ArrayList<String> mFeeds, Context mContext) {
         this.mImages = mImages;
         this.mPodcastNames = mPodcastNames;
+        this.mFeeds = mFeeds;
         this.mContext = mContext;
     }
 
@@ -48,7 +58,17 @@ public class SimilarPodcastAdapter extends RecyclerView.Adapter<SimilarPodcastAd
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*AddFeedFragment fragment = new AddFeedFragment();
+                Bundle args = new Bundle();
+                args.putString("feedurl", "http://joeroganexp.joerogan.libsynpro.com/rss");
+                fragment.setArguments(args);
+                ((MainActivity)mContext).loadChildFragment(fragment);*/
+                //mContext.startActivity();
+                Intent intent = new Intent(mContext, OnlineFeedViewActivity.class);
+                intent.putExtra(OnlineFeedViewActivity.ARG_FEEDURL, mFeeds.get(position));
+                intent.putExtra(OnlineFeedViewActivity.ARG_TITLE, "iTunes");
 
+                mContext.startActivity(intent);
             }
         });
     }
