@@ -19,7 +19,46 @@
     <string name="itunes_categories" translate="false">iTunes Categories</string>
     <string name="itunes_podcast" translate="false">iTunes Podcast</string>
     <string name="categories" translate="false">Categories</string>
+    <string name="register_and_login" translate="false">Register and Login</string>
+    <string name="register_and_login_footer" translate="false">You can save and sync your subscription and history on all your devices</string>
+    <string name="register" translate="false">Register</string>
+    <string name="login" translate="false">Login</string>
+
+    <string name="registerButton" translate="false">Sign Up</string>
+    <string name="alreadHaveAccount" translate="false">Already have an account? Login</string>
+    <string name="loginButton" translate="false">Login</string>
+    <string name="DontHaveAccount" translate="false">Don\'t have an account? Sign Up</string>
+    <string name="fullName" translate="false">FULL NAME</string>
+    <string name="emailaddress" translate="false">EMAIL ADDRESS</string>
+    <string name="password" translate="false">PASSWORD</string>
+    <string name="logout_button" translate="false">Logout</string>
+
+    <string name="minimum_password" translate="false">The password is too short</string>
+    <string name="auth_failed" translate="false">Wrong Password</string>
+
+    <string name="forgot_password" translatable="false">Forgot Password?</string>
+    <string name="forgot_password_msg" translatable="false">Please enter your registered email, in order to send you the password reset instructions</string>
+    <string name="hint_email" translatable="false">Email</string>
+    <string name="btn_reset_password" translatable="false">Reset Password</string>
+    <string name="btn_back" translatable="false">Back</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_register_and_login">Authentication</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_forgot_password">Reset Password</string>
+    <string name="title_activity_register" translatable="false"> Register </string>
+
+    <string name="require_fulll_name" translatable="false">Full Name is required!</string>
+    <string name="require_email" translatable="false">Enter email address!</string>
+    <string name="require_password" translatable="false">Enter password!</string>
+    <string name="warn_short_password" translatable="false">Password too short, enter minimum 6 characters!</string>
+    <string name="email_already_exists" translatable="false">User with this email already exists</string>
+    <string name="register_success" translatable="false">Account registered correctly. Please check your email for verification.</string>
+    <string name="register_fail" translatable="false">Error registration failed.</string>
+    <string name="login_sucess" translatable="false">Successful Login</string>
+    <string name="login_unverified" translatable="false">Please Verify your Email Address</string>
+    <string name="reset_password_success" translatable="false">We have sent you instructions to reset your password!</string>
+    <string name="reset_password_fail" translatable="false">Failed to send reset email!</string>
+
 </resources>
