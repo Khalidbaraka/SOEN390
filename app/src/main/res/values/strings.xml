@@ -44,9 +44,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_register_and_login">RegisterAndLoginActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="title_activity_register_and_login">Authentication</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_forgot_password">Reset Password</string>
+    <string name="title_activity_register" translatable="false"> Register </string>
 
     <string name="require_fulll_name" translatable="false">Full Name is required!</string>
     <string name="require_email" translatable="false">Enter email address!</string>
@@ -57,5 +58,7 @@
     <string name="register_fail" translatable="false">Error registration failed.</string>
     <string name="login_sucess" translatable="false">Successful Login</string>
     <string name="login_unverified" translatable="false">Please Verify your Email Address</string>
+    <string name="reset_password_success" translatable="false">We have sent you instructions to reset your password!</string>
+    <string name="reset_password_fail" translatable="false">Failed to send reset email!</string>
 
 </resources>
