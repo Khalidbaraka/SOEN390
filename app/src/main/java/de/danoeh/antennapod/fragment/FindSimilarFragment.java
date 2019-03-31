@@ -159,13 +159,6 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
                             names.add(name);
                             images.add(image);
                             feeds.add(feed);
-                            /*getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    names.add(name);
-                                    images.add(image);
-                                }
-                            });*/
                         }
                         setupRecycler(names,images,feeds);
                     }
@@ -179,15 +172,6 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
                 }
             }
         });
-        //setupRecycler(mNames,mImageURLs);
-       /*mImageURLs = images;
-       mNames = names;*/
-
-     /*   mImageURLs.add("https://d3sv2eduhewoas.cloudfront.net/channel/image/b7c71eae106646e8b1310e53bb2730c8.jpeg");
-        mNames.add("testing");
-
-        mImageURLs.add("https://d3sv2eduhewoas.cloudfront.net/channel/image/b7c71eae106646e8b1310e53bb2730c8.jpeg");
-        mNames.add("testing");*/
     }
 
     private void setupRecycler(ArrayList<String> mNames, ArrayList<String> mImageURLs,ArrayList<String> mFeeds) {

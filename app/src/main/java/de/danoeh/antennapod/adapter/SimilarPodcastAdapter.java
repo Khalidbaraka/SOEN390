@@ -54,16 +54,10 @@ public class SimilarPodcastAdapter extends RecyclerView.Adapter<SimilarPodcastAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.podcastName.setText(mPodcastNames.get(position));
         Glide.with(mContext).asBitmap().load(mImages.get(position)).into(holder.podcastImage);
-        //Picasso.get().load("https://d3sv2eduhewoas.cloudfront.net/channel/image/b7c71eae106646e8b1310e53bb2730c8.jpeg").into(holder.podcastImage);
+
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*AddFeedFragment fragment = new AddFeedFragment();
-                Bundle args = new Bundle();
-                args.putString("feedurl", "http://joeroganexp.joerogan.libsynpro.com/rss");
-                fragment.setArguments(args);
-                ((MainActivity)mContext).loadChildFragment(fragment);*/
-                //mContext.startActivity();
                 Intent intent = new Intent(mContext, OnlineFeedViewActivity.class);
                 intent.putExtra(OnlineFeedViewActivity.ARG_FEEDURL, mFeeds.get(position));
                 intent.putExtra(OnlineFeedViewActivity.ARG_TITLE, "iTunes");
