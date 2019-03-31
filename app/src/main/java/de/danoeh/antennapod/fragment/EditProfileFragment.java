@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +39,8 @@ public class EditProfileFragment extends Fragment {
     private View editProfileView;
     private EditText editFullName, editPassword;
     private Button submitBtn;
+    private ProgressBar progressBar;
+
 
     public EditProfileFragment() {
         // Required empty public constructor
@@ -55,6 +58,7 @@ public class EditProfileFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
 
+        // Prevent the user access if he's not logged in
         if (auth.getCurrentUser() == null) {
 
             Toast.makeText(getActivity(), "Please log in first.  ",
@@ -73,7 +77,9 @@ public class EditProfileFragment extends Fragment {
         editFullName = (EditText) editProfileView.findViewById(R.id.edit_full_name);
         editPassword = (EditText) editProfileView.findViewById(R.id.edit_password);
         submitBtn = (Button) editProfileView.findViewById(R.id.reset_password_btn);
+        progressBar = (ProgressBar) editProfileView.findViewById(R.id.progressBar);
 
+        // Load current user information: full name
         loadUserInformation();
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,9 +113,11 @@ public class EditProfileFragment extends Fragment {
         DatabaseReference ref = database.getReference("users");
 
         if (currentUser != null) {
+            progressBar.setVisibility(View.VISIBLE);
             ref.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    progressBar.setVisibility(View.GONE);
                     User user = dataSnapshot.getValue(User.class);
                     editFullName.setHint(user.getFullName());
                     System.out.println(user);
@@ -140,10 +148,13 @@ public class EditProfileFragment extends Fragment {
         if (currentUser != null) {
 
             if (editFullName.getText().toString().trim().length() > 0) {
+                progressBar.setVisibility(View.VISIBLE);
 
                 ref.child(auth.getCurrentUser().getUid()).setValue(updatedUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        progressBar.setVisibility(View.GONE);
+
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity(), "Profile successfully updated.  ",
                                     Toast.LENGTH_SHORT).show();
@@ -156,11 +167,15 @@ public class EditProfileFragment extends Fragment {
             }
 
 
-            if (editPassword.getText().toString().trim().length() > 0) {
+            if (editPassword.getText().toString().trim().length() >= 6) {
+                progressBar.setVisibility(View.VISIBLE);
+
                 currentUser.updatePassword(updatedPassword)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            progressBar.setVisibility(View.GONE);
+
                             if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "Password is updated!", Toast.LENGTH_SHORT).show();
                             } else {
