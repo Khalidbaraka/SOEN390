@@ -113,7 +113,6 @@ public class EditProfileFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     User user = dataSnapshot.getValue(User.class);
                     editFullName.setHint(user.getFullName());
-                    System.out.println(user);
                 }
 
                 @Override

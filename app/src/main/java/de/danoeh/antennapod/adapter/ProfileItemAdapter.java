@@ -67,17 +67,7 @@ public class ProfileItemAdapter extends RecyclerView.Adapter<ProfileItemAdapter.
 
         holder.icon.setImageResource(currentItem.getImageResource());
         holder.title.setText(currentItem.getTitle());
-
-//        holder.cardView.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view){
-//
-//                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-//                EditProfileFragment editProfileFragment = new EditProfileFragment();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_view, editProfileFragment).addToBackStack(null).commit();
-//            }
-//        });
-
+        
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
