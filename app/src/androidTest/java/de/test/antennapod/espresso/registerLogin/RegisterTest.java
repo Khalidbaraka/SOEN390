@@ -144,33 +144,43 @@ public class RegisterTest {
 
         soloRegister.waitForView(android.R.id.list);
 
-        //--------Now in Main Activity ----------
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-
-        //Assert current activity ActionBar is "Authentication".
-        assertEquals("Discovery Page", getActionbarTitle());
-
-        //Checks button is there
-        onView(withId(R.id.logout)).check(matches(notNullValue()));
-
-        //Checks button name matches
-        onView(withId(R.id.logout)).check(matches(withText("Logout")));
-        assertEquals("Logout", solo.getString(R.string.logout_button));
-
         //Create User Based on Registered User
         user = FirebaseAuth.getInstance().getCurrentUser();
         solo.waitForView(android.R.id.list);
 
-        //Delete User Account of Registered User
-        deleteUser();
 
-        //Checks button is there after you register
-        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(notNullValue()));
+        //Successfully Registered
+        if(user != null)
+        {
+            //--------Now in Main Activity ----------
+            solo.waitForView(android.R.id.list);
+            solo.waitForView(android.R.id.list);
+            solo.waitForView(android.R.id.list);
+            solo.waitForView(android.R.id.list);
 
+            //Assert current activity ActionBar is "Authentication".
+            assertEquals("Discovery Page", getActionbarTitle());
 
+            //Checks button is there
+            onView(withId(R.id.logout)).check(matches(notNullValue()));
+
+            //Checks button name matches
+            onView(withId(R.id.logout)).check(matches(withText("Logout")));
+            assertEquals("Logout", solo.getString(R.string.logout_button));
+
+            //Delete User Account of Registered User
+            deleteUser();
+
+            //Checks button is there after you register
+            onView(withId(R.id.register_and_login_main_layout_button)).check(matches(notNullValue()));
+        }
+
+        //Not Successfully Registered
+        else {
+
+            //Assert current activity ActionBar is still "Register".
+            assertEquals(soloRegister.getString(R.string.title_activity_register), getActionbarTitleRegister());
+        }
     }
 
     private String getActionbarTitle() {
