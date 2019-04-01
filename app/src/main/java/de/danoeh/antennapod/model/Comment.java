@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Comment implements Serializable {
     public String userid;
-    public String userEmail;
+    public String useremail;
     public String timestamp;
     public String comment;
     public String podcast;
@@ -14,13 +14,13 @@ public class Comment implements Serializable {
     }
 
 
-    public Comment(String userid, String timestamp, String comment, String podcast) {
+    public Comment(String userid, String timestamp, String comment, String podcast, String useremail) {
 
         this.userid = userid;
         this.timestamp = timestamp;
         this.comment = comment;
         this.podcast=podcast;
-
+        this.useremail = useremail;
     }
 
     public String getUser() {

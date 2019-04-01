@@ -54,8 +54,6 @@ public class AddCommentActivity extends Activity {
                 startPosting();
             }
         });
-
-
     }
 
 
@@ -85,7 +83,7 @@ public class AddCommentActivity extends Activity {
                 }
             });
 
-
+            startActivity(new Intent(AddCommentActivity.this, CommentListActivity.class));
         }
     }
 }

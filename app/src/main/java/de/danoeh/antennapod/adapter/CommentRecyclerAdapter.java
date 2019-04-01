@@ -47,8 +47,6 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         String formattedDate = dateFormat.format(new Date(Long.valueOf(comment.getTimestamp())).getTime());
         //The formatted date looks like: Match 31st, 2019
         holder.timestamp.setText(formattedDate);
-
-
     }
 
     @Override
