@@ -54,7 +54,7 @@ public class ProfilePageTest {
 
     @Test
     public void testGoToProfilePage() {
-        // discovery page
+        // profile page
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         String currentPage = getActionbarTitle();
         if (currentPage.equals("Queue")){
