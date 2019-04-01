@@ -31,15 +31,14 @@ public class FindSmilarUnitTests {
     @Test
     public void getPodcastIDTest() throws Exception{
 
-        boolean pass = run();
+        boolean pass = runPodcastID();
        assertEquals(true,pass);
 
     }
 
-
-    public boolean run() throws Exception {
+    public boolean runPodcastID() throws Exception {
         String similarPodcastURL = "https://listennotes.p.rapidapi.com/api/v1/podcasts";
-         String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
+        String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
 
         OkHttpClient client = new OkHttpClient();
 
@@ -60,6 +59,34 @@ public class FindSmilarUnitTests {
         }else{ return false;}
 
     }
+
+    @Test
+    public void getSimilarPodcastsTest() throws Exception{
+
+        boolean pass = runSimilarPodcasts();
+        assertEquals(true,pass);
+    }
+
+    public boolean runSimilarPodcasts() throws Exception {
+
+        String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
+        String podcastID = "cba6cf06a87140bc9226efc8d530ed4d";
+        String similarPodcastURL = "https://listennotes.p.rapidapi.com/api/v1/podcasts/" +
+                podcastID + "/recommendations?safe_mode=1";
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(similarPodcastURL).addHeader("X-RapidAPI-Key",apiKey).build();
+
+        Response response = client.newCall(request).execute();
+        if(response.isSuccessful()){
+            {return true;}
+        }else{ return false;}
+
+    }
+
+
+
 
 
 
