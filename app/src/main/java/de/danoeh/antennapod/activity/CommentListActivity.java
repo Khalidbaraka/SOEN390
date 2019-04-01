@@ -84,6 +84,8 @@ public class CommentListActivity extends Activity {
                     startActivity(new Intent(CommentListActivity.this, DiscoveryPageFragment.class));
                     finish();
                 }
+            default:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
