@@ -41,10 +41,12 @@ repositories {
 
 buildscript {
     repositories {
+
         jcenter()
     }
     dependencies {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
+
     }
 }
 
@@ -171,6 +173,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
