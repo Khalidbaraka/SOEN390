@@ -93,13 +93,6 @@ public class EditProfileFragment extends Fragment {
                         getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
                 inputManager.hideSoftInputFromWindow((null == getActivity().getCurrentFocus()) ? null : getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-//                getFragmentManager().popBackStack();
-                Fragment mFragment = new ProfilePageFragment();
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, mFragment )
-                        .commit();
             }
         });
 
@@ -158,9 +151,11 @@ public class EditProfileFragment extends Fragment {
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity(), "Profile successfully updated.  ",
                                     Toast.LENGTH_SHORT).show();
+                            getFragmentManager().popBackStack();
                         } else {
                             Toast.makeText(getActivity(), "Profile update failed." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
+                            getFragmentManager().popBackStack();
                         }
                     }
                 });
@@ -178,8 +173,12 @@ public class EditProfileFragment extends Fragment {
 
                             if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "Password is updated!", Toast.LENGTH_SHORT).show();
+                                getFragmentManager().popBackStack();
+
                             } else {
                                 Toast.makeText(getActivity(), "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                getFragmentManager().popBackStack();
+
                             }
                         }
                     });
