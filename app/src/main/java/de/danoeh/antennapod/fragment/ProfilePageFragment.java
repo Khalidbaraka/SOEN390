@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,14 +65,14 @@ public class ProfilePageFragment extends Fragment {
         profileName = (TextView) profilePageView.findViewById(R.id.profile_name);
         profileEmail = (TextView) profilePageView.findViewById(R.id.profile_email);
 
-        if (auth.getCurrentUser() == null || !(auth.getCurrentUser().isEmailVerified())) {
+        if (auth.getCurrentUser() != null && (auth.getCurrentUser().isEmailVerified())) {
+            registerAndLoginBtn.setVisibility(View.GONE);
+            logoutBtn.setVisibility(View.VISIBLE);
+        } else {
             registerAndLoginBtn.setVisibility(View.VISIBLE);
             logoutBtn.setVisibility(View.GONE);
             profileName.setVisibility(View.GONE);
             profileEmail.setVisibility(View.GONE);
-        } else {
-            registerAndLoginBtn.setVisibility(View.GONE);
-            logoutBtn.setVisibility(View.VISIBLE);
         }
 
         loadUserInformation();
@@ -122,24 +123,22 @@ public class ProfilePageFragment extends Fragment {
     }
 
     private void loadUserInformation() {
-        auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
         final  FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users");
 
-        if (currentUser != null) {
+        if (currentUser != null && (currentUser.isEmailVerified())) {
             ref.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
                     profileName.setText(user.getFullName());
                     profileEmail.setText(user.getEmail());
-                    System.out.println(user);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
+                    Log.d(TAG,"The read failed: " + databaseError.getCode());
                 }
             });
 
