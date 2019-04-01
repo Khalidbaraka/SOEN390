@@ -64,13 +64,14 @@ public class CommentListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_list);
 
-        mComment= (EditText) findViewById(R.id.commentContent);
-        mSubmitButton= (Button) findViewById(R.id.submitComment);
+        mComment= (EditText) findViewById(R.id.commentContent_1);
+        mSubmitButton= (Button) findViewById(R.id.submitComment_1);
 
         mAuth = FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
 
         mDatabase= FirebaseDatabase.getInstance();
+        mPostDatabase= FirebaseDatabase.getInstance().getReference().child("Comment");
         mDatabaseReference= mDatabase.getReference().child("Comment");
         userReference= mDatabase.getReference().child("users");
         mDatabaseReference.keepSynced(true);
@@ -78,6 +79,7 @@ public class CommentListActivity extends Activity {
         commentList = new ArrayList<Comment>();
         userList= new ArrayList<>();
         Intent i = getIntent();
+
         targetPodcastTitle= i.getStringExtra("podcastTitle");
 
 
@@ -85,6 +87,7 @@ public class CommentListActivity extends Activity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentRecyclerAdapter= new CommentRecyclerAdapter(CommentListActivity.this,commentList);
+
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override

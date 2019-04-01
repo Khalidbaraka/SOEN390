@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/commentContent"
+        android:id="@+id/commentContent_1"
         android:layout_width="388dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
 
 
     <Button
-        android:id="@+id/submitComment"
+        android:id="@+id/submitComment_1"
         android:layout_width="410dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
@@ -54,7 +54,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentContent"
-        app:layout_constraintVertical_bias="0.027"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/commentContent_1"
+        app:layout_constraintVertical_bias="0.027" />
 </android.support.constraint.ConstraintLayout>
