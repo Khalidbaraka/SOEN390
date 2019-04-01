@@ -85,6 +85,7 @@ public class OnlineFeedViewActivity extends AppCompatActivity {
     public static final String ARG_FEEDURL = "arg.feedurl";
     // Optional argument: specify a title for the actionbar.
     public static final String ARG_TITLE = "title";
+    public String targetPodcast;
     private static final int RESULT_ERROR = 2;
     private static final String TAG = "OnlineFeedViewActivity";
     private static final int EVENTS = EventDistributor.FEED_LIST_UPDATE;
@@ -375,7 +376,7 @@ public class OnlineFeedViewActivity extends AppCompatActivity {
      * Called when feed parsed successfully.
      * This method is executed on the GUI thread.
      */
-    private void showFeedInformation(final Feed feed, Map<String, String> alternateFeedUrls) {
+    public void showFeedInformation(final Feed feed, Map<String, String> alternateFeedUrls) {
         setContentView(R.layout.listview_activity);
 
         this.feed = feed;
@@ -392,6 +393,10 @@ public class OnlineFeedViewActivity extends AppCompatActivity {
         TextView title = header.findViewById(R.id.txtvTitle);
         TextView author = header.findViewById(R.id.txtvAuthor);
         TextView description = header.findViewById(R.id.txtvDescription);
+        targetPodcast = feed.getTitle();
+        Toast.makeText(getApplicationContext(), "Title of selected Podcast: " + feed.getTitle(), Toast.LENGTH_LONG).show();
+
+
         Spinner spAlternateUrls = header.findViewById(R.id.spinnerAlternateUrls);
         Button viewComment= (Button) header.findViewById(R.id.viewCommentsBtn);
         subscribeButton = header.findViewById(R.id.butSubscribe);
@@ -437,7 +442,9 @@ public class OnlineFeedViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "PROCESSING",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(OnlineFeedViewActivity.this, CommentListActivity.class));
+                Intent intent= new Intent(OnlineFeedViewActivity.this, CommentListActivity.class);
+                intent.putExtra("podcastTitle", targetPodcast);
+                startActivity(intent);
             }
         });
 

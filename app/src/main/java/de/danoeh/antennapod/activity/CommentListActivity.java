@@ -13,6 +13,7 @@ import de.danoeh.antennapod.model.Comment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -39,6 +40,8 @@ public class CommentListActivity extends Activity {
     private CommentRecyclerAdapter commentRecyclerAdapter;
     private List<Comment> commentList;
 
+    public String targetPodcastTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,9 @@ public class CommentListActivity extends Activity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Intent i = getIntent();
+        targetPodcastTitle = i.getStringExtra("podcastTitle");
     }
 
     @Override
@@ -87,11 +93,17 @@ public class CommentListActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
+        Log.d("MyApp", "dorin-test");
+        Log.d("MyApp", targetPodcastTitle);
+
         mDatabaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Comment comment = dataSnapshot.getValue(Comment.class);
-                commentList.add(comment);
+                if(comment.getPodcast().equalsIgnoreCase(targetPodcastTitle))
+                {
+                    commentList.add(comment);
+                }
                 commentRecyclerAdapter = new CommentRecyclerAdapter(CommentListActivity.this, commentList);
                 recyclerView.setAdapter(commentRecyclerAdapter);
                 commentRecyclerAdapter.notifyDataSetChanged();

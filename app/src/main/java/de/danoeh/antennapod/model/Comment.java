@@ -54,4 +54,12 @@ public class Comment implements Serializable {
     public void setPodcast(String podcast) {
         this.podcast = podcast;
     }
+
+    public String getUseremail() {
+        return useremail;
+    }
+
+    public void setUseremail(String useremail) {
+        this.useremail = useremail;
+    }
 }
