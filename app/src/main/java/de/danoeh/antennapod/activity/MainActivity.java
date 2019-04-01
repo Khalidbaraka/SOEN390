@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.MobileAds;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
@@ -138,6 +139,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        MobileAds.initialize(this, "ca-app-pub-5690137487728526~9523253499");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.shadow).setVisibility(View.GONE);
