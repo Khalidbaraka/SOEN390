@@ -46,19 +46,42 @@
         <activity
             android:name=".activity.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".activity.LoginActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.LoginActivity" />
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".activity.RegisterAndLoginActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.RegisterAndLoginActivity" />
+        </activity>
         <activity android:name=".activity.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme"
-            />
+            android:parentActivityName=".activity.RegisterAndLoginActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.RegisterAndLoginActivity" />
+        </activity>
         <activity
             android:name=".activity.RegisterAndLoginActivity"
             android:label="@string/title_activity_register_and_login"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".activity.MainActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.car.notification.SmallIcon"
