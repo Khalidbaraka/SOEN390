@@ -40,7 +40,7 @@ public class CommentListActivity extends Activity {
     private CommentRecyclerAdapter commentRecyclerAdapter;
     private List<Comment> commentList;
 
-    public String targetPodcastTitle;
+    public static String targetPodcastTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +92,6 @@ public class CommentListActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        Log.d("MyApp", "dorin-test");
-        Log.d("MyApp", targetPodcastTitle);
 
         mDatabaseReference.addChildEventListener(new ChildEventListener() {
             @Override

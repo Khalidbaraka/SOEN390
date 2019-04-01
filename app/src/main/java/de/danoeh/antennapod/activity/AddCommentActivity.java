@@ -60,12 +60,10 @@ public class AddCommentActivity extends Activity {
     private void startPosting(){
 
         String content= mComment.getText().toString().trim();
-        Log.d("im HERE!","im here");
 
         if(!TextUtils.isEmpty(content)){
-
             //start uplodaing
-            Log.d("im inside if statment!","insdie if statement");
+
 
             DatabaseReference newComment = mPostDatabase.push();
             Map<String, String> dataToSave= new HashMap<>();
@@ -73,7 +71,7 @@ public class AddCommentActivity extends Activity {
             dataToSave.put("userEmail", mUser.getEmail());
             dataToSave.put("comment", content);
             dataToSave.put("timestamp", String.valueOf(java.lang.System.currentTimeMillis()));
-            dataToSave.put("podcast", "podcast");
+            dataToSave.put("podcast", CommentListActivity.targetPodcastTitle);
 
             newComment.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -82,8 +80,6 @@ public class AddCommentActivity extends Activity {
                     finish();
                 }
             });
-
-            startActivity(new Intent(AddCommentActivity.this, CommentListActivity.class));
         }
     }
 }
