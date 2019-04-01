@@ -88,6 +88,10 @@ public class CommentListActivity extends Activity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentRecyclerAdapter= new CommentRecyclerAdapter(CommentListActivity.this,commentList);
 
+        if(mAuth == null || mUser == null){
+            mSubmitButton.setVisibility(View.GONE);
+            mComment.setVisibility(View.GONE);
+        }
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +112,7 @@ public class CommentListActivity extends Activity {
             menu.findItem(R.id.action_signIn).setVisible(false);
         }else {
             menu.findItem(R.id.action_signout).setVisible(false);
+            menu.findItem(R.id.action_add).setVisible(false);
         }
         return super.onCreateOptionsMenu(menu);
     }
