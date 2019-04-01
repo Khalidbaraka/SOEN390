@@ -1,5 +1,5 @@
 package de.test.antennapod.espresso.registerLogin;
-/*
+
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
@@ -65,18 +65,18 @@ public class LoginTest {
     }
 
     @Test
-    public void test1GoFirstToDiscoveryPage() {
+    public void test1GoFirstToProfilePage() {
         solo = new Solo(getInstrumentation(), mActivityRule.getActivity());
         // queue page
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         String currentPage = getActionbarTitle();
-        if (("Discovery Page").equals(currentPage)){
-            assertEquals(solo.getString(R.string.discovery_page_label), getActionbarTitle());
+        if (("Profile Page").equals(currentPage)){
+            assertEquals(solo.getString(R.string.profile_page_label), getActionbarTitle());
 
         }else{
-            solo.clickOnText(solo.getString(R.string.discovery_page_label));
+            solo.clickOnText(solo.getString(R.string.profile_page_label));
             solo.waitForView(android.R.id.list);
-            assertEquals(solo.getString(R.string.discovery_page_label), getActionbarTitle());
+            assertEquals(solo.getString(R.string.profile_page_label), getActionbarTitle());
         }
     }
 
@@ -93,33 +93,32 @@ public class LoginTest {
             solo.waitForView(android.R.id.list);
 
             //Assert current activity ActionBar is "Authentication".
-            assertEquals("Discovery Page", getActionbarTitle());
+            assertEquals("Profile Page", getActionbarTitle());
 
             //Checks button is there
-            onView(withId(R.id.logout)).check(matches(notNullValue()));
+            onView(withId(R.id.profile_logout_btn)).check(matches(notNullValue()));
 
             //Checks button name matches
-            onView(withId(R.id.logout)).check(matches(withText("Logout")));
+            onView(withId(R.id.profile_logout_btn)).check(matches(withText("Logout")));
             assertEquals("Logout", solo.getString(R.string.logout_button));
 
-            //Press the Register And Login button in the Discovery Page
-            onView(withId(R.id.logout)).perform(click());
+            //Press the logout button in the Profile Page
+            onView(withId(R.id.profile_logout_btn)).perform(click());
 
             solo.waitForView(android.R.id.list);
             solo.waitForView(android.R.id.list);
 
         }
 
-
         //Checks button is there
-        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(notNullValue()));
+        onView(withId(R.id.profile_register_and_login_btn)).check(matches(notNullValue()));
 
         //Checks button name matches
-        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(withText("Register and Login")));
-        assertEquals("Register and Login", solo.getString(R.string.register_and_login));
+        onView(withId(R.id.profile_register_and_login_btn)).check(matches(withText("Authentication")));
+        assertEquals("Authentication", solo.getString(R.string.authentication));
 
-        //Press the Register And Login button in the Discovery Page
-        onView(withId(R.id.register_and_login_main_layout_button)).perform(click());
+        //Press the Authentication button in the profile Page
+        onView(withId(R.id.profile_register_and_login_btn)).perform(click());
 
         //--------Now in RegisterLogin Activity ----------
         soloRegisterAndLogin.waitForView(0);
@@ -134,7 +133,7 @@ public class LoginTest {
         onView(withId(R.id.login_main_layout_button)).check(matches(withText("Login")));
         assertEquals("Login", soloRegisterAndLogin.getString(R.string.login));
 
-        //Press the Register And Login button in the Discovery Page
+        //Press the Register And Login button in the Profile Page
         onView(withId(R.id.login_main_layout_button)).perform(click());
 
         //--------Now in Login Activity ----------
@@ -147,7 +146,7 @@ public class LoginTest {
         //Write user info in editTexts
         soloLogin.waitForView(0);
 
-        onView(withId(R.id.input_email_login)).perform(clearText(),typeText("tezu@businesssource.net"));
+        onView(withId(R.id.input_email_login)).perform(clearText(),typeText("aaaa"));
 
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.input_password_login)).perform(clearText(),typeText("password"));
@@ -161,7 +160,7 @@ public class LoginTest {
         onView(withId(R.id.btn_login)).check(matches(withText("Login")));
         assertEquals("Login", soloLogin.getString(R.string.login));
 
-        //Press the Register And Login button in the Discovery Page
+        //Press the Register And Login button in the Profile Page
         onView(withId(R.id.btn_login)).perform(click());
 
         solo.waitForView(android.R.id.list);
@@ -176,17 +175,17 @@ public class LoginTest {
             solo.waitForView(android.R.id.list);
 
             //Assert current activity ActionBar is "Authentication".
-            assertEquals("Discovery Page", getActionbarTitle());
+            assertEquals("Profile Page", getActionbarTitle());
 
             //Checks button is there
-            onView(withId(R.id.logout)).check(matches(notNullValue()));
+            onView(withId(R.id.profile_logout_btn)).check(matches(notNullValue()));
 
             //Checks button name matches
-            onView(withId(R.id.logout)).check(matches(withText("Logout")));
+            onView(withId(R.id.profile_logout_btn)).check(matches(withText("Logout")));
             assertEquals("Logout", solo.getString(R.string.logout_button));
 
-            //Press the Register And Login button in the Discovery Page
-            onView(withId(R.id.logout)).perform(click());
+            //Press the Register And Login button in the Profile Page
+            onView(withId(R.id.profile_logout_btn)).perform(click());
 
             solo.waitForView(0);
         }
@@ -210,4 +209,3 @@ public class LoginTest {
     }
 
 }
-*/

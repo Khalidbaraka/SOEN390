@@ -113,10 +113,10 @@ public class RegisterTest {
         onView(withId(R.id.profile_register_and_login_btn)).check(matches(notNullValue()));
 
         //Checks button name matches
-        onView(withId(R.id.profile_register_and_login_btn)).check(matches(withText("Authenticate")));
-        assertEquals("Authenticate", solo.getString(R.string.register_and_login));
+        onView(withId(R.id.profile_register_and_login_btn)).check(matches(withText("Authentication")));
+        assertEquals("Authentication", solo.getString(R.string.authentication));
 
-        //Press the Authenticate button in the profile Page
+        //Press the Authentication button in the profile Page
         onView(withId(R.id.profile_register_and_login_btn)).perform(click());
 
         //--------Now in RegisterLogin Activity ----------
@@ -132,7 +132,7 @@ public class RegisterTest {
         onView(withId(R.id.register_main_layout_button)).check(matches(withText("Register")));
         assertEquals("Register", soloRegisterAndLogin.getString(R.string.register));
 
-        //Press the Authenticate button in the Profile Page
+        //Press the Authentication button in the Profile Page
         onView(withId(R.id.register_main_layout_button)).perform(click());
 
         //--------Now in Register Activity ----------
@@ -150,7 +150,7 @@ public class RegisterTest {
 
 
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.emailRegister)).perform(clearText(),typeText("John.Doe.Soen390_01@mail.com"));
+        onView(withId(R.id.emailRegister)).perform(clearText(),typeText("John.Doe.Soen390_04@mail.com"));
 
 
         Espresso.closeSoftKeyboard();
@@ -166,7 +166,7 @@ public class RegisterTest {
         onView(withId(R.id.registerButton)).check(matches(withText("Sign Up")));
         assertEquals("Sign Up", soloRegister.getString(R.string.registerButton));
 
-        //Press the Authenticate button in the Profile Page
+        //Press the Authentication button in the Profile Page
         onView(withId(R.id.registerButton)).perform(click());
 
         soloRegister.waitForView(android.R.id.list);
@@ -177,7 +177,7 @@ public class RegisterTest {
 
 
         //Successfully Registered
-        if(user != null && user.isEmailVerified())
+        if(user != null)
         {
             //--------Now in Main Activity ----------
             solo.waitForView(android.R.id.list);
@@ -187,13 +187,6 @@ public class RegisterTest {
 
             //Assert current activity ActionBar is "Authentication".
             assertEquals("Profile Page", getActionbarTitle());
-
-            //Checks button is there
-            onView(withId(R.id.profile_logout_btn)).check(matches(notNullValue()));
-
-            //Checks button name matches
-            onView(withId(R.id.profile_logout_btn)).check(matches(withText("Logout")));
-            assertEquals("Logout", solo.getString(R.string.logout_button));
 
             //Delete User Account of Registered User
             deleteUser();

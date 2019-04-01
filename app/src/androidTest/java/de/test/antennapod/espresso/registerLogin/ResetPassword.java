@@ -32,7 +32,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 
-/*
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ResetPassword {
 
@@ -67,18 +67,18 @@ public class ResetPassword {
     }
 
     @Test
-    public void test1GoFirstToDiscoveryPage() {
+    public void test1GoFirstToProfilePage() {
         solo = new Solo(getInstrumentation(), mActivityRule.getActivity());
         // queue page
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         String currentPage = getActionbarTitle();
-        if (("Discovery Page").equals(currentPage)){
-            assertEquals(solo.getString(R.string.discovery_page_label), getActionbarTitle());
+        if (("Profile Page").equals(currentPage)){
+            assertEquals(solo.getString(R.string.profile_page_label), getActionbarTitle());
 
         }else{
-            solo.clickOnText(solo.getString(R.string.discovery_page_label));
+            solo.clickOnText(solo.getString(R.string.profile_page_label));
             solo.waitForView(android.R.id.list);
-            assertEquals(solo.getString(R.string.discovery_page_label), getActionbarTitle());
+            assertEquals(solo.getString(R.string.profile_page_label), getActionbarTitle());
         }
     }
 
@@ -95,17 +95,17 @@ public class ResetPassword {
             solo.waitForView(android.R.id.list);
 
             //Assert current activity ActionBar is "Authentication".
-            assertEquals("Discovery Page", getActionbarTitle());
+            assertEquals("Profile Page", getActionbarTitle());
 
             //Checks button is there
-            onView(withId(R.id.logout)).check(matches(notNullValue()));
+            onView(withId(R.id.profile_logout_btn)).check(matches(notNullValue()));
 
             //Checks button name matches
-            onView(withId(R.id.logout)).check(matches(withText("Logout")));
+            onView(withId(R.id.profile_logout_btn)).check(matches(withText("Logout")));
             assertEquals("Logout", solo.getString(R.string.logout_button));
 
-            //Press the Register And Login button in the Discovery Page
-            onView(withId(R.id.logout)).perform(click());
+            //Press the logout button in the Profile Page
+            onView(withId(R.id.profile_logout_btn)).perform(click());
 
             solo.waitForView(android.R.id.list);
             solo.waitForView(android.R.id.list);
@@ -113,14 +113,15 @@ public class ResetPassword {
         }
 
         //Checks button is there
-        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(notNullValue()));
+        onView(withId(R.id.profile_register_and_login_btn)).check(matches(notNullValue()));
 
         //Checks button name matches
-        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(withText("Register and Login")));
-        assertEquals("Register and Login", solo.getString(R.string.register_and_login));
+        onView(withId(R.id.profile_register_and_login_btn)).check(matches(withText("Authentication")));
+        assertEquals("Authentication", solo.getString(R.string.authentication));
 
-        //Press the Register And Login button in the Discovery Page
-        onView(withId(R.id.register_and_login_main_layout_button)).perform(click());
+        //Press the Authentication button in the profile Page
+        onView(withId(R.id.profile_register_and_login_btn)).perform(click());
+
 
         //--------Now in RegisterLogin Activity ----------
         soloRegisterAndLogin.waitForView(0);
@@ -206,7 +207,7 @@ public class ResetPassword {
             soloLogin.waitForView(android.R.id.list);
        // }
         //Not Successfully Reset Password
-      */
+
         /*
         else {
 
@@ -214,7 +215,7 @@ public class ResetPassword {
             assertEquals(soloForgotPassword.getString(R.string.title_activity_forgot_password), getActionbarTitleForgotPassword());
         }
         */
-/*
+
     }
 
     private String getActionbarTitle() {
@@ -234,4 +235,3 @@ public class ResetPassword {
     }
 
 }
-*/
