@@ -9,14 +9,21 @@ import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.adapter.CommentRecyclerAdapter;
 import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
 import de.danoeh.antennapod.model.Comment;
+import de.danoeh.antennapod.model.User;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -26,20 +33,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class CommentListActivity extends Activity {
 
+    private List<Comment> commentList;
+    private List<User> userList;
+
+    private EditText mComment;
+    private Button mSubmitButton;
+    private DatabaseReference mPostDatabase;
+
     private DatabaseReference mDatabaseReference;
+    private DatabaseReference userReference;
     private FirebaseDatabase mDatabase;
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
 
     private RecyclerView recyclerView;
     private CommentRecyclerAdapter commentRecyclerAdapter;
-    private List<Comment> commentList;
 
+//  public String podcastTitleFromOnlineFeed;
     public static String targetPodcastTitle;
 
     @Override
@@ -47,20 +64,37 @@ public class CommentListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_list);
 
+        mComment= (EditText) findViewById(R.id.commentContent);
+        mSubmitButton= (Button) findViewById(R.id.submitComment);
+
         mAuth = FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
 
         mDatabase= FirebaseDatabase.getInstance();
         mDatabaseReference= mDatabase.getReference().child("Comment");
+        userReference= mDatabase.getReference().child("users");
         mDatabaseReference.keepSynced(true);
 
         commentList = new ArrayList<Comment>();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        userList= new ArrayList<>();
+        Intent i = getIntent();
+        targetPodcastTitle= i.getStringExtra("podcastTitle");
+
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        commentRecyclerAdapter= new CommentRecyclerAdapter(CommentListActivity.this,commentList);
 
-        Intent i = getIntent();
-        targetPodcastTitle = i.getStringExtra("podcastTitle");
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //posting to our database
+                startPosting();
+            }
+        });
+
+
     }
 
     @Override
@@ -74,16 +108,21 @@ public class CommentListActivity extends Activity {
         switch (item.getItemId()){
 
             case R.id.action_add:
-                startActivity(new Intent(CommentListActivity.this, AddCommentActivity.class));
-                finish();
-                break;
-
-            case R.id.action_signout:
                 if(mUser != null && mAuth != null) {
-                    mAuth.signOut();
-                    startActivity(new Intent(CommentListActivity.this, DiscoveryPageFragment.class));
+                    Intent intent= new Intent(CommentListActivity.this, AddCommentActivity.class);
+                    intent.putExtra("podcastTitle",targetPodcastTitle);
+                    startActivity(intent);
                     finish();
                 }
+
+                break;
+
+//            case R.id.action_signout:
+//                if(mUser != null && mAuth != null) {
+//                    mAuth.signOut();
+//                    startActivity(new Intent(CommentListActivity.this, DiscoveryPageFragment.class));
+//                    finish();
+//                }
             default:
                 break;
         }
@@ -103,7 +142,7 @@ public class CommentListActivity extends Activity {
                 {
                     commentList.add(comment);
                 }
-                commentRecyclerAdapter = new CommentRecyclerAdapter(CommentListActivity.this, commentList);
+
                 recyclerView.setAdapter(commentRecyclerAdapter);
                 commentRecyclerAdapter.notifyDataSetChanged();
             }
@@ -129,4 +168,35 @@ public class CommentListActivity extends Activity {
             }
         });
     }
+
+
+    private void startPosting() {
+//        mProgress.setMessage("Posting to blog");
+//        mProgress.show();
+        String content = mComment.getText().toString().trim();
+
+        Log.d("PODCAST TITLE", targetPodcastTitle);
+        Log.d("im HERE!", "im here");
+        if (!TextUtils.isEmpty(content)) {
+            //start uplodaing
+            DatabaseReference newComment = mPostDatabase.push();
+            Map<String, String> dataToSave = new HashMap<>();
+            dataToSave.put("userid", mAuth.getUid());
+            dataToSave.put("comment", content);
+            dataToSave.put("timestamp", String.valueOf(java.lang.System.currentTimeMillis()));
+            dataToSave.put("podcast", targetPodcastTitle);
+            dataToSave.put("useremail", mUser.getEmail());
+
+            newComment.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(getApplicationContext(), "Item added", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            });
+
+        }
+
+    }
+
 }
