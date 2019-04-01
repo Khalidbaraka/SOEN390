@@ -64,6 +64,7 @@
     <string name="login_unverified" translatable="false">Please Verify your Email Address</string>
     <string name="reset_password_success" translatable="false">We have sent you instructions to reset your password!</string>
     <string name="reset_password_fail" translatable="false">Failed to send reset email!</string>
+    <string name="add_your_comment">Add your Comment</string>
 
 
 </resources>
