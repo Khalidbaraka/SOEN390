@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.model.Printer;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,12 +32,20 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset, btnResetPassword;
     private TextView textDontHaveAccount;
+    private Printer printer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         auth = FirebaseAuth.getInstance();
+
+        printer = new Printer() {
+            @Override
+            public void print(int messageId) {
+                Toast.makeText(getApplicationContext(), messageId, Toast.LENGTH_SHORT).show();
+            }
+        };
 
 
         if (auth.getCurrentUser() != null && auth.getCurrentUser().isEmailVerified()) {
@@ -78,13 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), R.string.require_email, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), R.string.require_password, Toast.LENGTH_SHORT).show();
+                if(!checkFieldsValidation(email,password,printer)){
                     return;
                 }
 
@@ -129,4 +133,37 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    public boolean checkFieldsValidation(String email, String password, Printer printer){
+        if (email == null || email.length() == 0) {
+            printer.print(R.string.require_email);
+            return false;
+        }
+
+        if(!email.contains("@")){
+            printer.print(R.string.email_bad_format);
+            return false;
+        }
+
+        if (password == null || password.length() == 0) {
+            printer.print(R.string.require_password);
+            return false;
+        }
+
+        return true;
+    }
+    //from https://stackoverflow.com/questions/15686555/display-back-button-on-action-bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                Intent intent = new Intent(this, RegisterAndLoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

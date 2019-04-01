@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +23,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.core.preferences.UserPreferences;
 import de.danoeh.antennapod.model.User;
+import de.danoeh.antennapod.model.Printer;
 
 
 //from https://www.androidhive.info/2016/06/android-getting-started-firebase-simple-login-registration-auth/
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements Printer {
 
     private static final String TAG = "Email Verification ";
     private EditText userEmail, userPassword, userFullName;
@@ -34,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private Printer printer;
     //For possible enhancement later.
     //private FirebaseUser user;
 
@@ -45,7 +47,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-
+        printer = new Printer() {
+            @Override
+            public void print(int messageId) {
+                Toast.makeText(getApplicationContext(),messageId, Toast.LENGTH_SHORT).show();
+            }
+        };
         btnRegister = (Button) findViewById(R.id.registerButton);
         userFullName = (EditText) findViewById(R.id.fullNameRegister);
         userEmail = (EditText) findViewById(R.id.emailRegister);
@@ -70,22 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = userPassword.getText().toString().trim();
                 String fullName = userFullName.getText().toString().trim();
 
-                if (TextUtils.isEmpty(fullName)) {
-                    Toast.makeText(getApplicationContext(), R.string.require_fulll_name, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), R.string.require_email, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), R.string.require_password, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), R.string.warn_short_password, Toast.LENGTH_SHORT).show();
+                if(!checkFieldsValidation(fullName,email,password, printer)){
                     return;
                 }
 
@@ -95,7 +87,6 @@ public class RegisterActivity extends AppCompatActivity {
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                //Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
@@ -151,5 +142,53 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+
+    public boolean checkFieldsValidation(String fullName, String email, String password, Printer printer){
+
+        if (fullName == null || fullName.length() == 0) {
+            printer.print(R.string.require_fulll_name);
+            return false;
+        }
+        if (email == null || email.length() == 0) {
+            printer.print(R.string.require_email);
+            return false;
+        }
+
+        if(!email.contains("@")){
+            printer.print(R.string.email_bad_format);
+            return false;
+        }
+
+        if (password == null || password.length() == 0) {
+            printer.print(R.string.require_password);
+            return false;
+        }
+
+        if (password.length() < 6) {
+            printer.print(R.string.warn_short_password);
+            return false;
+        }
+        return true;
+    }
+
+    //from https://stackoverflow.com/questions/15686555/display-back-button-on-action-bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                Intent intent = new Intent(this, RegisterAndLoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    //Required method override from interface printer.
+    @Override
+    public void print(int messageId) {
     }
 }

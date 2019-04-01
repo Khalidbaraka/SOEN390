@@ -50,6 +50,7 @@
     <string name="title_activity_register" translatable="false"> Register </string>
 
     <string name="require_fulll_name" translatable="false">Full Name is required!</string>
+    <string name="email_bad_format" translatable="false">Wrong email format!. Your email should contain "@"</string>
     <string name="require_email" translatable="false">Enter email address!</string>
     <string name="require_password" translatable="false">Enter password!</string>
     <string name="warn_short_password" translatable="false">Password too short, enter minimum 6 characters!</string>

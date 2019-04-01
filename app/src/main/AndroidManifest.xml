@@ -42,19 +42,42 @@
         <activity
             android:name=".activity.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".activity.LoginActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.LoginActivity" />
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".activity.RegisterAndLoginActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.RegisterAndLoginActivity" />
+        </activity>
         <activity android:name=".activity.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme"
-            />
+            android:parentActivityName=".activity.RegisterAndLoginActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.RegisterAndLoginActivity" />
+        </activity>
         <activity
             android:name=".activity.RegisterAndLoginActivity"
             android:label="@string/title_activity_register_and_login"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".activity.MainActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.car.notification.SmallIcon"
@@ -62,6 +85,11 @@
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAI3a05VToCTlqBymJrbFGaKQMvF-bBAuLsOdavBA" />
+
+        <!-- AdMob App ID: ca-app-pub-5690137487728526~9523253499 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544/6300978111"/>
 
         <activity
             android:name=".activity.SplashActivity"
