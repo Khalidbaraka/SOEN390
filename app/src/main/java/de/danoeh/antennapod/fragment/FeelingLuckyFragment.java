@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import de.danoeh.antennapod.activity.MainActivity;
-import de.danoeh.antennapod.model.RandomPodcast;
+import de.danoeh.antennapod.model.Podcast;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -36,7 +36,7 @@ import de.danoeh.antennapod.R;
 public class FeelingLuckyFragment extends android.support.v4.app.Fragment {
 
     public static final String TAG = "FeelingLuckyFragment";
-    private RandomPodcast randomPodcast;
+    private Podcast randomPodcast;
 
     public static String podcast_title;
     public static String podcast_publisher;
@@ -135,10 +135,10 @@ public class FeelingLuckyFragment extends android.support.v4.app.Fragment {
         });
     }
 
-    public RandomPodcast getPodcastDetails(String jsonData) throws JSONException {
+    public Podcast getPodcastDetails(String jsonData) throws JSONException {
         JSONObject podcastData = new JSONObject(jsonData);
 
-        RandomPodcast randomPodcast = new RandomPodcast();
+        Podcast randomPodcast = new Podcast();
 
         randomPodcast.setPodcastImage(podcastData.getString("image"));
         randomPodcast.setPodcastTitle(podcastData.getString("podcast_title"));
