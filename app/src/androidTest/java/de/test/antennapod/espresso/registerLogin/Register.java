@@ -70,7 +70,6 @@ public class Register {
         //Delete Registered email
     }
 
-
     @Test
     public void test1GoFirstToDiscoveryPage() {
         solo = new Solo(getInstrumentation(), mActivityRule.getActivity());
@@ -87,7 +86,102 @@ public class Register {
         }
     }
 
-    
+    @Test
+    public void test2RegisterTest() {
+
+        //Checks button is there
+        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(notNullValue()));
+
+        //Checks button name matches
+        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(withText("Register and Login")));
+        assertEquals("Register and Login", solo.getString(R.string.register_and_login));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.register_and_login_main_layout_button)).perform(click());
+
+        //--------Now in RegisterLogin Activity ----------
+        soloRegisterAndLogin.waitForView(0);
+
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals(soloRegisterAndLogin.getString(R.string.title_activity_register_and_login), getActionbarTitleRegisterLogin());
+
+        //Checks button / EditText is there
+        onView(withId(R.id.register_main_layout_button)).check(matches(notNullValue()));
+
+        //Checks button / EditText name matches
+        onView(withId(R.id.register_main_layout_button)).check(matches(withText("Register")));
+        assertEquals("Register", soloRegisterAndLogin.getString(R.string.register));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.register_main_layout_button)).perform(click());
+
+        //--------Now in Register Activity ----------
+        soloRegister.waitForView(0);
+        Espresso.closeSoftKeyboard();
+
+        //Assert current activity ActionBar is "Register".
+        assertEquals(soloRegister.getString(R.string.title_activity_register), getActionbarTitleRegister());
+
+
+        //Write user info in editTexts
+        soloRegister.waitForView(0);
+
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.fullNameRegister)).perform(clearText(),typeText("John Doe"));
+
+
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.emailRegister)).perform(clearText(),typeText("John.Doe.Soen390_16@mail.com"));
+
+
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.passwordRegister)).perform(clearText(),typeText("password"));
+
+
+        Espresso.closeSoftKeyboard();
+
+        //Checks button / EditText is there
+        onView(withId(R.id.registerButton)).check(matches(notNullValue()));
+
+        //Checks button / EditText name matches
+        onView(withId(R.id.registerButton)).check(matches(withText("Sign Up")));
+        assertEquals("Sign Up", soloRegister.getString(R.string.registerButton));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.registerButton)).perform(click());
+
+        //--------Now in Main Activity ----------
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals("Discovery Page", getActionbarTitle());
+
+        //Checks button is there
+        onView(withId(R.id.logout)).check(matches(notNullValue()));
+
+        //Checks button name matches
+        onView(withId(R.id.logout)).check(matches(withText("Logout")));
+        assertEquals("Logout", solo.getString(R.string.logout_button));
+
+        //Create User Based on Registered User
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        solo.waitForView(android.R.id.list);
+
+        //Delete User Account of Registered User
+        deleteUser();
+        solo.waitForView(android.R.id.list);
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.logout)).perform(click());
+
+        solo.waitForView(0);
+
+        //Verify toast logout here.
+    }
 
 
     private String getActionbarTitle() {
