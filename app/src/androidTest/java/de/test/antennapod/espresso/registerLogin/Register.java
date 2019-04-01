@@ -261,7 +261,81 @@ public class Register {
         solo.waitForView(0);
     }
 
+    @Test
+    public void test4SwitchBetweenLoginRegister() {
 
+        //Checks button is there
+        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(notNullValue()));
+
+        //Checks button name matches
+        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(withText("Register and Login")));
+        assertEquals("Register and Login", solo.getString(R.string.register_and_login));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.register_and_login_main_layout_button)).perform(click());
+
+        //--------Now in RegisterLogin Activity ----------
+        soloRegisterAndLogin.waitForView(0);
+
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals(soloRegisterAndLogin.getString(R.string.title_activity_register_and_login), getActionbarTitleRegisterLogin());
+
+        //Checks button / EditText is there
+        onView(withId(R.id.login_main_layout_button)).check(matches(notNullValue()));
+
+        //Checks button / EditText name matches
+        onView(withId(R.id.login_main_layout_button)).check(matches(withText("Login")));
+        assertEquals("Login", soloRegisterAndLogin.getString(R.string.login));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.login_main_layout_button)).perform(click());
+
+        //--------Now in Login Activity ----------
+        soloLogin.waitForView(0);
+        Espresso.closeSoftKeyboard();
+
+        //Assert current activity ActionBar is "Register".
+        assertEquals(soloLogin.getString(R.string.title_activity_login), getActionbarTitleLogin());
+
+        //Checks button / EditText is there
+        onView(withId(R.id.dontHaveAccount)).check(matches(notNullValue()));
+
+        //Checks button / EditText name matches
+        onView(withId(R.id.dontHaveAccount)).check(matches(withText("Don't have an account? Sign Up")));
+        assertEquals("Don't have an account? Sign Up", soloLogin.getString(R.string.DontHaveAccount));
+
+        soloLogin.waitForView(0);
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.dontHaveAccount)).perform(click());
+
+        //--------Now in Register Activity ----------
+        soloRegister.waitForView(0);
+        Espresso.closeSoftKeyboard();
+
+        //Assert current activity ActionBar is "Register".
+        assertEquals(soloRegister.getString(R.string.title_activity_register), getActionbarTitleRegister());
+
+        //Checks button / EditText is there
+        onView(withId(R.id.alreadHaveAccount)).check(matches(notNullValue()));
+
+        //Checks button / EditText name matches
+        onView(withId(R.id.alreadHaveAccount)).check(matches(withText("Already have an account? Login")));
+        assertEquals("Already have an account? Login", soloRegister.getString(R.string.alreadHaveAccount));
+
+        soloRegister.waitForView(0);
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.alreadHaveAccount)).perform(click());
+
+        //--------Now back in Login Activity ----------
+        soloLogin.waitForView(0);
+        Espresso.closeSoftKeyboard();
+
+        //Assert current activity ActionBar is "Register".
+        assertEquals(soloLogin.getString(R.string.title_activity_login), getActionbarTitleLogin());
+        soloLogin.waitForView(0);
+    }
 
     private String getActionbarTitle() {
         return ((MainActivity) solo.getCurrentActivity()).getSupportActionBar().getTitle().toString();
