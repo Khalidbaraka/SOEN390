@@ -162,7 +162,7 @@ public class EditProfileFragment extends Fragment {
             }
 
 
-            if (editPassword.getText().toString().trim().length() >= 6) {
+            else if (editPassword.getText().toString().trim().length() >= 6) {
                 progressBar.setVisibility(View.VISIBLE);
 
                 currentUser.updatePassword(updatedPassword)
@@ -182,6 +182,12 @@ public class EditProfileFragment extends Fragment {
                             }
                         }
                     });
+            }
+
+            else {
+                Toast.makeText(getActivity(), "No input. Returning..  ",
+                        Toast.LENGTH_SHORT).show();
+                getFragmentManager().popBackStack();
             }
         }
     }

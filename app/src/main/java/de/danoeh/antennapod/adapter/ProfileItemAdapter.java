@@ -89,16 +89,12 @@ public class ProfileItemAdapter extends RecyclerView.Adapter<ProfileItemAdapter.
                     case 0:
                         activity = (AppCompatActivity) view.getContext();
                         EditProfileFragment editFragment = new EditProfileFragment();
-                        //activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_view, editFragment).addToBackStack("editFragment").commit();
-                        activity.getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.main_view, editFragment)
-                                .addToBackStack("editFragment")
-                                .commit();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_view, editFragment).addToBackStack(null).commit();
                         break;
                     case 1:
                         activity = (AppCompatActivity) view.getContext();
                         MyCommentsFragment myCommentFragment = new MyCommentsFragment();
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_view, myCommentFragment).addToBackStack("myCommentFragment").commit();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_view, myCommentFragment).addToBackStack(null).commit();
                         break;
                 }
 
