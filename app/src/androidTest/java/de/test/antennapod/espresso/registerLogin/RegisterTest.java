@@ -82,6 +82,33 @@ public class RegisterTest {
     @Test
     public void test2RegisterTest() {
 
+        //Create User Based on Registered User
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        solo.waitForView(android.R.id.list);
+
+        //if user is already logged in, then start by logging out
+        if(user != null && user.isEmailVerified())
+        {
+            solo.waitForView(android.R.id.list);
+
+            //Assert current activity ActionBar is "Authentication".
+            assertEquals("Discovery Page", getActionbarTitle());
+
+            //Checks button is there
+            onView(withId(R.id.logout)).check(matches(notNullValue()));
+
+            //Checks button name matches
+            onView(withId(R.id.logout)).check(matches(withText("Logout")));
+            assertEquals("Logout", solo.getString(R.string.logout_button));
+
+            //Press the Register And Login button in the Discovery Page
+            onView(withId(R.id.logout)).perform(click());
+
+            solo.waitForView(android.R.id.list);
+            solo.waitForView(android.R.id.list);
+
+        }
+
         //Checks button is there
         onView(withId(R.id.register_and_login_main_layout_button)).check(matches(notNullValue()));
 
@@ -150,7 +177,7 @@ public class RegisterTest {
 
 
         //Successfully Registered
-        if(user != null)
+        if(user != null && user.isEmailVerified())
         {
             //--------Now in Main Activity ----------
             solo.waitForView(android.R.id.list);

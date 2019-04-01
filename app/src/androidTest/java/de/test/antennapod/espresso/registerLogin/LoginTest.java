@@ -81,7 +81,7 @@ public class LoginTest {
     }
 
     @Test
-    public void test3LoginTest() {
+    public void test2LoginTest() {
 
         //Create User Based on Registered User
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -207,11 +207,6 @@ public class LoginTest {
 
     private String getActionbarTitleLogin() {
         return ((LoginActivity) soloLogin.getCurrentActivity()).getSupportActionBar().getTitle().toString();
-    }
-
-    private void deleteUser() {
-        FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).removeValue();
-        user.delete();
     }
 
 }
