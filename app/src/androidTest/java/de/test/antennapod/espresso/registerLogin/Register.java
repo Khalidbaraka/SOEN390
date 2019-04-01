@@ -183,6 +183,85 @@ public class Register {
         //Verify toast logout here.
     }
 
+    @Test
+    public void test3LoginTest() {
+
+        //Checks button is there
+        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(notNullValue()));
+
+        //Checks button name matches
+        onView(withId(R.id.register_and_login_main_layout_button)).check(matches(withText("Register and Login")));
+        assertEquals("Register and Login", solo.getString(R.string.register_and_login));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.register_and_login_main_layout_button)).perform(click());
+
+        //--------Now in RegisterLogin Activity ----------
+        soloRegisterAndLogin.waitForView(0);
+
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals(soloRegisterAndLogin.getString(R.string.title_activity_register_and_login), getActionbarTitleRegisterLogin());
+
+        //Checks button / EditText is there
+        onView(withId(R.id.login_main_layout_button)).check(matches(notNullValue()));
+
+        //Checks button / EditText name matches
+        onView(withId(R.id.login_main_layout_button)).check(matches(withText("Login")));
+        assertEquals("Login", soloRegisterAndLogin.getString(R.string.login));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.login_main_layout_button)).perform(click());
+
+        //--------Now in Login Activity ----------
+        soloLogin.waitForView(0);
+        Espresso.closeSoftKeyboard();
+
+        //Assert current activity ActionBar is "Register".
+        assertEquals(soloLogin.getString(R.string.title_activity_login), getActionbarTitleLogin());
+
+        //Write user info in editTexts
+        soloLogin.waitForView(0);
+
+        onView(withId(R.id.input_email_login)).perform(clearText(),typeText("tezu@businesssource.net"));
+
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.input_password_login)).perform(clearText(),typeText("password"));
+
+        Espresso.closeSoftKeyboard();
+
+        //Checks button / EditText is there
+        onView(withId(R.id.btn_login)).check(matches(notNullValue()));
+
+        //Checks button / EditText name matches
+        onView(withId(R.id.btn_login)).check(matches(withText("Login")));
+        assertEquals("Login", soloLogin.getString(R.string.login));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.btn_login)).perform(click());
+
+        //--------Now in Main Activity ----------
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals("Discovery Page", getActionbarTitle());
+
+        //Checks button is there
+        onView(withId(R.id.logout)).check(matches(notNullValue()));
+
+        //Checks button name matches
+        onView(withId(R.id.logout)).check(matches(withText("Logout")));
+        assertEquals("Logout", solo.getString(R.string.logout_button));
+
+        //Press the Register And Login button in the Discovery Page
+        onView(withId(R.id.logout)).perform(click());
+
+        solo.waitForView(0);
+    }
+
+
 
     private String getActionbarTitle() {
         return ((MainActivity) solo.getCurrentActivity()).getSupportActionBar().getTitle().toString();
