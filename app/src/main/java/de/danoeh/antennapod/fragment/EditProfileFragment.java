@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,9 @@ import de.danoeh.antennapod.model.User;
  */
 public class EditProfileFragment extends Fragment {
 
+    public static final String TAG = "EditProfileFragment";
+
+
     private FirebaseAuth auth;
     private View editProfileView;
     private EditText editFullName, editPassword;
@@ -56,8 +60,9 @@ public class EditProfileFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
 
         // Prevent the user access if he's not logged in
-        if (auth.getCurrentUser() == null) {
-
+        if (auth.getCurrentUser() != null && auth.getCurrentUser().isEmailVerified()) {
+            // Continue
+        } else {
             Toast.makeText(getActivity(), "Please log in first.  ",
                     Toast.LENGTH_SHORT).show();
 
@@ -97,12 +102,11 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void loadUserInformation() {
-        auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users");
 
-        if (currentUser != null) {
+        if (currentUser != null && currentUser.isEmailVerified()) {
             progressBar.setVisibility(View.VISIBLE);
             ref.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -114,7 +118,7 @@ public class EditProfileFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
+                    Log.d(TAG,"The read failed: " + databaseError.getCode());
                 }
             });
 
@@ -122,7 +126,6 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void editUserInformation() {
-        auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users");
@@ -134,7 +137,7 @@ public class EditProfileFragment extends Fragment {
         User updatedUser = new User(email, fullName);
         String updatedPassword = editPassword.getText().toString().trim();
 
-        if (currentUser != null) {
+        if (currentUser != null && currentUser.isEmailVerified()) {
 
             if (editFullName.getText().toString().trim().length() > 0) {
                 progressBar.setVisibility(View.VISIBLE);
