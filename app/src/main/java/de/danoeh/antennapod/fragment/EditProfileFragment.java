@@ -2,7 +2,6 @@ package de.danoeh.antennapod.fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -26,8 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import de.danoeh.antennapod.R;
-import de.danoeh.antennapod.activity.MainActivity;
-import de.danoeh.antennapod.activity.RegisterActivity;
 import de.danoeh.antennapod.model.User;
 
 /**

@@ -1,6 +1,5 @@
 package de.danoeh.antennapod.adapter;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,7 +65,7 @@ public class ProfileItemAdapter extends RecyclerView.Adapter<ProfileItemAdapter.
 
         holder.icon.setImageResource(currentItem.getImageResource());
         holder.title.setText(currentItem.getTitle());
-        
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +83,8 @@ public class ProfileItemAdapter extends RecyclerView.Adapter<ProfileItemAdapter.
                         activity = (AppCompatActivity) view.getContext();
                         MyCommentsFragment myCommentFragment = new MyCommentsFragment();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_view, myCommentFragment).addToBackStack(null).commit();
+                        break;
+                    default:
                         break;
                 }
 
