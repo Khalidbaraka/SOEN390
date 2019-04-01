@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import de.danoeh.antennapod.R;
-import de.danoeh.antennapod.activity.LoginActivity;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.activity.RegisterAndLoginActivity;
 import de.danoeh.antennapod.adapter.ProfileItemAdapter;
@@ -65,7 +64,7 @@ public class ProfilePageFragment extends Fragment {
         profileName = (TextView) profilePageView.findViewById(R.id.profile_name);
         profileEmail = (TextView) profilePageView.findViewById(R.id.profile_email);
 
-        if (auth.getCurrentUser() == null) {
+        if (auth.getCurrentUser() == null || !(auth.getCurrentUser().isEmailVerified())) {
             registerAndLoginBtn.setVisibility(View.VISIBLE);
             logoutBtn.setVisibility(View.GONE);
             profileName.setVisibility(View.GONE);

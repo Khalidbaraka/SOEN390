@@ -10,9 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
-import de.danoeh.antennapod.activity.RegisterAndLoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import android.widget.Toast;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 import android.os.Bundle;
@@ -33,7 +33,7 @@ import static android.view.View.GONE;
 
 public class DiscoveryPageFragment extends Fragment {
 
-
+    private AdView mAdView;
     private View DiscoveryView;
     private TextView txtHome;
     public static final String TAG = "DiscoveryPageFragment";
@@ -50,7 +50,15 @@ public class DiscoveryPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         auth = FirebaseAuth.getInstance();
 
+
+
         DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
+
+        mAdView = DiscoveryView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
 
         Button categoriesButton = DiscoveryView.findViewById(R.id.categories_button);
 

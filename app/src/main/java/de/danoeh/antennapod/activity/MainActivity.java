@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.MobileAds;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
@@ -63,6 +64,7 @@ import de.danoeh.antennapod.fragment.AddFeedFragment;
 import de.danoeh.antennapod.fragment.DownloadsFragment;
 import de.danoeh.antennapod.fragment.EpisodesFragment;
 import de.danoeh.antennapod.fragment.ExternalPlayerFragment;
+import de.danoeh.antennapod.fragment.FindSimilarFragment;
 import de.danoeh.antennapod.fragment.ItemlistFragment;
 import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
@@ -139,6 +141,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        MobileAds.initialize(this, "ca-app-pub-5690137487728526~9523253499");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.shadow).setVisibility(View.GONE);
@@ -615,6 +620,13 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
                     }
                 };
                 markAllReadConfirmationDialog.createNewDialog().show();
+                return true;
+            case R.id.find_similar:
+                FindSimilarFragment fragment = new FindSimilarFragment();
+                Bundle args = new Bundle();
+                args.putString("similar_podcast", feed.getDownload_url());
+                fragment.setArguments(args);
+                this.loadChildFragment(fragment);
                 return true;
             case R.id.rename_item:
                 new RenameFeedDialog(this, feed).show();

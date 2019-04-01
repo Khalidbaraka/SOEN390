@@ -1,5 +1,6 @@
 package de.danoeh.antennapod.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.model.Printer;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -25,6 +28,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button btnReset, btnBack;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
+    private Printer printer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
+        printer = new Printer() {
+            @Override
+            public void print(int messageId) {
+                Toast.makeText(getApplicationContext(), messageId, Toast.LENGTH_SHORT).show();
+            }
+        };
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +61,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 String email = inputEmail.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+                if (!checkFieldsValidation(email,printer)){
                     return;
                 }
 
@@ -62,9 +71,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(ForgotPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgotPasswordActivity.this, R.string.reset_password_success, Toast.LENGTH_SHORT).show();
+                                finish();
                             } else {
-                                Toast.makeText(ForgotPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgotPasswordActivity.this, R.string.reset_password_fail, Toast.LENGTH_SHORT).show();
                             }
 
                             progressBar.setVisibility(View.GONE);
@@ -74,5 +84,31 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
 
     }
+    public boolean checkFieldsValidation(String email, Printer printer){
+        if (email == null || email.length() == 0) {
+            printer.print(R.string.require_email);
+            return false;
+        }
 
+        if(!email.contains("@")){
+            printer.print(R.string.email_bad_format);
+            return false;
+        }
+        return true;
+    }
+    //from https://stackoverflow.com/questions/15686555/display-back-button-on-action-bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
