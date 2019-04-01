@@ -86,6 +86,11 @@
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAI3a05VToCTlqBymJrbFGaKQMvF-bBAuLsOdavBA" />
 
+        <!-- AdMob App ID: ca-app-pub-5690137487728526~9523253499 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544/6300978111"/>
+
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

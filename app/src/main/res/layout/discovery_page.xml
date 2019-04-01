@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
         tools:layout_editor_absoluteY="86dp">
 
         <android.support.design.widget.TextInputLayout
@@ -54,10 +55,10 @@
             android:text="@string/register_and_login"
             android:textColor="@color/white"
             android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintEnd_toStartOf="@+id/luckyBtn"
+            app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/categories_button" />
+            app:layout_constraintTop_toBottomOf="@+id/categories_button" />
 
         <EditText
             android:id="@+id/editText"
@@ -96,13 +97,28 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:background="@color/ic_launcher_background"
-            android:textColor="@color/white"
             android:text="@string/discover_page_search"
+            android:textColor="@color/white"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/editText"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="420dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            ads:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0" />
 
         <Button
             android:id="@+id/logout"
@@ -122,6 +138,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_and_login_main_layout_button"
             app:layout_constraintVertical_bias="0.454" />
+
     </android.support.constraint.ConstraintLayout>
 
 </RelativeLayout>
