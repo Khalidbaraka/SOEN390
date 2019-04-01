@@ -3,11 +3,7 @@ package de.danoeh.antennapod.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), messageId, Toast.LENGTH_SHORT).show();
             }
         };
-
 
         if (auth.getCurrentUser() != null && auth.getCurrentUser().isEmailVerified()) {
 //           auth.signOut();
