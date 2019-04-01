@@ -39,6 +39,10 @@
         android:logo="@mipmap/ic_launcher"
         android:restoreAnyVersion="true"
         android:roundIcon="@mipmap/ic_launcher_round">
+        <activity android:name=".activity.AddCommentActivity"></activity>
+        <activity android:name=".activity.CommentListActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name=".activity.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"

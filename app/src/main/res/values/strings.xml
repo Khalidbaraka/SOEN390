@@ -46,6 +46,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="viewComments">View Comments</string>
+    <string name="submit">submit</string>
+
     <string name="title_activity_register_and_login">Authentication</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_forgot_password">Reset Password</string>
@@ -63,5 +67,7 @@
     <string name="login_unverified" translatable="false">Please Verify your Email Address</string>
     <string name="reset_password_success" translatable="false">We have sent you instructions to reset your password!</string>
     <string name="reset_password_fail" translatable="false">Failed to send reset email!</string>
+    <string name="add_your_comment">Add your Comment</string>
+
 
 </resources>
