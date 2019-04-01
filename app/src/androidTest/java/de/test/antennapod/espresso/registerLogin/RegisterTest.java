@@ -150,7 +150,7 @@ public class RegisterTest {
 
 
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.emailRegister)).perform(clearText(),typeText("John.Doe.Soen390_04@mail.com"));
+        onView(withId(R.id.emailRegister)).perform(clearText(),typeText("John.Doe.Soen390_10@mail.com"));
 
 
         Espresso.closeSoftKeyboard();
@@ -177,7 +177,7 @@ public class RegisterTest {
 
 
         //Successfully Registered
-        if(user != null)
+        if(user != null && !user.isEmailVerified())
         {
             //--------Now in Main Activity ----------
             solo.waitForView(android.R.id.list);
