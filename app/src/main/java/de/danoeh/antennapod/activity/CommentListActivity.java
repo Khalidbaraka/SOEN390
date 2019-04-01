@@ -121,12 +121,12 @@ public class CommentListActivity extends Activity {
 
                 break;
 
-//            case R.id.action_signout:
-//                if(mUser != null && mAuth != null) {
-//                    mAuth.signOut();
-//                    startActivity(new Intent(CommentListActivity.this, DiscoveryPageFragment.class));
-//                    finish();
-//                }
+            case R.id.action_signout:
+                if(mUser != null && mAuth != null) {
+                    mAuth.signOut();
+                    startActivity(new Intent(CommentListActivity.this, MainActivity.class));
+                    finish();
+                }
             default:
                 break;
         }
