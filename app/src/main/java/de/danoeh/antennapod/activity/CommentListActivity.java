@@ -90,7 +90,8 @@ public class CommentListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //posting to our database
-                startPosting();
+                if(mUser != null && mAuth != null) {
+                startPosting();}
             }
         });
 
