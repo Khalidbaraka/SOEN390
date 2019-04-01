@@ -27,6 +27,8 @@ import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.model.Comment;
 
 public class AddCommentActivity extends Activity {
+
+    public String podcastTitleFromCommentList;
     private EditText mComment;
     private Button mSubmitButton;
     private DatabaseReference mPostDatabase;
@@ -37,7 +39,8 @@ public class AddCommentActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_comment);
 
-
+        Intent i= getIntent();
+        podcastTitleFromCommentList= i.getStringExtra("podcastTitle");
         mAuth= FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
 
@@ -63,15 +66,13 @@ public class AddCommentActivity extends Activity {
 
         if(!TextUtils.isEmpty(content)){
             //start uplodaing
-
-
             DatabaseReference newComment = mPostDatabase.push();
             Map<String, String> dataToSave= new HashMap<>();
             dataToSave.put("userid", mAuth.getUid());
             dataToSave.put("userEmail", mUser.getEmail());
             dataToSave.put("comment", content);
             dataToSave.put("timestamp", String.valueOf(java.lang.System.currentTimeMillis()));
-            dataToSave.put("podcast", CommentListActivity.targetPodcastTitle);
+            dataToSave.put("podcast", podcastTitleFromCommentList);
 
             newComment.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
