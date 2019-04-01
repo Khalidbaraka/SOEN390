@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.model.Printer;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button btnReset, btnBack;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
+    private Printer printer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
+        printer = new Printer() {
+            @Override
+            public void print(int messageId) {
+                Toast.makeText(getApplicationContext(), messageId, Toast.LENGTH_SHORT).show();
+            }
+        };
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +59,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 String email = inputEmail.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), R.string.require_email, Toast.LENGTH_SHORT).show();
+                if (!checkFieldsValidation(email,printer)){
                     return;
                 }
 
@@ -73,6 +80,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean checkFieldsValidation(String email, Printer printer){
+        if (email == null || email.length() == 0) {
+            printer.print(R.string.require_email);
+            return false;
+        }
+
+        if(!email.contains("@")){
+            printer.print(R.string.email_bad_format);
+            return false;
+        }
+        return true;
     }
 
 }

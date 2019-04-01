@@ -154,6 +154,11 @@ public class RegisterActivity extends AppCompatActivity implements Printer {
             return false;
         }
 
+        if(!email.contains("@")){
+            printer.print(R.string.email_bad_format);
+            return false;
+        }
+
         if (password == null || password.length() == 0) {
             printer.print(R.string.require_password);
             return false;
