@@ -33,8 +33,8 @@ import de.danoeh.antennapod.core.storage.PodDBAdapter;
 public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private static final String TAG = PlaybackTest.class.getSimpleName();
-    //INDEX needs to be updated to 2, since Discovery Page took its place.!
-    private static final int EPISODES_DRAWER_LIST_INDEX = 2;
+    //INDEX needs to be updated from 1 to 3, since DiscoveryPage and UserProfile Page took its place.!
+    private static final int EPISODES_DRAWER_LIST_INDEX = 3;
     private static final int QUEUE_DRAWER_LIST_INDEX = 0;
 
     private Solo solo;
