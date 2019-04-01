@@ -155,6 +155,9 @@ android {
 
     testOptions {
         animationsDisabled = true
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 
     flavorDimensions "market"
@@ -232,6 +235,7 @@ dependencies {
 
     // required if you want to use Mockito for Android tests
     androidTestCompile 'org.mockito:mockito-android:2.7.22'
+    testImplementation 'org.robolectric:robolectric:4.2'
 }
 
 play {
