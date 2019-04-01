@@ -70,7 +70,7 @@ public class DiscoveryPageFragment extends Fragment {
 
         Button logoutButton = DiscoveryView.findViewById(R.id.logout);
 
-        if (auth.getCurrentUser() != null) {
+        if (auth.getCurrentUser() != null && auth.getCurrentUser().isEmailVerified()) {
             registerAndLoginButton.setVisibility(View.GONE);
             logoutButton.setVisibility(View.VISIBLE);
         }
