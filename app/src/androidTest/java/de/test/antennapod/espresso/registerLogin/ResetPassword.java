@@ -32,7 +32,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 
-
+/*
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ResetPassword {
 
@@ -206,6 +206,7 @@ public class ResetPassword {
             soloLogin.waitForView(android.R.id.list);
        // }
         //Not Successfully Reset Password
+      */
         /*
         else {
 
@@ -213,7 +214,7 @@ public class ResetPassword {
             assertEquals(soloForgotPassword.getString(R.string.title_activity_forgot_password), getActionbarTitleForgotPassword());
         }
         */
-
+/*
     }
 
     private String getActionbarTitle() {
@@ -233,3 +234,4 @@ public class ResetPassword {
     }
 
 }
+*/

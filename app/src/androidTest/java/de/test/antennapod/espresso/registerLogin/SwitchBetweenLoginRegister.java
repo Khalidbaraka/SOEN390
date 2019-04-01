@@ -31,7 +31,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 
-
+/*
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SwitchBetweenLoginRegister {
 
@@ -199,5 +199,5 @@ public class SwitchBetweenLoginRegister {
     private String getActionbarTitleLogin() {
         return ((LoginActivity) soloLogin.getCurrentActivity()).getSupportActionBar().getTitle().toString();
     }
-
 }
+*/

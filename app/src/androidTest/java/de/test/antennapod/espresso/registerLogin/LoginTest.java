@@ -1,5 +1,5 @@
 package de.test.antennapod.espresso.registerLogin;
-
+/*
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
@@ -210,3 +210,4 @@ public class LoginTest {
     }
 
 }
+*/
