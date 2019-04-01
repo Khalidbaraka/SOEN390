@@ -104,6 +104,11 @@ public class CommentListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.comment_menu, menu);
+        if(mUser!= null & mAuth != null){
+            menu.findItem(R.id.action_signIn).setVisible(false);
+        }else {
+            menu.findItem(R.id.action_signout).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -118,15 +123,19 @@ public class CommentListActivity extends Activity {
                     startActivity(intent);
                     finish();
                 }
+                break;
+
+            case R.id.action_signIn:
+                    startActivity(new Intent(CommentListActivity.this, LoginActivity.class));
+                    finish();
 
                 break;
 
             case R.id.action_signout:
-                if(mUser != null && mAuth != null) {
                     mAuth.signOut();
                     startActivity(new Intent(CommentListActivity.this, MainActivity.class));
                     finish();
-                }
+
             default:
                 break;
         }
