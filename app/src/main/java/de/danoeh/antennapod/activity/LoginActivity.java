@@ -79,12 +79,12 @@ public class LoginActivity extends AppCompatActivity {
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.require_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.require_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -111,9 +111,9 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
-                                Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, R.string.login_sucess ,Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(LoginActivity.this, "Please Verify your Email Address", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, R.string.login_unverified, Toast.LENGTH_LONG).show();
                             }
 
                         }
@@ -121,19 +121,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-        
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
     }
 
     @Override
