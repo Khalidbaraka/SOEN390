@@ -2,6 +2,7 @@ package de.test.antennapod.espresso.find_similar;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.contrib.DrawerActions;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -16,8 +17,10 @@ import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.fragment.FindSimilarFragment;
 
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.junit.Assert.assertNotEquals;
@@ -34,6 +37,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
+
 
     @RunWith(AndroidJUnit4.class)
     public class findSimiliarUI {
@@ -60,9 +64,22 @@ import static org.junit.Assert.assertEquals;
 
 
         @Test
-        public void getSimilarPodcastsUI() {
-            
+        public void test1GoFirstToSubscriptionsPage() {
+            // queue page
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+            String currentPage = getActionbarTitle();
+            if (("Subscriptions").equals(currentPage)){
+                assertEquals(solo.getString(R.string.subscriptions_label), getActionbarTitle());
+            }else{
+                solo.clickOnText(solo.getString(R.string.subscriptions_label));
+                solo.waitForView(android.R.id.list);
+                assertEquals(solo.getString(R.string.subscriptions_label), getActionbarTitle());
+            }
+        }
 
+        @Test
+        public void test2ButtonsNamesAndFindInItunes() {
+            
         }
 
         private String getActionbarTitle() {
