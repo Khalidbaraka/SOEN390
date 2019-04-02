@@ -2,6 +2,7 @@
 <!-- ScrollView code from https://stackoverflow.com/questions/3819189/how-to-make-my-layout-able-to-scroll-down -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"> <!--IMPORTANT otherwise backgrnd img. will not fill the whole screen -->
