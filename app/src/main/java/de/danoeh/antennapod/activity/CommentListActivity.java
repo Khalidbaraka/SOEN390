@@ -88,6 +88,10 @@ public class CommentListActivity extends Activity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentRecyclerAdapter= new CommentRecyclerAdapter(CommentListActivity.this,commentList);
 
+        if(mAuth == null || mUser == null){
+            mSubmitButton.setVisibility(View.GONE);
+            mComment.setVisibility(View.GONE);
+        }
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +108,12 @@ public class CommentListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.comment_menu, menu);
+        if(mUser!= null & mAuth != null){
+            menu.findItem(R.id.action_signIn).setVisible(false);
+        }else {
+            menu.findItem(R.id.action_signout).setVisible(false);
+            menu.findItem(R.id.action_add).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -118,15 +128,19 @@ public class CommentListActivity extends Activity {
                     startActivity(intent);
                     finish();
                 }
+                break;
+
+            case R.id.action_signIn:
+                    startActivity(new Intent(CommentListActivity.this, LoginActivity.class));
+                    finish();
 
                 break;
 
-//            case R.id.action_signout:
-//                if(mUser != null && mAuth != null) {
-//                    mAuth.signOut();
-//                    startActivity(new Intent(CommentListActivity.this, DiscoveryPageFragment.class));
-//                    finish();
-//                }
+            case R.id.action_signout:
+                    mAuth.signOut();
+                    startActivity(new Intent(CommentListActivity.this, MainActivity.class));
+                    finish();
+
             default:
                 break;
         }

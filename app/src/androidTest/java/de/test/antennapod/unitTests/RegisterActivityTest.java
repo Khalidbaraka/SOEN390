@@ -55,6 +55,19 @@ public class RegisterActivityTest {
         }));
     }
     @Test
+    public void testEmailShouldContainChar(){
+        fullName = "Full Name";
+        email = "test";
+        password="password";
+        assertFalse(mActivityRule.getActivity().checkFieldsValidation(fullName, email, password, new Printer() {
+            @Override
+            public void print(int messageId) {
+                Log.d(TAG, "testEmailShouldContainChar: " + messageId);
+                assertEquals(messageId,R.string.email_bad_format);
+            }
+        }));
+    }
+    @Test
     public void testInvalidPassword(){
         fullName = "Full Name";
         email = "test@gmail.com";
