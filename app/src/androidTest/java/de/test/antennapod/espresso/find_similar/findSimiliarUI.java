@@ -5,7 +5,9 @@ import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
 
+import org.hamcrest.Matcher;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,12 +19,20 @@ import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.fragment.FindSimilarFragment;
 
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.anything;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.assertNotEquals;
 
 import com.robotium.solo.Solo;
@@ -78,8 +88,12 @@ import static org.junit.Assert.assertEquals;
         }
 
         @Test
-        public void test2ButtonsNamesAndFindInItunes() {
-            
+        public void test2GoSimilarPodcastList() {
+            onData(anything()).inAdapterView(withId(R.id.subscriptions_grid)).atPosition(0).
+                    onChildView(withId(R.id.imgvCover)).perform(longClick());
+
+            onView(anyOf(withText(R.string.find_similar), withId(R.id.find_similar))).perform(click());
+            pressBack();
         }
 
         private String getActionbarTitle() {

@@ -11,8 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="centerCrop"
-        tools:src="@mipmap/ic_launcher_round">
-    </de.danoeh.antennapod.view.SquareImageView>
+        tools:src="@mipmap/ic_launcher_round"></de.danoeh.antennapod.view.SquareImageView>
 
     <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/txtvTitle"
@@ -32,6 +31,5 @@
         app:corner="rightTop"
         app:primaryText="Test"
         app:primaryTextColor="@color/white"
-        app:primaryTextSize="12sp">
-    </jp.shts.android.library.TriangleLabelView>
+        app:primaryTextSize="12sp"></jp.shts.android.library.TriangleLabelView>
 </FrameLayout>
