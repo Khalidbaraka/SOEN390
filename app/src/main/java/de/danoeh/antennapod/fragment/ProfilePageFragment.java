@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,11 +36,16 @@ import de.danoeh.antennapod.model.User;
 
 public class ProfilePageFragment extends Fragment {
 
-    private View profilePageView;
     public static final String TAG = "ProfilePageFragment";
+
+    private FirebaseAuth auth;
+    private FirebaseUser currentUser;
+    private DatabaseReference reference;
+
+    private View profilePageView;
     private Button registerAndLoginBtn, logoutBtn;
     private TextView profileName, profileEmail;
-    private FirebaseAuth auth;
+    private ImageView profileImage;
 
     private RecyclerView recyclerView;
     private ProfileItemAdapter adapter;
@@ -55,7 +62,13 @@ public class ProfilePageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Instantiate Firebase variables
         auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("users");
+
+
 
         // Inflate the layout for this fragment
         profilePageView = inflater.inflate(R.layout.fragment_user_profile, container, false);
@@ -64,8 +77,10 @@ public class ProfilePageFragment extends Fragment {
         logoutBtn = (Button) profilePageView.findViewById(R.id.profile_logout_btn);
         profileName = (TextView) profilePageView.findViewById(R.id.profile_name);
         profileEmail = (TextView) profilePageView.findViewById(R.id.profile_email);
+        profileImage = (ImageView) profilePageView.findViewById(R.id.profile_image);
 
-        if (auth.getCurrentUser() != null && (auth.getCurrentUser().isEmailVerified())) {
+        // Set components visibility depending on the user's authentication
+        if (currentUser != null && (currentUser.isEmailVerified())) {
             registerAndLoginBtn.setVisibility(View.GONE);
             logoutBtn.setVisibility(View.VISIBLE);
         } else {
@@ -76,7 +91,6 @@ public class ProfilePageFragment extends Fragment {
         }
 
         loadUserInformation();
-
 
         recyclerView =  (RecyclerView) profilePageView.findViewById(R.id.profile_option_list);
 
@@ -89,8 +103,6 @@ public class ProfilePageFragment extends Fragment {
 
         adapter = new ProfileItemAdapter(getActivity(), profileItems);
         recyclerView.setAdapter(adapter);
-
-
 
         registerAndLoginBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -108,7 +120,7 @@ public class ProfilePageFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
+                auth.signOut();
                 Toast.makeText(getContext(), "Successfully Logged Out", Toast.LENGTH_SHORT).show();
 
                 Fragment mFragment = new ProfilePageFragment();
@@ -123,17 +135,20 @@ public class ProfilePageFragment extends Fragment {
     }
 
     private void loadUserInformation() {
-        FirebaseUser currentUser = auth.getCurrentUser();
-        final  FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("users");
 
         if (currentUser != null && (currentUser.isEmailVerified())) {
-            ref.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            reference.child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
                     profileName.setText(user.getFullName());
                     profileEmail.setText(user.getEmail());
+
+                    if (user.getImageURL().equals("default")) {
+                        profileImage.setImageResource(R.drawable.register_and_login_icon);
+                    } else {
+                        Glide.with(getContext()).load(user.getImageURL()).into(profileImage);
+                    }
                 }
 
                 @Override
