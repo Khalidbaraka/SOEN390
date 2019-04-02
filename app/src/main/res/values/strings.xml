@@ -23,6 +23,7 @@
     <string name="register_and_login_footer" translate="false">You can save and sync your subscription and history on all your devices</string>
     <string name="register" translate="false">Register</string>
     <string name="login" translate="false">Login</string>
+    <string name="authentication" translatable="false"> Authentication </string>
 
     <string name="registerButton" translate="false">Sign Up</string>
     <string name="alreadHaveAccount" translate="false">Already have an account? Login</string>
@@ -41,6 +42,7 @@
     <string name="hint_email" translatable="false">Email</string>
     <string name="btn_reset_password" translatable="false">Reset Password</string>
     <string name="btn_back" translatable="false">Back</string>
+    <string name="proceed" translatable="false">Proceed</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -54,6 +56,7 @@
     <string name="title_activity_register" translatable="false"> Register </string>
 
     <string name="require_fulll_name" translatable="false">Full Name is required!</string>
+    <string name="email_bad_format" translatable="false">Wrong email format!. Your email should contain "@"</string>
     <string name="require_email" translatable="false">Enter email address!</string>
     <string name="require_password" translatable="false">Enter password!</string>
     <string name="warn_short_password" translatable="false">Password too short, enter minimum 6 characters!</string>
