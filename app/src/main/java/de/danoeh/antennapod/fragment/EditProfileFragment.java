@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -62,10 +63,12 @@ public class EditProfileFragment extends Fragment {
 
     private View editProfileView;
     private EditText editFullName, editPassword;
+    private TextView profileName, profileEmail;
     private ImageView editProfileImage;
     private Button submitBtn;
     private ProgressBar progressBar;
 
+    private User currentUserInfo;
 
     public EditProfileFragment() {
         // Required empty public constructor
@@ -103,6 +106,9 @@ public class EditProfileFragment extends Fragment {
 
         // Inflate the layout for this fragment
         editProfileView =  inflater.inflate(R.layout.fragment_edit_profile, container, false);
+
+        profileName = (TextView) editProfileView.findViewById(R.id.profile_name);
+        profileEmail = (TextView) editProfileView.findViewById(R.id.profile_email);
 
         editFullName = (EditText) editProfileView.findViewById(R.id.edit_full_name);
         editPassword = (EditText) editProfileView.findViewById(R.id.edit_password);
@@ -145,13 +151,16 @@ public class EditProfileFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     progressBar.setVisibility(View.GONE);
-                    User user = dataSnapshot.getValue(User.class);
-                    editFullName.setHint(user.getFullName());
+                    currentUserInfo = dataSnapshot.getValue(User.class);
 
-                    if (user.getImageURL().equals("default")) {
+                    profileName.setText(currentUserInfo.getFullName());
+                    profileEmail.setText(currentUserInfo.getEmail());
+                    editFullName.setHint(currentUserInfo.getFullName());
+
+                    if (currentUserInfo.getImageURL().equals("default")) {
                         editProfileImage.setImageResource(R.drawable.register_and_login_icon);
                     } else {
-                        Glide.with(getContext()).load(user.getImageURL()).into(editProfileImage);
+                        Glide.with(getContext()).load(currentUserInfo.getImageURL()).into(editProfileImage);
                     }
                 }
 
@@ -166,17 +175,22 @@ public class EditProfileFragment extends Fragment {
 
     private void editUserInformation() {
 
+        User updatedUser;
+
         // Get user information
         String email = currentUser.getEmail();
+        String mUri = currentUserInfo.getImageURL();
+
         String fullName = editFullName.getText().toString().trim();
 
-        User updatedUser = new User(email, fullName);
-        String updatedPassword = editPassword.getText().toString().trim();
+        String updatedPassword;
 
         if (currentUser != null && currentUser.isEmailVerified()) {
 
             if (editFullName.getText().toString().trim().length() > 0) {
                 progressBar.setVisibility(View.VISIBLE);
+
+                updatedUser = new User(email, fullName, mUri);
 
                 reference.child(currentUser.getUid()).setValue(updatedUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -198,6 +212,8 @@ public class EditProfileFragment extends Fragment {
 
             else if (editPassword.getText().toString().trim().length() >= 6) {
                 progressBar.setVisibility(View.VISIBLE);
+
+                updatedPassword = editPassword.getText().toString().trim();
 
                 currentUser.updatePassword(updatedPassword)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -265,7 +281,7 @@ public class EditProfileFragment extends Fragment {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
                         String email = currentUser.getEmail();
-                        String fullName = editFullName.getText().toString().trim();
+                        String fullName = currentUserInfo.getFullName();
 
                         User updatedUser = new User(email, fullName, mUri);
 

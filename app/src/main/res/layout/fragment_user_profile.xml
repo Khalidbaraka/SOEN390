@@ -36,13 +36,13 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
                     android:layout_width="172dp"
                     android:layout_height="172dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
-                    android:src="@drawable/register_and_login_icon" />
+                    android:src="@drawable/register_and_login_icon"/>
 
                 <Button
                     android:id="@+id/profile_register_and_login_btn"

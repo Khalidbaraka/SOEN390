@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class ProfilePageFragment extends Fragment {
     private Button registerAndLoginBtn, logoutBtn;
     private TextView profileName, profileEmail;
     private ImageView profileImage;
+    private ProgressBar progressBar;
 
     private RecyclerView recyclerView;
     private ProfileItemAdapter adapter;
@@ -68,8 +70,6 @@ public class ProfilePageFragment extends Fragment {
         currentUser = auth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("users");
 
-
-
         // Inflate the layout for this fragment
         profilePageView = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
@@ -78,6 +78,7 @@ public class ProfilePageFragment extends Fragment {
         profileName = (TextView) profilePageView.findViewById(R.id.profile_name);
         profileEmail = (TextView) profilePageView.findViewById(R.id.profile_email);
         profileImage = (ImageView) profilePageView.findViewById(R.id.profile_image);
+        progressBar = (ProgressBar) profilePageView.findViewById(R.id.progressBar);
 
         // Set components visibility depending on the user's authentication
         if (currentUser != null && (currentUser.isEmailVerified())) {
@@ -137,9 +138,14 @@ public class ProfilePageFragment extends Fragment {
     private void loadUserInformation() {
 
         if (currentUser != null && (currentUser.isEmailVerified())) {
+
+            progressBar.setVisibility(View.VISIBLE);
+
             reference.child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    progressBar.setVisibility(View.GONE);
+
                     User user = dataSnapshot.getValue(User.class);
                     profileName.setText(user.getFullName());
                     profileEmail.setText(user.getEmail());
@@ -147,8 +153,9 @@ public class ProfilePageFragment extends Fragment {
                     if (user.getImageURL().equals("default")) {
                         profileImage.setImageResource(R.drawable.register_and_login_icon);
                     } else {
-                        Glide.with(getContext()).load(user.getImageURL()).into(profileImage);
+                        Glide.with(getActivity()).load(user.getImageURL()).into(profileImage);
                     }
+
                 }
 
                 @Override
