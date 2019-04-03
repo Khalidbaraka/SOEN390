@@ -1,7 +1,15 @@
 package de.test.antennapod.espresso.CommentsFeature;
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.support.test.espresso.NoMatchingViewException;
+import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.support.test.runner.lifecycle.Stage;
+import android.view.View;
 
 import com.robotium.solo.Solo;
 import com.robotium.solo.Timeout;
@@ -14,7 +22,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.activity.CommentListActivity;
 import de.danoeh.antennapod.activity.MainActivity;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
@@ -22,6 +35,7 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.junit.Assert.assertEquals;
 
@@ -32,6 +46,8 @@ public class CommentsUITests {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<CommentListActivity> mActivityTestRule = new ActivityTestRule<>(CommentListActivity.class);
+
 
     @Before
     public void setUp() {
@@ -76,7 +92,21 @@ public class CommentsUITests {
         solo.waitForView(R.id.relativeLayout);
         onView(withId(R.id.viewCommentsBtn)).perform(click());
         solo.waitForView(R.id.constraintLayout);
+        assertEquals(CommentListActivity.class, getActivityInstance().getClass());
+    }
 
+    private Activity getActivityInstance(){
+        final Activity[] currentActivity = {null};
+
+        getInstrumentation().runOnMainSync(new Runnable(){
+            public void run(){
+                Collection<Activity> resumedActivity = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+                Iterator<Activity> it = resumedActivity.iterator();
+                currentActivity[0] = it.next();
+            }
+        });
+
+        return currentActivity[0];
     }
 
     private String getActionbarTitle() {
