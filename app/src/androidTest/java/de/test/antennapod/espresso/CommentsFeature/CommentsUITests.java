@@ -80,6 +80,9 @@ public class CommentsUITests {
         // in podcast we want to click on Itunes btn
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
+        assertEquals(solo.getString(R.string.add_feed_label), getActionbarTitle());
+
+
     }
 
     @Test
