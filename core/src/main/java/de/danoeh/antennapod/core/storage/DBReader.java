@@ -87,6 +87,25 @@ public final class DBReader {
         }
     }
 
+
+
+    private static List<Feed> getFeedListFavoritesPodcasts(PodDBAdapter adapter) {
+        Cursor cursor = null;
+        try {
+            cursor = adapter.getAllFavoritesPodcastsFeedsCursor();
+            List<Feed> feeds = new ArrayList<>(cursor.getCount());
+            while (cursor.moveToNext()) {
+                Feed feed = extractFeedFromCursorRow(cursor);
+                feeds.add(feed);
+            }
+            return feeds;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
     /**
      * Returns a list with the download URLs of all feeds.
      *
@@ -1063,6 +1082,93 @@ public final class DBReader {
         PodDBAdapter adapter = PodDBAdapter.getInstance();
         adapter.open();
         List<Feed> feeds = getFeedList(adapter);
+        long[] feedIds = new long[feeds.size()];
+        for (int i = 0; i < feeds.size(); i++) {
+            feedIds[i] = feeds.get(i).getId();
+        }
+        final LongIntMap feedCounters = adapter.getFeedCounters(feedIds);
+
+        Comparator<Feed> comparator;
+        int feedOrder = UserPreferences.getFeedOrder();
+        if (feedOrder == UserPreferences.FEED_ORDER_COUNTER) {
+            comparator = (lhs, rhs) -> {
+                long counterLhs = feedCounters.get(lhs.getId());
+                long counterRhs = feedCounters.get(rhs.getId());
+                if (counterLhs > counterRhs) {
+                    // reverse natural order: podcast with most unplayed episodes first
+                    return -1;
+                } else if (counterLhs == counterRhs) {
+                    return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+                } else {
+                    return 1;
+                }
+            };
+        } else if (feedOrder == UserPreferences.FEED_ORDER_ALPHABETICAL) {
+            comparator = (lhs, rhs) -> {
+                String t1 = lhs.getTitle();
+                String t2 = rhs.getTitle();
+                if (t1 == null) {
+                    return 1;
+                } else if (t2 == null) {
+                    return -1;
+                } else {
+                    return t1.compareToIgnoreCase(t2);
+                }
+            };
+        } else if (feedOrder == UserPreferences.FEED_ORDER_MOST_PLAYED) {
+            final LongIntMap playedCounters = adapter.getPlayedEpisodesCounters(feedIds);
+
+            comparator = (lhs, rhs) -> {
+                long counterLhs = playedCounters.get(lhs.getId());
+                long counterRhs = playedCounters.get(rhs.getId());
+                if (counterLhs > counterRhs) {
+                    // podcast with most played episodes first
+                    return -1;
+                } else if (counterLhs == counterRhs) {
+                    return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+                } else {
+                    return 1;
+                }
+            };
+        } else {
+            comparator = (lhs, rhs) -> {
+                if (lhs.getItems() == null || lhs.getItems().size() == 0) {
+                    List<FeedItem> items = DBReader.getFeedItemList(lhs);
+                    lhs.setItems(items);
+                }
+                if (rhs.getItems() == null || rhs.getItems().size() == 0) {
+                    List<FeedItem> items = DBReader.getFeedItemList(rhs);
+                    rhs.setItems(items);
+                }
+                if (lhs.getMostRecentItem() == null) {
+                    return 1;
+                } else if (rhs.getMostRecentItem() == null) {
+                    return -1;
+                } else {
+                    Date d1 = lhs.getMostRecentItem().getPubDate();
+                    Date d2 = rhs.getMostRecentItem().getPubDate();
+                    return d2.compareTo(d1);
+                }
+            };
+        }
+
+        Collections.sort(feeds, comparator);
+        int queueSize = adapter.getQueueSize();
+        int numNewItems = adapter.getNumberOfNewItems();
+        int numDownloadedItems = adapter.getNumberOfDownloadedEpisodes();
+
+        NavDrawerData result = new NavDrawerData(feeds, queueSize, numNewItems, numDownloadedItems,
+                feedCounters, UserPreferences.getEpisodeCleanupAlgorithm().getReclaimableItems());
+        adapter.close();
+        return result;
+    }
+
+
+    public static NavDrawerData getNavDrawerDataFavoritePodcasts() {
+        Log.d(TAG, "getNavDrawerDataFavoritePodcasts() called with: " + "");
+        PodDBAdapter adapter = PodDBAdapter.getInstance();
+        adapter.open();
+        List<Feed> feeds = getFeedListFavoritesPodcasts(adapter);
         long[] feedIds = new long[feeds.size()];
         for (int i = 0; i < feeds.size(); i++) {
             feedIds[i] = feeds.get(i).getId();

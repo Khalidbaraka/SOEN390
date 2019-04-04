@@ -39,10 +39,10 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Fragment for displaying feed subscriptions
  */
-public class FavoritePodcastsFragment extends Fragment{
+public class FavoritePodcastsFragment extends SubscriptionFragment{
 
 
-    public static final String TAG = "FavoritePodcastsFragment";
+    public static final String TAG = "FavoritePodcastFragment";
 
     private static final int EVENTS = EventDistributor.FEED_LIST_UPDATE
             | EventDistributor.UNREAD_ITEMS_UPDATE;
@@ -102,12 +102,12 @@ public class FavoritePodcastsFragment extends Fragment{
             disposable.dispose();
         }
     }
-/*
+
     private void loadSubscriptions() {
         if(disposable != null) {
             disposable.dispose();
         }
-        disposable = Observable.fromCallable(DBReader::getNavDrawerData)
+        disposable = Observable.fromCallable(DBReader::getNavDrawerDataFavoritePodcasts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
@@ -115,9 +115,9 @@ public class FavoritePodcastsFragment extends Fragment{
                     favoritePodcastsAdapter.notifyDataSetChanged();
                 }, error -> Log.e(TAG, Log.getStackTraceString(error)));
     }
-    */
 
 
+/*
     private void loadSubscriptions() {
         if(disposable != null) {
             disposable.dispose();
@@ -132,7 +132,7 @@ public class FavoritePodcastsFragment extends Fragment{
                 }, error -> Log.e(TAG, Log.getStackTraceString(error)));
     }
 
-
+*/
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
