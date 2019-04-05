@@ -1012,16 +1012,6 @@ public class PodDBAdapter {
                 KEY_TITLE + " COLLATE NOCASE ASC");
     }
 
-    /**
-     * Get all Feeds from the Favorite Podcasts Table.
-     *
-     * @return The cursor of the query
-     */
-    public final Cursor getAllFavoritesPodcastsFeedsCursor() {
-        return db.query(TABLE_NAME_FAVORITES_PODCASTS, FEED_SEL_STD, null, null, null, null,
-                KEY_TITLE + " COLLATE NOCASE ASC");
-    }
-
     public final Cursor getFeedCursorDownloadUrls() {
         return db.query(TABLE_NAME_FEEDS, new String[]{KEY_ID, KEY_DOWNLOAD_URL}, null, null, null, null, null);
     }
