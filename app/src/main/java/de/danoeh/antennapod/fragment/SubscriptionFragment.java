@@ -195,6 +195,14 @@ public class SubscriptionFragment extends Fragment {
                         .replace(R.id.main_view, mFragment)
                         .commit();
                 return true;
+            case R.id.remove_from_favorite_podcasts:
+                DBWriter.removeFavoritePodcastItem(feed);
+                Fragment mFragmentt = new SubscriptionFavoritePodcastsFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, mFragmentt)
+                        .commit();
+                return true;
             case R.id.remove_item:
                 final FeedRemover remover = new FeedRemover(getContext(), feed) {
                     @Override

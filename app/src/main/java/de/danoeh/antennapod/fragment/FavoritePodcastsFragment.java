@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class FavoritePodcastsFragment extends SubscriptionFragment{
 
-    public static final String TAG = "FavoritePodcastsFragment";
+    public static final String TAG = "FavoritePodcastFragment";
 
     @Override
     protected void loadSubscriptions() {
