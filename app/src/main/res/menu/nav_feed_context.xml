@@ -12,6 +12,11 @@
         android:title="@string/mark_all_read_label" />
 
     <item
+        android:id="@+id/find_similar"
+        android:menuCategory="container"
+        android:title="@string/find_similar" />
+
+    <item
         android:id="@+id/rename_item"
         android:menuCategory="container"
         android:title="@string/rename_feed_label" />

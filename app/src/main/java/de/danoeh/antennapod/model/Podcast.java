@@ -1,6 +1,6 @@
 package de.danoeh.antennapod.model;
 
-public class RandomPodcast {
+public class Podcast {
     private String podcastTitle;
     private String podcastDescription;
     private String podcastPublisher;

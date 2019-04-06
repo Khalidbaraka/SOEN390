@@ -259,7 +259,7 @@ public class MainActivityTest {
         assertEquals(solo.getString(R.string.subscriptions_label), getActionbarTitle());
     }
 
-    @Test
+    @FlakyTest
     public void testBackButtonBehaviorOpenDrawer() {
         openNavDrawer();
         solo.clickOnText(solo.getString(R.string.settings_label));

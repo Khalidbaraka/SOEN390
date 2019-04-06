@@ -31,6 +31,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.MobileAds;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
@@ -65,12 +66,14 @@ import de.danoeh.antennapod.fragment.AddFeedFragment;
 import de.danoeh.antennapod.fragment.DownloadsFragment;
 import de.danoeh.antennapod.fragment.EpisodesFragment;
 import de.danoeh.antennapod.fragment.ExternalPlayerFragment;
+import de.danoeh.antennapod.fragment.FindSimilarFragment;
 import de.danoeh.antennapod.fragment.ItemlistFragment;
 import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
 import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFavoritePodcastsFragment;
+import de.danoeh.antennapod.fragment.ProfilePageFragment;
 import de.danoeh.antennapod.menuhandler.NavDrawerActivity;
 import de.greenrobot.event.EventBus;
 import io.reactivex.Observable;
@@ -104,6 +107,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
     public static final String[] NAV_DRAWER_TAGS = {
             QueueFragment.TAG,
             DiscoveryPageFragment.TAG,
+            ProfilePageFragment.TAG,
             EpisodesFragment.TAG,
             SubscriptionFavoritePodcastsFragment.TAG,
             DownloadsFragment.TAG,
@@ -140,6 +144,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        MobileAds.initialize(this, "ca-app-pub-5690137487728526~9523253499");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             findViewById(R.id.shadow).setVisibility(View.GONE);
@@ -302,6 +309,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
                 break;
             case DiscoveryPageFragment.TAG:
                 fragment = new DiscoveryPageFragment();
+                break;
+            case ProfilePageFragment.TAG:
+                fragment = new ProfilePageFragment();
                 break;
             case EpisodesFragment.TAG:
                 fragment = new EpisodesFragment();
@@ -528,6 +538,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             switch (getLastNavFragment()) {
                 case QueueFragment.TAG:
                 case DiscoveryPageFragment.TAG:
+                case ProfilePageFragment.TAG:
                 case EpisodesFragment.TAG:
                     requestCastButton(MenuItem.SHOW_AS_ACTION_IF_ROOM);
                     return retVal;
@@ -612,6 +623,13 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
                     }
                 };
                 markAllReadConfirmationDialog.createNewDialog().show();
+                return true;
+            case R.id.find_similar:
+                FindSimilarFragment fragment = new FindSimilarFragment();
+                Bundle args = new Bundle();
+                args.putString("similar_podcast", feed.getDownload_url());
+                fragment.setArguments(args);
+                this.loadChildFragment(fragment);
                 return true;
             case R.id.rename_item:
                 new RenameFeedDialog(this, feed).show();

@@ -42,6 +42,7 @@ import de.danoeh.antennapod.fragment.NewEpisodesFragment;
 import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
 import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
+import de.danoeh.antennapod.fragment.ProfilePageFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFavoritePodcastsFragment;
 
@@ -123,6 +124,9 @@ public class NavListAdapter extends BaseAdapter
                 break;
             case DiscoveryPageFragment.TAG:
                 icon = R.attr.feed;
+                break;
+            case ProfilePageFragment.TAG:
+                icon = R.attr.location_web_site;
                 break;
             case NewEpisodesFragment.TAG:
                 icon = R.attr.ic_new;

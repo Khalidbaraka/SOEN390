@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.FlakyTest;
+import android.support.test.filters.FlakyTest;
 import android.view.View;
 import android.widget.ListView;
 
@@ -33,7 +33,8 @@ import de.danoeh.antennapod.core.storage.PodDBAdapter;
 public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private static final String TAG = PlaybackTest.class.getSimpleName();
-    private static final int EPISODES_DRAWER_LIST_INDEX = 1;
+    //INDEX needs to be updated from 1 to 3, since DiscoveryPage and UserProfile Page took its place.!
+    private static final int EPISODES_DRAWER_LIST_INDEX = 3;
     private static final int QUEUE_DRAWER_LIST_INDEX = 0;
 
     private Solo solo;
@@ -111,8 +112,11 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         solo.waitForView(targetView);
         solo.clickOnView(targetView);
         getInstrumentation().waitForIdleSync();
-        solo.waitForText(solo.getString(R.string.all_episodes_short_label));
+        //This was waiting for the string, before clicking it. switched places.
         solo.clickOnText(solo.getString(R.string.all_episodes_short_label));
+        solo.waitForText(solo.getString(R.string.all_episodes_short_label));
+
+
         getInstrumentation().waitForIdleSync();
 
         final List<FeedItem> episodes = DBReader.getRecentlyPublishedEpisodes(10);
@@ -129,7 +133,6 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         }, Timeout.getSmallTimeout());
         assertTrue(playing);
     }
-
     private void startLocalPlaybackFromQueue() {
         openNavDrawer();
 
@@ -163,7 +166,7 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         DBWriter.clearQueue().get();
         startLocalPlayback();
     }
-
+    @FlakyTest
     public void testContinousPlaybackOffSingleEpisode() throws Exception {
         setContinuousPlaybackPreference(false);
         uiTestUtils.addLocalFeedData(true);
@@ -171,7 +174,7 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         startLocalPlayback();
     }
 
-    @FlakyTest(tolerance = 3)
+    @FlakyTest
     public void testContinousPlaybackOffMultipleEpisodes() throws Exception {
         setContinuousPlaybackPreference(false);
         uiTestUtils.addLocalFeedData(true);
@@ -196,7 +199,7 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         assertFalse(status.equals(PlayerStatus.PLAYING));
     }
 
-    @FlakyTest(tolerance = 3)
+    @FlakyTest
     public void testContinuousPlaybackOnMultipleEpisodes() throws Exception {
         setContinuousPlaybackPreference(true);
         uiTestUtils.addLocalFeedData(true);
@@ -261,11 +264,11 @@ public class PlaybackSonicTest extends ActivityInstrumentationTestCase2<MainActi
         }, Timeout.getLargeTimeout());
         assertTrue(startedReplay);
     }
-
+    @FlakyTest
     public void testReplayEpisodeContinuousPlaybackOn() throws Exception {
         replayEpisodeCheck(true);
     }
-
+    @FlakyTest
     public void testReplayEpisodeContinuousPlaybackOff() throws Exception {
         replayEpisodeCheck(false);
     }

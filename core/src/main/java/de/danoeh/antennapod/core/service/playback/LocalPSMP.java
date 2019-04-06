@@ -169,11 +169,11 @@ public class LocalPSMP extends PlaybackServiceMediaPlayer {
             callback.onMediaChanged(false);
             if (stream) {
                 mediaPlayer.setDataSource(media.getStreamUrl());
-            } else if (new File(media.getLocalMediaUrl()).canRead()) {
-                mediaPlayer.setDataSource(media.getLocalMediaUrl());
             } else {
+                mediaPlayer.setDataSource(media.getLocalMediaUrl());
+            } /*else {
                 throw new IOException("Unable to read local file " + media.getLocalMediaUrl());
-            }
+            }*/
             setPlayerStatus(PlayerStatus.INITIALIZED, media);
 
             if (prepareImmediately) {
