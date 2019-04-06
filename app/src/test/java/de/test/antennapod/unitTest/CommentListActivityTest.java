@@ -47,26 +47,6 @@ public class CommentListActivityTest {
         cListActivity = controller.get();
         assertNotNull(cListActivity);
     }
-
-//    @Test
-//    public void checkMenuItemSelection() {
-//        MenuItem mockMenuItem = mock(MenuItem.class);
-//        when(mockMenuItem.getItemId()).thenReturn(R.id.action_add);
-//        cListActivity.onOptionsItemSelected(mockMenuItem);
-//    }
-
-//    @Test
-//    public void testOnActivity() {
-//        cListActivity = controller
-//                .create()
-//                .start()
-//                .resume()
-//                .visible()
-//                .get();
-
-//        /MenuItem mockMenuItem = mock()
-//        cListActivity.onOptionsItemSelected()
-
 }
 
 
