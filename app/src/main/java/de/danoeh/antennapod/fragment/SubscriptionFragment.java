@@ -123,7 +123,7 @@ public class SubscriptionFragment extends Fragment {
             return;
         }
 
-        Feed feed = (Feed)selectedObject;
+        Feed feed = (Feed) selectedObject;
 
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.nav_feed_context, menu);
@@ -131,6 +131,10 @@ public class SubscriptionFragment extends Fragment {
         menu.setHeaderTitle(feed.getTitle());
 
         mPosition = position;
+
+        changeItemVisibility(menu);
+
+       // menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
     }
 
     @Override
@@ -279,4 +283,13 @@ public class SubscriptionFragment extends Fragment {
             return navDrawerData != null ? navDrawerData.feedCounters.get(feedId) : 0;
         }
     };
+
+    protected void superOnCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    protected void changeItemVisibility(ContextMenu menu){
+        menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
+        menu.findItem(R.id.add_to_favorites_podcasts).setVisible(true);
+    }
 }
