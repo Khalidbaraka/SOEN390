@@ -589,6 +589,10 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
         // episodes are not loaded, so we cannot check if the podcast has new or unplayed ones!
     }
 
+    //FOR TESTING PURPOSES ONLY////
+    public void setmPosition(int position){
+        this.mPosition = position;
+    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
