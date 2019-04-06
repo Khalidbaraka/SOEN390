@@ -84,18 +84,4 @@ public class FindSmilarUnitTests {
         }else{ return false;}
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

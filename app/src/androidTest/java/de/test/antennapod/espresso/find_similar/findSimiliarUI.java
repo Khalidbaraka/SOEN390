@@ -100,10 +100,6 @@ import static org.junit.Assert.assertEquals;
             return ((MainActivity) solo.getCurrentActivity()).getSupportActionBar().getTitle().toString();
         }
 
-
-
-
-
     }
 
 
