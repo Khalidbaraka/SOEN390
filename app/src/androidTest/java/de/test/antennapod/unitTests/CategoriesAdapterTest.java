@@ -36,7 +36,6 @@ public class CategoriesAdapterTest {
         categoriesList.add(item2);
 
         adapter = new CategoriesAdapter(context,categoriesList);
-
     }
     @Test
     public void testGetItemCount(){

@@ -14,7 +14,7 @@ public class Comment implements Serializable {
     }
 
 
-    public Comment(String userid, String timestamp, String comment, String podcast, String useremail) {
+    public Comment(String userid, String useremail, String timestamp, String comment, String podcast) {
 
         this.userid = userid;
         this.timestamp = timestamp;
@@ -24,7 +24,6 @@ public class Comment implements Serializable {
     }
 
     public String getUser() {
-
         return userid;
     }
 

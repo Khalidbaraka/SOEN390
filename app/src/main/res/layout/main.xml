@@ -41,6 +41,8 @@
             android:layout_height="0px"
             android:layout_above="@id/playerFragment"
             android:layout_below="@id/toolbar"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="-2dp"
             android:foreground="?android:windowContentOverlay"
             tools:background="@android:color/holo_red_dark" />
 
