@@ -41,10 +41,12 @@ repositories {
 
 buildscript {
     repositories {
+
         jcenter()
     }
     dependencies {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
+
     }
 }
 
@@ -171,6 +173,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
@@ -221,8 +224,10 @@ dependencies {
     implementation 'com.github.ByteHamster:SearchPreference:v1.0.8'
     androidTestImplementation "com.jayway.android.robotium:robotium-solo:$robotiumSoloVersion"
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     implementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'

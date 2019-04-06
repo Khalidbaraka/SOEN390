@@ -10,9 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
-import de.danoeh.antennapod.activity.RegisterAndLoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import android.widget.Toast;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 import android.os.Bundle;
@@ -33,7 +33,7 @@ import static android.view.View.GONE;
 
 public class DiscoveryPageFragment extends Fragment {
 
-
+    private AdView mAdView;
     private View DiscoveryView;
     private TextView txtHome;
     public static final String TAG = "DiscoveryPageFragment";
@@ -50,24 +50,19 @@ public class DiscoveryPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         auth = FirebaseAuth.getInstance();
 
+
+
         DiscoveryView = inflater.inflate(R.layout.discovery_page, container, false);
+
+        mAdView = DiscoveryView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
 
         Button categoriesButton = DiscoveryView.findViewById(R.id.categories_button);
 
         Button luckyBtn = DiscoveryView.findViewById(R.id.luckyBtn);
-
-        Button registerAndLoginButton = DiscoveryView.findViewById(R.id.register_and_login_main_layout_button);
-
-        Button logoutButton = DiscoveryView.findViewById(R.id.logout);
-
-        if (auth.getCurrentUser() != null) {
-            registerAndLoginButton.setVisibility(View.GONE);
-            logoutButton.setVisibility(View.VISIBLE);
-        }
-        if (auth.getCurrentUser() == null) {
-            registerAndLoginButton.setVisibility(View.VISIBLE);
-            logoutButton.setVisibility(View.GONE);
-        }
         
         luckyBtn.setOnClickListener(new View.OnClickListener () {
             @Override
@@ -116,33 +111,6 @@ public class DiscoveryPageFragment extends Fragment {
                 activity.loadChildFragment(myItunesSearchFragment);
             }
 
-        });
-
-        registerAndLoginButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                final MainActivity activity = (MainActivity) getActivity();
-                Intent intent = new Intent(getActivity(), RegisterAndLoginActivity.class);
-                activity.startActivity(intent);
-                activity.finish();
-
-            }
-        });
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(getContext(), "Successfully Logged Out", Toast.LENGTH_SHORT).show();
-
-                final MainActivity activity = (MainActivity) getActivity();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                activity.startActivity(intent);
-                activity.loadChildFragment(new DiscoveryPageFragment());
-            }
         });
 
 
