@@ -39,16 +39,16 @@ public class SubscriptionFragment extends Fragment {
 
     public static final String TAG = "SubscriptionFragment";
 
-    private static final int EVENTS = EventDistributor.FEED_LIST_UPDATE
+    protected static final int EVENTS = EventDistributor.FEED_LIST_UPDATE
             | EventDistributor.UNREAD_ITEMS_UPDATE;
 
-    private GridView subscriptionGridLayout;
-    private DBReader.NavDrawerData navDrawerData;
-    private SubscriptionsAdapter subscriptionAdapter;
-    private View root;
-    private int mPosition = -1;
+    protected GridView subscriptionGridLayout;
+    protected DBReader.NavDrawerData navDrawerData;
+    protected SubscriptionsAdapter subscriptionAdapter;
+    protected View root;
+    protected int mPosition = -1;
 
-    private Disposable disposable;
+    protected Disposable disposable;
     public SubscriptionFragment() {
     }
 
@@ -98,7 +98,7 @@ public class SubscriptionFragment extends Fragment {
         }
     }
 
-    private void loadSubscriptions() {
+    protected void loadSubscriptions() {
         if(disposable != null) {
             disposable.dispose();
         }
@@ -135,7 +135,6 @@ public class SubscriptionFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
         final int position = mPosition;
         mPosition = -1; // reset
         if(position < 0) {
@@ -190,6 +189,11 @@ public class SubscriptionFragment extends Fragment {
                 return true;
             case R.id.add_to_favorites_podcasts:
                 DBWriter.addFavoritePodcastItem(feed);
+                Fragment mFragment = new SubscriptionFavoritePodcastsFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, mFragment)
+                        .commit();
                 return true;
             case R.id.remove_item:
                 final FeedRemover remover = new FeedRemover(getContext(), feed) {
@@ -233,7 +237,7 @@ public class SubscriptionFragment extends Fragment {
         loadSubscriptions();
     }
 
-    private final EventDistributor.EventListener contentUpdate = new EventDistributor.EventListener() {
+    protected final EventDistributor.EventListener contentUpdate = new EventDistributor.EventListener() {
         @Override
         public void update(EventDistributor eventDistributor, Integer arg) {
             if ((EVENTS & arg) != 0) {
@@ -243,7 +247,7 @@ public class SubscriptionFragment extends Fragment {
         }
     };
 
-    private final SubscriptionsAdapter.ItemAccess itemAccess = new SubscriptionsAdapter.ItemAccess() {
+    protected final SubscriptionsAdapter.ItemAccess itemAccess = new SubscriptionsAdapter.ItemAccess() {
         @Override
         public int getCount() {
             if (navDrawerData != null) {
