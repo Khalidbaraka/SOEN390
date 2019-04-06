@@ -36,14 +36,14 @@ import de.danoeh.antennapod.R;
 public class FindSimilarFragment extends android.support.v4.app.Fragment {
 
     public static final String TAG = "FindSimilarFragment";
-    private ArrayList<String> mNames = new ArrayList<>();
+    public ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mFeeds = new ArrayList<>();
     private ArrayList<String> mImageURLs = new ArrayList<>();
     private RecyclerView myRecyclerView;
-    private SimilarPodcastAdapter adapter;
+    public SimilarPodcastAdapter adapter;
 
-    private String podcastURL = null;
-    private String podcastID = null;
+    public String podcastURL = null;
+    public String podcastID = null;
     private String apiKey = "3DyA6A9QQrmshyviEGiAHOvMEaOlp1JwxHgjsnta7E9mAXcq8h";
 
     @Override
@@ -75,7 +75,7 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void getPodcastID(String podcastURL){
+    public String getPodcastID(String podcastURL){
 
         String podURL = podcastURL;
         String similarPodcastURL = "https://listennotes.p.rapidapi.com/api/v1/podcasts";
@@ -108,7 +108,12 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
                         JSONObject podcastData = new JSONObject(jsonData);
                         String podcastInfo = podcastData.getJSONArray("podcasts").getString(0);
                         JSONObject podcastData2 = new JSONObject(podcastInfo);
+
                         podcastID = podcastData2.getString("id");
+
+                        Log.d("podcastID is",podcastID );
+                        Log.d("podcastID is",podcastID );
+
                         getSimilarPodcasts(podcastID);
                     }
                     else{
@@ -121,9 +126,10 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
                 }
             }
         });
+        return podcastID;
     }
 
-    private void getSimilarPodcasts(String podcastID){
+    public void getSimilarPodcasts(String podcastID){
 
          ArrayList<String> names = new ArrayList<>();
          ArrayList<String> images = new ArrayList<>();
@@ -174,7 +180,7 @@ public class FindSimilarFragment extends android.support.v4.app.Fragment {
         });
     }
 
-    private void setupRecycler(ArrayList<String> mNames, ArrayList<String> mImageURLs,ArrayList<String> mFeeds) {
+    public void setupRecycler(ArrayList<String> mNames, ArrayList<String> mImageURLs,ArrayList<String> mFeeds) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

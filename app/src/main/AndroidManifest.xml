@@ -42,6 +42,7 @@
         <activity android:name=".activity.AddCommentActivity"></activity>
         <activity android:name=".activity.CommentListActivity"
             android:windowSoftInputMode="adjustPan"
+            android:label="Comments"
             />
         <activity
             android:name=".activity.ForgotPasswordActivity"
