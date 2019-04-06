@@ -301,10 +301,6 @@ public class EditProfileFragment extends Fragment {
                                 }
                             }
                         });
-//                        reference = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).setValue(updatedUser);
-//                        HashMap<String, Object> map = new HashMap<>();
-//                        map.put("imageURL", mUri);
-//                        reference.updateChildren(map);
 
                         pd.dismiss();
                     } else {
