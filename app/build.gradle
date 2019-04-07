@@ -180,6 +180,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
+    // Firebase storage, to store the user profile picture
+    implementation 'com.google.firebase:firebase-storage:16.0.1'
+
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
     implementation 'com.android.support:support-v4:26.1.0'
     freeImplementation project(":core")
 
