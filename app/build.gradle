@@ -3,6 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 apply plugin: "com.android.application"
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.google.firebase.firebase-perf'
 apply from: "$project.rootDir/tools/findbugs.gradle"
 apply from: "$project.rootDir/tools/checkstyle.gradle"
 apply from: "$project.rootDir/tools/pmd.gradle"
@@ -180,6 +181,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-perf:16.2.5'
     // Firebase storage, to store the user profile picture
     implementation 'com.google.firebase:firebase-storage:16.0.1'
 
@@ -293,3 +295,4 @@ allprojects {
 }
 
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

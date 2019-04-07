@@ -9,6 +9,7 @@ buildscript {
     dependencies {
 
         classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'com.google.firebase:firebase-plugins:1.1.5'
         classpath 'com.android.tools.build:gradle:3.3.2'
         classpath "com.github.triplet.gradle:play-publisher:1.2.0"
         // Exclude the version that the android plugin depends on.
