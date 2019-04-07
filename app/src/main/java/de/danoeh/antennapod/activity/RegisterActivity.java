@@ -76,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity implements Printer {
                 String email = userEmail.getText().toString().trim();
                 String password = userPassword.getText().toString().trim();
                 String fullName = userFullName.getText().toString().trim();
+                String imageURL = "default";
 
                 if(!checkFieldsValidation(fullName,email,password, printer)){
                     return;
@@ -103,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity implements Printer {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         Log.d(TAG, "Email sent.");
-                                                        User newUser = new User(email, fullName);
+                                                        User newUser = new User(email, fullName, imageURL);
 
                                                         FirebaseDatabase.getInstance().getReference("users")
                                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
