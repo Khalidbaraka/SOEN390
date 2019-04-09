@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import com.squareup.picasso.Picasso;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -92,7 +93,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
                     User user= new User();
                     user.setEmail(d.child("email").getValue(String.class));
                     user.setFullName(d.child("fullName").getValue(String.class));
-
+                    user.setImageURL(d.child("imageURL").getValue(String.class));
                     userList.add(user);
                 }
 
@@ -104,7 +105,8 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
                         holder.userEmail= u.getEmail();
                         holder.podcast= comment.getPodcast();
                         holder.commentID= comment.toString();
-//                        holder.image= u.
+                        holder.imageURL = u.getImageURL();
+                        Picasso.get().load(holder.imageURL).resize(200,200).into(holder.image);
                         break;
                     }
                 }
@@ -134,6 +136,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         public String userEmail;
         public String podcast;
         public String commentID;
+        public String imageURL;
         public String commentIDFROMDB;
         public ImageButton image;
         public ViewHolder(@NonNull View view, Context ctx ) {
