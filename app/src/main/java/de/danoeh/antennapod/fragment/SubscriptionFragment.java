@@ -228,6 +228,9 @@ public class SubscriptionFragment extends Fragment {
                     @Override
                     protected void onPostExecute(Void result) {
                         super.onPostExecute(result);
+                        if(feed.isTagged(Feed.TAG_FAVORITE)){
+                            DBWriter.removeFavoritePodcastItem(feed);
+                        }
                         loadSubscriptions();
                     }
                 };

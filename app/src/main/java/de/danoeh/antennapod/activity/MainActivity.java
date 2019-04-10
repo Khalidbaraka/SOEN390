@@ -656,12 +656,20 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
                  Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                  startActivity(intent);
                 return true;
+            case R.id.remove_from_favorite_podcasts:
+                DBWriter.removeFavoritePodcastItem(feed);
+                Intent intentt = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentt);
+                return true;
             case R.id.remove_item:
                 final FeedRemover remover = new FeedRemover(this, feed) {
                     @Override
                     protected void onPostExecute(Void result) {
                         super.onPostExecute(result);
                         if(getSelectedNavListIndex() == position) {
+                            if(feed.isTagged(Feed.TAG_FAVORITE)){
+                                DBWriter.removeFavoritePodcastItem(feed);
+                            }
                             loadFragment(EpisodesFragment.TAG, null);
                         }
                     }
