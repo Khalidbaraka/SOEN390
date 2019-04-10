@@ -585,7 +585,19 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.nav_feed_context, menu);
         Feed feed = navDrawerData.feeds.get(position - navAdapter.getSubscriptionOffset());
+
+        DBReader.isFavoritePodcast(feed);
+
         menu.setHeaderTitle(feed.getTitle());
+
+        if(feed.isTagged(Feed.TAG_FAVORITE)){
+            menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(true);
+            menu.findItem(R.id.add_to_favorites_podcasts).setVisible(false);
+        }
+        else{
+            menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
+            menu.findItem(R.id.add_to_favorites_podcasts).setVisible(true);
+        }
         // episodes are not loaded, so we cannot check if the podcast has new or unplayed ones!
     }
 
@@ -602,6 +614,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             return false;
         }
         Feed feed = navDrawerData.feeds.get(position - navAdapter.getSubscriptionOffset());
+        DBReader.isFavoritePodcast(feed);
         switch(item.getItemId()) {
             case R.id.mark_all_seen_item:
                 ConfirmationDialog markAllSeenConfirmationDialog = new ConfirmationDialog(this,

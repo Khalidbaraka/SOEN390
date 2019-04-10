@@ -26,7 +26,6 @@ import de.danoeh.antennapod.core.storage.DBReader;
 import de.danoeh.antennapod.core.storage.DBWriter;
 import de.danoeh.antennapod.core.util.FeedItemUtil;
 import de.danoeh.antennapod.core.util.IntentUtils;
-import de.danoeh.antennapod.core.util.LongList;
 import de.danoeh.antennapod.dialog.RenameFeedDialog;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -126,7 +125,7 @@ public class SubscriptionFragment extends Fragment {
 
         Feed feed = (Feed) selectedObject;
 
-        isFavoritePodcast(feed);
+        DBReader.isFavoritePodcast(feed);
 
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.nav_feed_context, menu);
@@ -160,7 +159,7 @@ public class SubscriptionFragment extends Fragment {
         }
 
         Feed feed = (Feed)selectedObject;
-        isFavoritePodcast(feed);
+        DBReader.isFavoritePodcast(feed);
         switch(item.getItemId()) {
             case R.id.mark_all_seen_item:
                 ConfirmationDialog markAllSeenConfirmationDialog = new ConfirmationDialog(getActivity(),
@@ -304,12 +303,5 @@ public class SubscriptionFragment extends Fragment {
     protected void changeItemVisibility(ContextMenu menu){
         menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
         menu.findItem(R.id.add_to_favorites_podcasts).setVisible(true);
-    }
-
-    protected void isFavoritePodcast(Feed feed){
-        LongList favoriteIds = DBReader.getFavoritePodcastIDList();
-        if(favoriteIds.contains(feed.getId())){
-            feed.addTag(Feed.TAG_FAVORITE);
-        }
     }
 }

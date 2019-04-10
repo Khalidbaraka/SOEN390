@@ -143,6 +143,12 @@ public final class DBReader {
         }
     }
 
+    public static void isFavoritePodcast(Feed feed){
+        LongList favoriteIds = getFavoritePodcastIDList();
+        if(favoriteIds.contains(feed.getId())){
+            feed.addTag(Feed.TAG_FAVORITE);
+        }
+    }
     /**
      * Returns a list with the download URLs of all feeds.
      *
