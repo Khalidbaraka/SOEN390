@@ -123,6 +123,26 @@ public final class DBReader {
         }
     }
 
+    public static LongList getFavoritePodcastIDList() {
+        Log.d(TAG, "getFavoritePodcastIDList() called");
+        PodDBAdapter adapter = PodDBAdapter.getInstance();
+        adapter.open();
+        Cursor cursor = null;
+        try {
+            cursor = adapter.getFavoritesPodcastsCursor();
+            LongList favoriteIDs = new LongList(cursor.getCount());
+            while (cursor.moveToNext()) {
+                favoriteIDs.add((long)cursor.getInt(0));
+            }
+            return favoriteIDs;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            adapter.close();
+        }
+    }
+
     /**
      * Returns a list with the download URLs of all feeds.
      *

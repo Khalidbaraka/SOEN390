@@ -769,6 +769,6 @@
     <string name="notification_channel_error_description">Shown if something went wrong, for example if download or gpodder sync fails.</string>
 
     <!-- Add favorite podcast -->
-    <string name="add_to_favorite_podcast">Add To Favorite Podcast</string>
-    <string name="remove_from_favorite_podcast">Remove From Favorite Podcast</string>
+    <string name="add_to_favorite_podcast">Add To Favorite Podcasts</string>
+    <string name="remove_from_favorite_podcast">Remove From Favorite Podcasts</string>
 </resources>
