@@ -61,6 +61,7 @@ import de.danoeh.antennapod.fragment.ItemDescriptionFragment;
 import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
+import de.danoeh.antennapod.fragment.SubscriptionFavoritePodcastsFragment;
 import de.danoeh.antennapod.menuhandler.NavDrawerActivity;
 import de.greenrobot.event.EventBus;
 import io.reactivex.Observable;
@@ -86,7 +87,7 @@ public abstract class MediaplayerInfoActivity extends MediaplayerActivity implem
     private static final String[] NAV_DRAWER_TAGS = {
             QueueFragment.TAG,
             EpisodesFragment.TAG,
-            SubscriptionFragment.TAG,
+            SubscriptionFavoritePodcastsFragment.TAG,
             DownloadsFragment.TAG,
             PlaybackHistoryFragment.TAG,
             AddFeedFragment.TAG,
@@ -395,6 +396,9 @@ public abstract class MediaplayerInfoActivity extends MediaplayerActivity implem
                 return true;
             case R.id.rename_item:
                 new RenameFeedDialog(this, feed).show();
+                return true;
+            case R.id.add_to_favorites_podcasts:
+                DBWriter.addFavoritePodcastItem(feed);
                 return true;
             case R.id.remove_item:
                 final FeedRemover remover = new FeedRemover(this, feed);
