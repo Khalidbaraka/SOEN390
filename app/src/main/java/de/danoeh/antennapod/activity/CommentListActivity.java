@@ -108,6 +108,7 @@ public class CommentListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.comment_menu, menu);
+        menu.findItem(R.id.action_add_reply).setVisible(false);
         if(mUser!= null & mAuth != null){
             menu.findItem(R.id.action_signIn).setVisible(false);
         }else {
