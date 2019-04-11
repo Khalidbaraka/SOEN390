@@ -157,7 +157,10 @@ public class CommentListActivity extends Activity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Comment comment = dataSnapshot.getValue(Comment.class);
-                if(comment.getPodcast().equalsIgnoreCase(targetPodcastTitle))
+                Log.d("datasnapshot",dataSnapshot.getKey().toString());
+                comment.setCommentid(dataSnapshot.getKey().toString());
+                String test = comment.getCommentid();
+                if(comment.getPodcast().equalsIgnoreCase(targetPodcastTitle) && !(commentList.contains(comment)))
                 {
                     commentList.add(comment);
                 }

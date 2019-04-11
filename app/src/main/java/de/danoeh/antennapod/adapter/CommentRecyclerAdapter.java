@@ -27,8 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.ReplyListActivity;
@@ -152,20 +154,17 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
                 for(DataSnapshot d: dataSnapshot.getChildren()){
                     Reply reply = new Reply();
                     reply.commentID=(d.child("commentID").getValue(String.class));
+                    reply.reply=(d.child("reply").getValue(String.class));
                     replies.add(reply);
                 }
-                int sum=0;
-                for(int j=0; j<commentIDList.size();j++){
-                    for(int i=0; i< replies.size(); i++){
-                        if(commentIDList.get(j).equals(replies.get(i).commentID)){
-                            sum++;
-                            continue;
-                        }
+                int sum = 0;
+                for(Reply i : replies){
+                    if(i.commentID.equals(comment.getCommentid())){
+                        sum++;
                     }
-                    holder.repliesNum.setText(String.valueOf(sum)+" replies");
-                    sum=0;
                 }
-
+                holder.repliesNum.setText(String.valueOf(sum)+" replies");
+                replies.clear();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
