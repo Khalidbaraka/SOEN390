@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,8 +42,6 @@ public class ReplyListActivity extends Activity {
 // to post a reply widgets
     private EditText replyContent_1;
     private Button addReplybtn_1;
-
-
     public List<Reply> replyArrayList;
     public ArrayList<User>  userList;
     public String userEmailFromPrevActivtiy;
@@ -68,7 +68,12 @@ public class ReplyListActivity extends Activity {
 
         // getting the infromation needed to post a reply and populate required replies
         Intent i = getIntent();
+        userEmailFromPrevActivtiy= i.getStringExtra("userEmail");
+        commentFromPrevActivity= i.getStringExtra("comment");
         commentID= i.getStringExtra("commentID");
+        commentOwner= i.getStringExtra("commentOwner");
+        podcastFromPrevActivity= i.getStringExtra("podcast");
+
 
         mAuth = FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
@@ -90,18 +95,75 @@ public class ReplyListActivity extends Activity {
         recyclerView_2.setLayoutManager(new LinearLayoutManager(this));
         replyRecyclerAdapter= new ReplyRecyclerAdapter(ReplyListActivity.this,replyArrayList);
 
-
+        if(mAuth == null || mUser == null){
+            addReplybtn_1.setVisibility(View.GONE);
+            replyContent_1.setVisibility(View.GONE);
+        }
 
         addReplybtn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(mAuth != null && mUser != null){
                     startPosting();
+                }else{
+                    Toast.makeText(getApplicationContext(),"You are not Signed in.Please do",Toast.LENGTH_LONG)
+                    .show();
+                }
+
             }
         });
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.comment_menu, menu);
+        menu.findItem(R.id.action_add).setVisible(false);
+        if(mUser!= null & mAuth != null){
+            menu.findItem(R.id.action_signIn).setVisible(false);
+
+        }else {
+            menu.findItem(R.id.action_signout).setVisible(false);
+            menu.findItem(R.id.action_add_reply).setVisible(false);
+
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+
+            case R.id.action_add_reply:
+                if(mUser != null && mAuth != null) {
+                    Intent intent= new Intent(ReplyListActivity.this, AddReplyActivity.class);
+                    intent.putExtra("comment",commentFromPrevActivity);
+                    intent.putExtra("commentID", commentID);
+                    intent.putExtra("userEmail",userEmailFromPrevActivtiy);
+                    intent.putExtra("commentOwner", commentOwner);
+                    intent.putExtra("podcast",podcastFromPrevActivity);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
+
+            case R.id.action_signIn:
+                startActivity(new Intent(ReplyListActivity.this, LoginActivity.class));
+                finish();
+
+                break;
+
+            case R.id.action_signout:
+                mAuth.signOut();
+                startActivity(new Intent(ReplyListActivity.this, MainActivity.class));
+                finish();
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onStart() {
@@ -161,7 +223,6 @@ public class ReplyListActivity extends Activity {
             newReply.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getApplicationContext(), "Item added!!!", Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Item added!!!", Toast.LENGTH_LONG).show();
                     Intent intent= new Intent(ReplyListActivity.this, ReplyListActivity.class);
                     finish();
