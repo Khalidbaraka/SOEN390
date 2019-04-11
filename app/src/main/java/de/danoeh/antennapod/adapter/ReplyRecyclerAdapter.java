@@ -11,6 +11,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,35 +39,18 @@ import de.danoeh.antennapod.model.Reply;
 public class ReplyRecyclerAdapter extends RecyclerView.Adapter<ReplyRecyclerAdapter.ViewHolder>{
 
     private Context context;
-
     private List<Reply> replyList;
-    private List<Reply> UpdatedreplyList;
-
     private List<User> userList;
-    private List <Comment> commentList;
 
-    private FirebaseUser mUser;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabaseReference;
     private DatabaseReference userReference;
-    private DatabaseReference commentReference;
-    private DatabaseReference replyReference;
-
-
     private FirebaseDatabase mDatabase;
 
     public ReplyRecyclerAdapter(Context context, List<Reply> replyList) {
         this.context = context;
         this.replyList = replyList;
-        this.UpdatedreplyList=new ArrayList<>();
         this.userList = new ArrayList<>();
-        this.commentList= new ArrayList<>();
         mDatabase=FirebaseDatabase.getInstance();
         userReference=mDatabase.getReference().child("users");
-        commentReference=mDatabase.getReference().child("Comment");
-        replyReference= mDatabase.getReference().child("Reply");
-
-
     }
 
     @NonNull
@@ -79,31 +64,8 @@ public class ReplyRecyclerAdapter extends RecyclerView.Adapter<ReplyRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull ReplyRecyclerAdapter.ViewHolder holder, int position) {
+
         Reply reply= replyList.get(position);
-
-//        commentReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//               Iterator<DataSnapshot> comments = dataSnapshot.getChildren().iterator();
-//                while (comments.hasNext()){
-//                    DataSnapshot comment = comments.next();
-//                    Log.d("TESTING!!","COMMENT ID IS "+comment.getKey());
-//                    String concatCommentID= "-"+reply.commentID;
-//                    if(comment.getKey().equals(reply.commentID)){
-//                        Log.d("TESTING!!", "onDataChange: INSIDE THE IF STATMENT! ITS WORKING!");
-//                        UpdatedreplyList.add(reply);
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -112,14 +74,12 @@ public class ReplyRecyclerAdapter extends RecyclerView.Adapter<ReplyRecyclerAdap
                     User user= new User();
                     user.setEmail(d.child("email").getValue(String.class));
                     user.setFullName(d.child("fullName").getValue(String.class));
-
+                    user.setImageURL(d.child("imageURL").getValue(String.class));
                     userList.add(user);
                 }
 
                 for(User u: userList){
-                    Log.d("user name is :", u.getFullName());
                     if(u.getEmail().equals(reply.senderEmail)){
-                        Log.d("user name is :", u.getFullName());
                         holder.userName.setText(u.getFullName());
                         holder.userEmail= u.getEmail();
                         //for timestamp
@@ -128,6 +88,8 @@ public class ReplyRecyclerAdapter extends RecyclerView.Adapter<ReplyRecyclerAdap
                         //The formatted date looks like: Match 31st, 2019
                         holder.timestamp.setText(formattedDate);
                         holder.reply.setText(reply.getReply());
+                        // load the user pic
+                        Picasso.get().load(u.getImageURL()).resize(200,200).into(holder.image);
                         break;
                     }
                 }
@@ -149,12 +111,13 @@ public class ReplyRecyclerAdapter extends RecyclerView.Adapter<ReplyRecyclerAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         public TextView reply;
         public TextView timestamp;
         public TextView userName;
-        public String userId;
         public String userEmail;
         public String podcast;
+        public ImageButton image;
 
 
         public ViewHolder(View view, Context ctx) {
@@ -163,6 +126,7 @@ public class ReplyRecyclerAdapter extends RecyclerView.Adapter<ReplyRecyclerAdap
             reply = (TextView)view.findViewById(R.id.replyTitleList);
             timestamp = (TextView)view.findViewById(R.id.timestampList1);
             userName= (TextView)view.findViewById(R.id.userName1);
+            image= (ImageButton)view.findViewById(R.id.imageButton2);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

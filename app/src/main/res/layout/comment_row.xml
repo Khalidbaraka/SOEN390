@@ -4,12 +4,12 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="470dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/imageButton2"
             android:layout_width="59dp"
             android:layout_height="68dp"
             android:layout_marginStart="8dp"
@@ -21,8 +21,8 @@
             android:scaleType="center" />
 
         <LinearLayout
-            android:layout_width="335dp"
-            android:layout_height="121dp"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -30,8 +30,9 @@
                 android:layout_width="335dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_toRightOf="@id/imageButton3"
-                android:text="User" />
+                android:layout_toRightOf="@id/imageButton2"
+                android:text="User"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/commentTitleList"
@@ -41,23 +42,38 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/timestampList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="5dp"
-                android:text="Date Created"
-                android:textSize="10sp"
-                android:textStyle="italic" />
+                <TextView
+                    android:id="@+id/timestampList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Date Created"
+                    android:textSize="10sp"
+                    android:textStyle="italic" />
 
-            <Button
-                android:id="@+id/addReplyBtn"
-                android:layout_width="71dp"
-                android:layout_height="30dp"
-                android:text="Reply"
-                android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/repliesNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="replies"
+                    android:textColor="@color/antennapod_blue" />
+
+                <Button
+                    android:id="@+id/addReplyBtn"
+                    android:layout_width="73dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:text="Reply"
+
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
 

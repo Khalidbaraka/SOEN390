@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.google.firebase.database.ChildEventListener;
 import com.squareup.picasso.Picasso;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,11 +31,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import de.danoeh.antennapod.R;
-import de.danoeh.antennapod.activity.AddCommentActivity;
-import de.danoeh.antennapod.activity.AddReplyActivity;
-import de.danoeh.antennapod.activity.CommentListActivity;
 import de.danoeh.antennapod.activity.ReplyListActivity;
 import de.danoeh.antennapod.model.Comment;
+import de.danoeh.antennapod.model.Reply;
 import de.danoeh.antennapod.model.User;
 
 
@@ -41,8 +42,9 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
 
     private Context context;
     private List <Comment> commentList;
+    private List<String> commentIDList;
     private List<User> userList;
-
+    private List<Reply>replies;
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseReference;
@@ -51,14 +53,16 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
     private DatabaseReference mCommentDatabase;
 
 
-
     public CommentRecyclerAdapter(Context context, List<Comment> commentList) {
         this.context = context;
         this.commentList = commentList;
         this.userList = new ArrayList<>();
+        this.replies= new ArrayList<>();
+        this.commentIDList=new ArrayList<>();
         mDatabase=FirebaseDatabase.getInstance();
         userReference=mDatabase.getReference().child("users");
         mCommentDatabase=mDatabase.getReference().child("Comment");
+        mDatabaseReference= mDatabase.getReference().child("Reply");
 
     }
 
@@ -119,7 +123,61 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
             }
         });
 
+        //gives me the comment id with no duplicates
+        mCommentDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> comments = dataSnapshot.getChildren().iterator();
+               int i=0;
+                while (comments.hasNext()){
+                    DataSnapshot item = comments.next();
+                    //removing duplicates by the if statement
+                    if(!(commentIDList.contains(item.getKey())))
+                    {commentIDList.add(item.getKey().toString());
+                    Log.d("key "+i,item.getKey());}
+                    i++;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot d: dataSnapshot.getChildren()){
+                    Reply reply = new Reply();
+                    reply.commentID=(d.child("commentID").getValue(String.class));
+                    replies.add(reply);
+                }
+                int sum=0;
+                for(int j=0; j<commentIDList.size();j++){
+                    for(int i=0; i< replies.size(); i++){
+                        if(commentIDList.get(j).equals(replies.get(i).commentID)){
+                            sum++;
+                            continue;
+                        }
+                    }
+                    holder.repliesNum.setText(String.valueOf(sum)+" replies");
+                    sum=0;
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -139,6 +197,8 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         public String imageURL;
         public String commentIDFROMDB;
         public ImageButton image;
+        public int totalReplies;
+        public TextView repliesNum;
         public ViewHolder(@NonNull View view, Context ctx ) {
             super(view);
             context = ctx;
@@ -146,7 +206,8 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
             timestamp = (TextView)view.findViewById(R.id.timestampList);
             userName= (TextView)view.findViewById(R.id.userName);
             addReplyBtn = (Button)view.findViewById(R.id.addReplyBtn);
-            image= (ImageButton)view.findViewById(R.id.imageButton3);
+            image= (ImageButton)view.findViewById(R.id.imageButton2);
+            repliesNum= (TextView)view.findViewById(R.id.repliesNum);
             userId = null;
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -179,7 +240,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
                                 }
                             }
 
-                            Intent intent= new Intent(context.getApplicationContext(), AddReplyActivity.class);
+                            Intent intent= new Intent(context.getApplicationContext(), ReplyListActivity.class);
                             intent.putExtra("comment",comment.getText().toString());
                             intent.putExtra("commentID", commentIDFROMDB);
                             intent.putExtra("userEmail",userEmail);
@@ -196,8 +257,6 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
 
                         }
                     });
-
-
 
                 }
             });
