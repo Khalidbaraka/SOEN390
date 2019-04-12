@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.squareup.picasso.Picasso;
@@ -147,6 +148,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
             }
         });
 
+        // for displaying total number of replies
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -227,7 +229,6 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
                             while (comments.hasNext()){
                                 DataSnapshot item = comments.next();
 
-
                                 if( (item.child("comment").getValue().equals(comment.getText().toString())) &&
                                         (item.child("podcast").getValue().equals(podcast)) &&
                                         (item.child("useremail").getValue().equals(userEmail))
@@ -246,7 +247,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
                             intent.putExtra("commentOwner", userName.getText().toString());
                             intent.putExtra("podcast",podcast);
                             context.startActivity(intent);
-                            ((Activity)context).finish();
+//                            ((Activity)context).finish();
 
                         }
 

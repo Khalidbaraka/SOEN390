@@ -40,10 +40,13 @@
         android:logo="@mipmap/ic_launcher"
         android:restoreAnyVersion="true"
         android:roundIcon="@mipmap/ic_launcher_round">
-        <activity android:name=".activity.AddCommentActivity"></activity>
-        <activity android:name=".activity.AddReplyActivity"></activity>
+        <activity android:name=".activity.AddCommentActivity"
+            android:label="@string/add_your_comment"/>
+        <activity android:name=".activity.AddReplyActivity"
+            android:label="add your Reply"/>
         <activity android:name=".activity.ReplyListActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:label="Replies"/>
 
         <activity android:name=".activity.CommentListActivity"
             android:windowSoftInputMode="adjustPan"

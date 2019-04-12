@@ -98,6 +98,8 @@ public class ReplyListActivity extends Activity {
         if(mAuth == null || mUser == null){
             addReplybtn_1.setVisibility(View.GONE);
             replyContent_1.setVisibility(View.GONE);
+            Toast.makeText(ReplyListActivity.this,"You Cant Reply!,Please Register/Login",Toast.LENGTH_LONG)
+                    .show();
         }
 
         addReplybtn_1.setOnClickListener(new View.OnClickListener() {
@@ -224,7 +226,8 @@ public class ReplyListActivity extends Activity {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(), "Item added!!!", Toast.LENGTH_LONG).show();
-                    Intent intent= new Intent(ReplyListActivity.this, ReplyListActivity.class);
+//                    Intent intent= new Intent(ReplyListActivity.this, ReplyListActivity.class);
+//                    startActivity(intent);
                     finish();
                 }
             });

@@ -160,9 +160,16 @@ public class CommentListActivity extends Activity {
                 Log.d("datasnapshot",dataSnapshot.getKey().toString());
                 comment.setCommentid(dataSnapshot.getKey().toString());
                 String test = comment.getCommentid();
-                if(comment.getPodcast().equalsIgnoreCase(targetPodcastTitle) && !(commentList.contains(comment)))
+                if(comment.getPodcast().equalsIgnoreCase(targetPodcastTitle) )
                 {
-                    commentList.add(comment);
+                    boolean isExist= false;
+                    for(Comment c: commentList){
+                        if((comment.getCommentid().equals(c.commentid))){
+                            isExist=true;
+                        }
+                    }
+                    if(isExist== false){
+                    commentList.add(comment);}
                 }
 
                 recyclerView.setAdapter(commentRecyclerAdapter);
@@ -193,10 +200,8 @@ public class CommentListActivity extends Activity {
 
 
     private void startPosting() {
-//        mProgress.setMessage("Posting to blog");
-//        mProgress.show();
-        String content = mComment.getText().toString().trim();
 
+        String content = mComment.getText().toString().trim();
         Log.d("PODCAST TITLE", targetPodcastTitle);
         Log.d("im HERE!", "im here");
         if (!TextUtils.isEmpty(content)) {
