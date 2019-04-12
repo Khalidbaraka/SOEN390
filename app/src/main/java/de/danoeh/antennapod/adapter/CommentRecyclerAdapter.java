@@ -36,6 +36,7 @@ import java.util.Set;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.ReplyListActivity;
 import de.danoeh.antennapod.model.Comment;
+import de.danoeh.antennapod.model.Like;
 import de.danoeh.antennapod.model.Reply;
 import de.danoeh.antennapod.model.User;
 
@@ -48,6 +49,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
     private List<String> commentIDList;
     private List<User> userList;
     private List<Reply>replies;
+    private List<Reply>likes;
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseReference;
@@ -64,6 +66,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         this.userList = new ArrayList<>();
         this.replies= new ArrayList<>();
         this.commentIDList=new ArrayList<>();
+        this.likes = new ArrayList<>();
         mDatabase=FirebaseDatabase.getInstance();
         userReference=mDatabase.getReference().child("users");
         mCommentDatabase=mDatabase.getReference().child("Comment");
@@ -94,6 +97,36 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         String formattedDate = dateFormat.format(new Date(Long.valueOf(comment.getTimestamp())).getTime());
         //The formatted date looks like: Match 31st, 2019
         holder.timestamp.setText(formattedDate);
+
+
+        mLikeDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int numberOfLikes = 0;
+
+                Iterator<DataSnapshot> likesObj = dataSnapshot.getChildren().iterator();
+                int i=0;
+                while (likesObj.hasNext()){
+                    DataSnapshot item = likesObj.next();
+                    //removing duplicates by the if statement
+                    if(comment.getCommentid().equals(item.getKey())){
+                        for(DataSnapshot a :item.getChildren()){
+                            numberOfLikes++;
+                        }
+                    }
+                }
+                holder.likesNum.setText(String.valueOf(numberOfLikes)+" likes");
+                likes.clear();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         userReference.addValueEventListener(new ValueEventListener() {
 
@@ -234,6 +267,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         public ImageButton image;
         public int totalReplies;
         public TextView repliesNum;
+        public TextView likesNum;
         public Button likeButton;
         private FirebaseAuth mAuth;
         private DatabaseReference mLikeDatabase;
@@ -245,7 +279,8 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
             userName= (TextView)view.findViewById(R.id.userName);
             addReplyBtn = (Button)view.findViewById(R.id.addReplyBtn);
             image= (ImageButton)view.findViewById(R.id.imageButton2);
-            repliesNum= (TextView)view.findViewById(R.id.repliesNum);
+            repliesNum = (TextView)view.findViewById(R.id.repliesNum);
+            likesNum = (TextView)view.findViewById(R.id.likesNum);
             userId = null;
             mLikeDatabase = mDatabase.getReference().child("Like");
             mAuth = FirebaseAuth.getInstance();
