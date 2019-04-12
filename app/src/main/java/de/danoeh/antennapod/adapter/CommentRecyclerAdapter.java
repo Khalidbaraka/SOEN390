@@ -53,7 +53,9 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
     private DatabaseReference mDatabaseReference;
     private DatabaseReference userReference;
     private FirebaseDatabase mDatabase;
+    private DatabaseReference mLikeDatabase;
     private DatabaseReference mCommentDatabase;
+    private boolean mProcessLike = false;
 
 
     public CommentRecyclerAdapter(Context context, List<Comment> commentList) {
@@ -66,7 +68,9 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         userReference=mDatabase.getReference().child("users");
         mCommentDatabase=mDatabase.getReference().child("Comment");
         mDatabaseReference= mDatabase.getReference().child("Reply");
-
+        mLikeDatabase = mDatabase.getReference().child("Like");
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
     }
 
     @NonNull
@@ -174,7 +178,37 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
             }
         });
 
+        holder.changeLikeBtn(comment.getCommentid());
 
+        holder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mProcessLike= true;
+                mLikeDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(mProcessLike){
+
+                            if(dataSnapshot.child(comment.getCommentid()).hasChild(mAuth.getCurrentUser().getUid())){
+                                mLikeDatabase.child(comment.getCommentid()).child(mAuth.getCurrentUser().getUid()).removeValue();
+                                mProcessLike=false;
+                            }else {
+                                mLikeDatabase.child(comment.getCommentid()).child(mAuth.getCurrentUser().getUid()).setValue("true");
+                                mProcessLike=false;
+
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
     }
 
 
@@ -200,6 +234,9 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         public ImageButton image;
         public int totalReplies;
         public TextView repliesNum;
+        public Button likeButton;
+        private FirebaseAuth mAuth;
+        private DatabaseReference mLikeDatabase;
         public ViewHolder(@NonNull View view, Context ctx ) {
             super(view);
             context = ctx;
@@ -210,6 +247,9 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
             image= (ImageButton)view.findViewById(R.id.imageButton2);
             repliesNum= (TextView)view.findViewById(R.id.repliesNum);
             userId = null;
+            mLikeDatabase = mDatabase.getReference().child("Like");
+            mAuth = FirebaseAuth.getInstance();
+            likeButton = view.findViewById(R.id.like_btn);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -260,6 +300,29 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
 
                 }
             });
+
+        }
+
+        public void changeLikeBtn(String commentID){
+
+            mLikeDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child(commentID).hasChild(mAuth.getCurrentUser().getUid())){
+                        likeButton.setText("Unlike");
+
+                    }else {
+                        likeButton.setText("Like");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
 
         }
     }

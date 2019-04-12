@@ -71,6 +71,14 @@
                     android:text="Reply"
 
                     android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/like_btn"
+                    android:layout_width="76dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="like"
+                    android:textSize="12sp" />
             </LinearLayout>
 
 
