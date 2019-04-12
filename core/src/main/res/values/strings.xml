@@ -22,6 +22,8 @@
     <string name="downloads_log_label">Log</string>
     <string name="subscriptions_label">Subscriptions</string>
     <string name="subscriptions_list_label">Subscriptions List</string>
+    <string name="favorite_podcasts_label">Favorite podcasts Label</string>
+    <string name="favorite_podcasts_list_label">Favorite podcasts List</string>
     <string name="cancel_download_label">Cancel\nDownload</string>
     <string name="playback_history_label">Playback History</string>
     <string name="gpodnet_main_label">gpodder.net</string>
@@ -765,4 +767,8 @@
     <string name="notification_channel_playing_description">Allows to control playback. This is the main notification you see while playing a podcast.</string>
     <string name="notification_channel_error">Errors</string>
     <string name="notification_channel_error_description">Shown if something went wrong, for example if download or gpodder sync fails.</string>
+
+    <!-- Add favorite podcast -->
+    <string name="add_to_favorite_podcast">Add To Favorite Podcast</string>
+    <string name="remove_from_favorite_podcast">Remove From Favorite Podcast</string>
 </resources>
