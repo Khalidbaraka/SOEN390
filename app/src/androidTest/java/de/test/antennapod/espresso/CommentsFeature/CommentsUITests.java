@@ -29,6 +29,7 @@ import java.util.Iterator;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.CommentListActivity;
 import de.danoeh.antennapod.activity.MainActivity;
+import de.danoeh.antennapod.activity.OnlineFeedViewActivity;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onData;
@@ -87,13 +88,12 @@ public class CommentsUITests {
         solo.waitForView(R.id.layout_1);
         assertEquals(solo.getString(R.string.add_feed_label), getActionbarTitle());
 
-
     }
 
     @Test
     public void test3() {
         onView(withId(R.id.butSearchItunes)).perform(click());
-        solo.waitForView(R.id.listview);//layout_1
+        solo.waitForView(R.id.layout_1);//layout_1 listview
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
                 onChildView(withId(R.id.imgvCover)).perform(click());
         //clicks on podcast
@@ -106,7 +106,7 @@ public class CommentsUITests {
     @Test
     public void test4(){
         onView(withId(R.id.butSearchItunes)).perform(click());
-        solo.waitForView(R.id.listview);
+        solo.waitForView(R.id.layout_1);
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
                 onChildView(withId(R.id.imgvCover)).perform(click());
         //clicks on podcast
@@ -124,7 +124,7 @@ public class CommentsUITests {
     @Test
     public void test5(){
         onView(withId(R.id.butSearchItunes)).perform(click());
-        solo.waitForView(R.id.listview);
+        solo.waitForView(R.id.layout_1);
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
                 onChildView(withId(R.id.imgvCover)).perform(click());
         //clicks on podcast
@@ -141,9 +141,11 @@ public class CommentsUITests {
         solo.waitForView(android.R.id.list);
         onView(withId(R.id.submitComment_1)).perform(click());
         solo.waitForView(android.R.id.list);
+        assertEquals(OnlineFeedViewActivity.class, getActivityInstance().getClass());
 
     }
 
+    //To-Do one test for replying and one for like.
 
 
     private Activity getActivityInstance(){
