@@ -10,7 +10,7 @@ allSuccessMessages = []
 allFailureMessage = []
 allExecutionMessages = []
 
-print("dorin-test-2-no-log-printing")
+print("dorin-test-3-no-log-printing")
 
 for line in sys.stdin:
     #print(line)
