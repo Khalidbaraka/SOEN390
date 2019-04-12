@@ -12,9 +12,11 @@ allExecutionMessages = []
 
 print("dorin-test-3-no-log-printing")
 
+totalMessageCount = 0
+
 for line in sys.stdin:
-    #print(line)
-    #add the logic in to get all our stats in here and then print the out at the end.
-    #this will be better than just outputting are the random stuff from the travis builds
-    
+    totalMessageCount += 1
+
+
+
 
