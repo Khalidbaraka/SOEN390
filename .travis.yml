@@ -31,33 +31,33 @@ android:
     - 'android-sdk-license-.+'
 
 before_script:
-    - chmod +x gradlew
+    - chmod +x gradlew | python CI-Analysis/analyze_ci.py
 
 jobs:
     include:
         # Put your unit tests here 
-#        - stage: Code Coverage
-#          if: branch = master
-#          script:
-#            - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-#            - emulator -avd test -no-skin -no-audio -no-window &
-#            - android-wait-for-emulator
-#            - adb shell input keyevent 82 &
-#            - ./gradlew createFreeDebugCoverageReport
+        - stage: Code Coverage
+          if: branch = master
+          script:
+            - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+            - emulator -avd test -no-skin -no-audio -no-window &
+            - android-wait-for-emulator
+            - adb shell input keyevent 82 &
+            - ./gradlew createFreeDebugCoverageReport | python CI-Analysis/analyze_ci.py
         - stage: Unit tests
           name: Release 1
           script: 
-            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/fontStyleTest | python CI-Analysis/analyze_ci.py
         - script:
-            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/feelingluckytest
-            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/unitTests
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/feelingluckytest | python CI-Analysis/analyze_ci.py
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/unitTests | python CI-Analysis/analyze_ci.py
           name: Release 2
 
         - stage: Static Analysis
           name: Release 1
           script:
-            - ./gradlew pmd
-            - ./gradlew checkstyle
+            - ./gradlew pmd | python CI-Analysis/analyze_ci.py
+            - ./gradlew checkstyle | python CI-Analysis/analyze_ci.py
 
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
         #Uncomment below when unit tests are ready to integrate to travis
@@ -68,16 +68,16 @@ jobs:
         #Release 3 unit tests
         #  name: Release 3
         #Put your UI tests here
-#        - stage: UI tests
-#          name: Release 1
-#          script:
-#            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle | python CI-Analysis/analyze_ci.py
-#            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest
-#            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage
-#        - script:
-#            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/feelingluckyfeature
-#            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/category
-#          name: Release 2
+        - stage: UI tests
+          name: Release 1
+          script:
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/fontStyle | python CI-Analysis/analyze_ci.py
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/themeTest | python CI-Analysis/analyze_ci.py
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/discoveryPage | python CI-Analysis/analyze_ci.py
+        - script:
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/feelingluckyfeature | python CI-Analysis/analyze_ci.py
+            - ./gradlew -p app/src/androidTest/java/de/test/antennapod/espresso/category | python CI-Analysis/analyze_ci.py
+          name: Release 2
         #The order is ok from https://docs.travis-ci.com/user/build-stages/#naming-your-jobs-within-build-stages, first is script then name
 
         #Uncomment below when UI tests are ready to integrate to travis
