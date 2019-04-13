@@ -247,8 +247,6 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
                             intent.putExtra("commentOwner", userName.getText().toString());
                             intent.putExtra("podcast",podcast);
                             context.startActivity(intent);
-//                            ((Activity)context).finish();
-
                         }
 
 

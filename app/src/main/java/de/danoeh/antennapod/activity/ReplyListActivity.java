@@ -225,9 +225,7 @@ public class ReplyListActivity extends Activity {
             newReply.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getApplicationContext(), "Item added!!!", Toast.LENGTH_LONG).show();
-//                    Intent intent= new Intent(ReplyListActivity.this, ReplyListActivity.class);
-//                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Reply Successfully added!", Toast.LENGTH_LONG).show();
                     finish();
                 }
             });
