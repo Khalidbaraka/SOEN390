@@ -1,5 +1,6 @@
 package de.test.antennapod.espresso.profilePage;
 import android.support.test.espresso.contrib.DrawerActions;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.robotium.solo.Solo;
@@ -15,7 +16,10 @@ import de.danoeh.antennapod.activity.MainActivity;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
 public class ProfilePageTest {
@@ -66,6 +70,20 @@ public class ProfilePageTest {
             assertEquals(solo.getString(R.string.profile_page_label), getActionbarTitle());
         }
     }
+
+    @Test
+    public void testGoToEditProfile() {
+
+        String currentPage = getActionbarTitle();
+
+        //selects & opens the category list item Business
+        onView(withId(R.id.profile_option_list)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("Edit Profile")), click()));
+        solo.waitForView(android.R.id.list);
+        assertEquals("Profile Page", currentPage);
+
+
+    }
+
     private String getActionbarTitle() {
         return ((MainActivity) solo.getCurrentActivity()).getSupportActionBar().getTitle().toString();
     }
