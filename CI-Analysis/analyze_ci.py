@@ -1,6 +1,5 @@
-import os
+
 import sys
-import subprocess
 
 errorMessages = []
 successMessages = []
@@ -15,12 +14,9 @@ for line in sys.stdin:
     if "executed" in line.lower():
         executionMessages.append(line)
 
-
-print("LOG ANALYSIS RESULTS for -> ")
-print("Build Number:  + ${TRAVIS_BUILD_NUMBER}")
-print("Commit Message:  + ${TRAVIS_COMMIT_MESSAGE}")
-print("Job Number + ${TRAVIS_JOB_NUMBER}")
-print("Stage:  + ${TRAVIS_BUILD_STAGE_NAME}")
+print("")
+print("=======================================")
+print("LOG ANALYSIS RESULTS:")
 
 print("")
 if len(successMessages) > 0:
