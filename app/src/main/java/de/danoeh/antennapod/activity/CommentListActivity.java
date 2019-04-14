@@ -108,6 +108,7 @@ public class CommentListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.comment_menu, menu);
+        menu.findItem(R.id.action_add_reply).setVisible(false);
         if(mUser!= null & mAuth != null){
             menu.findItem(R.id.action_signIn).setVisible(false);
         }else {
@@ -156,9 +157,19 @@ public class CommentListActivity extends Activity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Comment comment = dataSnapshot.getValue(Comment.class);
-                if(comment.getPodcast().equalsIgnoreCase(targetPodcastTitle))
+                Log.d("datasnapshot",dataSnapshot.getKey().toString());
+                comment.setCommentid(dataSnapshot.getKey().toString());
+                String test = comment.getCommentid();
+                if(comment.getPodcast().equalsIgnoreCase(targetPodcastTitle) )
                 {
-                    commentList.add(comment);
+                    boolean isExist= false;
+                    for(Comment c: commentList){
+                        if((comment.getCommentid().equals(c.commentid))){
+                            isExist=true;
+                        }
+                    }
+                    if(isExist== false){
+                    commentList.add(comment);}
                 }
 
                 recyclerView.setAdapter(commentRecyclerAdapter);
@@ -189,10 +200,8 @@ public class CommentListActivity extends Activity {
 
 
     private void startPosting() {
-//        mProgress.setMessage("Posting to blog");
-//        mProgress.show();
-        String content = mComment.getText().toString().trim();
 
+        String content = mComment.getText().toString().trim();
         Log.d("PODCAST TITLE", targetPodcastTitle);
         Log.d("im HERE!", "im here");
         if (!TextUtils.isEmpty(content)) {

@@ -8,11 +8,24 @@ public class Comment implements Serializable {
     public String timestamp;
     public String comment;
     public String podcast;
+    public String commentid;
 
     //Do not remove default constructor
     public Comment() {
     }
 
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public String getCommentid() {
+        return commentid;
+    }
+
+    public void setCommentid(String commentid) {
+        this.commentid = commentid;
+    }
 
     public Comment(String userid, String useremail, String timestamp, String comment, String podcast) {
 
@@ -21,6 +34,7 @@ public class Comment implements Serializable {
         this.comment = comment;
         this.podcast=podcast;
         this.useremail = useremail;
+        this.commentid = "";
     }
 
     public String getUser() {
