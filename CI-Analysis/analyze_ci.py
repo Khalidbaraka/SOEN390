@@ -1,7 +1,6 @@
 import os
 import sys
 import subprocess
-from TravisEnvirExtractor import TravisEnvirExtractor
 
 errorMessages = []
 successMessages = []
@@ -17,17 +16,11 @@ for line in sys.stdin:
         executionMessages.append(line)
 
 
-travisOutput = TravisEnvirExtractor.get_travis_variables()
-buildNumber = str(travisOutput['TRAVIS_BUILD_NUMBER'])
-commitMessage = str(travisOutput['TRAVIS_COMMIT_MESSAGE'])
-jobNumber = str(travisOutput['TRAVIS_COMMIT_MESSAGE'])
-stage = str(travisOutput['TRAVIS_BUILD_STAGE_NAME'])
-
 print("LOG ANALYSIS RESULTS for -> ")
-print("Build Number: " + buildNumber)
-print("Commit Message: " + commitMessage)
-print("Job Number" + jobNumber)
-print("Stage: " + stage)
+print("Build Number: " + TRAVIS_BUILD_NUMBER)
+print("Commit Message: " + TRAVIS_COMMIT_MESSAGE)
+print("Job Number" + TRAVIS_JOB_NUMBER)
+print("Stage: " + TRAVIS_BUILD_STAGE_NAME)
 
 print("")
 if len(successMessages) > 0:
