@@ -152,6 +152,7 @@ public class CommentsUITests {
 
     @Test
     public void test6(){
+
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
@@ -176,8 +177,6 @@ public class CommentsUITests {
         onView(withId(R.id.submitReply_1)).perform(click());
         solo.waitForView(android.R.id.list);
         assertEquals(CommentListActivity.class, getActivityInstance().getClass());
-
-
 
     }
 
@@ -205,27 +204,3 @@ public class CommentsUITests {
     }
 }
 
-class MyViewAction {
-
-    public static ViewAction clickChildViewWithId(final int id) {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return null;
-            }
-
-            @Override
-            public String getDescription() {
-                return "Click on a child view with specified id.";
-            }
-
-            @Override
-            public void perform(android.support.test.espresso.UiController uiController, View view) {
-                View v = view.findViewById(id);
-                v.performClick();
-            }
-
-        };
-    }
-
-}
