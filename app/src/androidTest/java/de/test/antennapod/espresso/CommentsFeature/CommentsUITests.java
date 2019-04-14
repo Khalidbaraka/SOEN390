@@ -73,7 +73,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void test1() {
+    public void goToAddPodcastTest() {
         // Add Podcast page
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         String currentPage = getActionbarTitle();
@@ -87,7 +87,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void test2() {
+    public void AddFeedFragmentAccessTest() {
         // in podcast we want to click on Itunes btn
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
@@ -96,7 +96,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void test3() {
+    public void CommentListActivityViewTest() {
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);//layout_1 listview
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
@@ -109,7 +109,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void test4(){
+    public void CommentListActivityElementsTest(){
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
@@ -127,7 +127,7 @@ public class CommentsUITests {
 
     //posting a comment
     @Test
-    public void test5(){
+    public void addCommentTest(){
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
@@ -151,7 +151,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void test6(){
+    public void addReplyTest(){
 
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
