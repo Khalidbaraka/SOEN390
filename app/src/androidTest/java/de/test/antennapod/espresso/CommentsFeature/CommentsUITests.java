@@ -4,8 +4,10 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.NoMatchingViewException;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.contrib.DrawerActions;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -15,6 +17,7 @@ import android.view.View;
 import com.robotium.solo.Solo;
 import com.robotium.solo.Timeout;
 
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -26,6 +29,7 @@ import org.junit.runners.MethodSorters;
 import java.util.Collection;
 import java.util.Iterator;
 
+import androidx.test.espresso.UiController;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.CommentListActivity;
 import de.danoeh.antennapod.activity.MainActivity;
@@ -40,6 +44,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -145,6 +150,39 @@ public class CommentsUITests {
 
     }
 
+    @Test
+    public void test6(){
+        onView(withId(R.id.butSearchItunes)).perform(click());
+        solo.waitForView(R.id.layout_1);
+        onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
+                onChildView(withId(R.id.imgvCover)).perform(click());
+        //clicks on podcast
+        solo.waitForView(R.id.constraintLayout);
+        onView(withId(R.id.viewCommentsBtn)).perform(click());
+        solo.waitForView(R.id.constraintLayout);
+//        onView(withId(R.id.recyclerView_1)).perform(
+//                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_btn)));
+        onView(withId(R.id.recyclerView_1)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.addReplyBtn)));
+        solo.waitForView(R.id.constraintLayout);
+        onView(withId(R.id.replyContent_1)).check(matches(notNullValue() ));
+        onView(withId(R.id.submitReply_1)).check(matches(notNullValue() ));
+
+        onView(withId(R.id.submitReply_1)).check(matches(withText(solo.getString(R.string.submit))));
+
+        onView(withId(R.id.replyContent_1)).perform(clearText(),typeText("Nice!"));
+        Espresso.closeSoftKeyboard();
+        solo.waitForView(android.R.id.list);
+        onView(withId(R.id.submitReply_1)).perform(click());
+        solo.waitForView(android.R.id.list);
+        assertEquals(CommentListActivity.class, getActivityInstance().getClass());
+
+
+
+    }
+
+
+
     //To-Do one test for replying and one for like.
 
 
@@ -165,4 +203,29 @@ public class CommentsUITests {
     private String getActionbarTitle() {
         return ((MainActivity) solo.getCurrentActivity()).getSupportActionBar().getTitle().toString();
     }
+}
+
+class MyViewAction {
+
+    public static ViewAction clickChildViewWithId(final int id) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return null;
+            }
+
+            @Override
+            public String getDescription() {
+                return "Click on a child view with specified id.";
+            }
+
+            @Override
+            public void perform(android.support.test.espresso.UiController uiController, View view) {
+                View v = view.findViewById(id);
+                v.performClick();
+            }
+
+        };
+    }
+
 }
