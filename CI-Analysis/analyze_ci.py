@@ -17,10 +17,10 @@ for line in sys.stdin:
 
 
 print("LOG ANALYSIS RESULTS for -> ")
-print("Build Number: " + TRAVIS_BUILD_NUMBER)
-print("Commit Message: " + TRAVIS_COMMIT_MESSAGE)
-print("Job Number" + TRAVIS_JOB_NUMBER)
-print("Stage: " + TRAVIS_BUILD_STAGE_NAME)
+print("Build Number:  + ${TRAVIS_BUILD_NUMBER}")
+print("Commit Message:  + ${TRAVIS_COMMIT_MESSAGE}")
+print("Job Number + ${TRAVIS_JOB_NUMBER}")
+print("Stage:  + ${TRAVIS_BUILD_STAGE_NAME}")
 
 print("")
 if len(successMessages) > 0:
