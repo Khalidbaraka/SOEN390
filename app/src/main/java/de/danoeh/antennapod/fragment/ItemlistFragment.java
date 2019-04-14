@@ -33,6 +33,7 @@ import org.apache.commons.lang3.Validate;
 
 import java.util.List;
 
+import de.danoeh.antennapod.core.storage.DBWriter;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.FeedInfoActivity;
 import de.danoeh.antennapod.activity.FeedSettingsActivity;
@@ -244,6 +245,9 @@ public class ItemlistFragment extends ListFragment {
                             return true;
                         case R.id.rename_item:
                             new RenameFeedDialog(getActivity(), feed).show();
+                            return true;
+                        case R.id.add_to_favorites_podcasts:
+                            DBWriter.addFavoritePodcastItem(feed);
                             return true;
                         case R.id.remove_item:
                             final FeedRemover remover = new FeedRemover(

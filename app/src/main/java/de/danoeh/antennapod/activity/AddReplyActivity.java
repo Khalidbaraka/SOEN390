@@ -73,8 +73,6 @@ public class AddReplyActivity extends Activity {
 
 
     private void startPosting() {
-//        mProgress.setMessage("Posting to blog");
-//        mProgress.show();
         String content = replyContent.getText().toString().trim();
 
         if(!TextUtils.isEmpty(content)){
@@ -94,7 +92,7 @@ public class AddReplyActivity extends Activity {
             newReply.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getApplicationContext(), "Item added", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Reply Successfully added!", Toast.LENGTH_LONG).show();
                     Intent intent= new Intent(AddReplyActivity.this, ReplyListActivity.class);
                     intent.putExtra("commentID", commentID);
                     intent.putExtra("podcast",podcastFromPrevActivity);
