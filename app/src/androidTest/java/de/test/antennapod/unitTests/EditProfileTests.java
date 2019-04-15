@@ -62,12 +62,7 @@ public class EditProfileTests {
         email = "";
         fullName="Goose";
 
-//        FragmentManager fm = activityActivityTestRule.getActivity()
-//                .getSupportFragmentManager();
-
-        // EditProfileFragment fragment = (EditProfileFragment) fm.findFragmentByTag(TAG);
         EditProfileFragment editFragment = new EditProfileFragment();
-
 
         assertFalse(editFragment.checkEmailandFullNameValidationOnEditProfile(email, fullName, new Printer() {
             @Override
