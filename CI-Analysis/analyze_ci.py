@@ -15,9 +15,9 @@ prOriginBranch = sys.argv[5]
 for line in sys.stdin:
     if ("error" in line.lower()) or ("fail" in line.lower()):
         errorMessages.append(line)
-    if ("success" in line.lower()) or ("complete" in line.lower()) or ("pass" in line.lower()):
+    elif ("success" in line.lower()) or ("complete" in line.lower()) or ("pass" in line.lower()):
         successMessages.append(line)
-    if "executed" in line.lower():
+    elif "executed" in line.lower():
         executionMessages.append(line)
 
 
