@@ -63,20 +63,30 @@ public class FavoritePodcastDBTest extends InstrumentationTestCase{
         }
     }
     @Test
-    public void addFavoritePodcastItemTest() throws InterruptedException {
+    public void addFavoritePodcastThenRemoveTest() throws InterruptedException {
+        //Make sure there are no favorite podcast in the db yet.
+        assertTrue(DBReader.getFeedListFavorites().size() == 0);
+
+        //Add feed to favorite podcast.
         DBWriter.addFavoritePodcastItem(feed);
         //Giving time (in ms) for DBWriter to finish addFavoritePodcastItem
         Thread.sleep(50);
+
         //Assert that the feed was added to the DB
         assertFalse(DBReader.getFeedListFavorites().size() == 0);
-        assertNotNull(DBReader.getFavoritePodcastsData());
-        assertTrue(DBReader.getFeedListFavorites().get(0).equals(feed));
-    }
 
-    @Test
-    public void removeFavoritePodcastItemTest(){
+        //Assert that the data from favorite podcast table is not null.
+        assertNotNull(DBReader.getFavoritePodcastsData());
+
+        assertTrue(DBReader.getFeedListFavorites().get(0).equals(feed));
+
+        //Remove from favorite podcast.
         DBWriter.removeFavoritePodcastItem(feed);
+        //Giving time (in ms) for DBWriter to finish removeFavoritePodcastItem
+        Thread.sleep(50);
+
         //Assert that the feed was removed from the DB
         assertTrue(DBReader.getFeedListFavorites().size() == 0);
+
     }
 }
