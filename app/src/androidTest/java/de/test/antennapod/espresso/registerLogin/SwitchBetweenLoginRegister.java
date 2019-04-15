@@ -81,20 +81,18 @@ public class SwitchBetweenLoginRegister {
     }
 
     @Test
-    public void test2SwitchBetweenLoginRegister() {
+    public void test2LogoutIfLoggedIn() {
 
         //Create User Based on Registered User
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        getUser();
         solo.waitForView(android.R.id.list);
+
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals("Profile Page", getActionbarTitle());
 
         //if user is already logged in, then start by logging out
         if(user != null && user.isEmailVerified())
         {
-            solo.waitForView(android.R.id.list);
-
-            //Assert current activity ActionBar is "Authentication".
-            assertEquals("Profile Page", getActionbarTitle());
-
             //Checks button is there
             onView(withId(R.id.profile_logout_btn)).check(matches(notNullValue()));
 
@@ -107,8 +105,11 @@ public class SwitchBetweenLoginRegister {
 
             solo.waitForView(android.R.id.list);
             solo.waitForView(android.R.id.list);
-
         }
+    }
+
+    @Test
+    public void test3SwitchBetweenLoginRegister() {
 
         //Checks button is there
         onView(withId(R.id.profile_register_and_login_btn)).check(matches(notNullValue()));
@@ -120,7 +121,7 @@ public class SwitchBetweenLoginRegister {
         //Press the Authentication button in the profile Page
         onView(withId(R.id.profile_register_and_login_btn)).perform(click());
 
-        //--------Now in RegisterLogin Activity ----------
+        //--------Now in Authentication Activity ----------
         soloRegisterAndLogin.waitForView(0);
 
         //Assert current activity ActionBar is "Authentication".
@@ -133,14 +134,14 @@ public class SwitchBetweenLoginRegister {
         onView(withId(R.id.login_main_layout_button)).check(matches(withText("Login")));
         assertEquals("Login", soloRegisterAndLogin.getString(R.string.login));
 
-        //Press the Register And Login button in the Profile Page
+        //Press the Login button in the Authentication Page
         onView(withId(R.id.login_main_layout_button)).perform(click());
 
         //--------Now in Login Activity ----------
         soloLogin.waitForView(0);
         Espresso.closeSoftKeyboard();
 
-        //Assert current activity ActionBar is "Register".
+        //Assert current activity ActionBar is "Login".
         assertEquals(soloLogin.getString(R.string.title_activity_login), getActionbarTitleLogin());
 
         //Checks button / EditText is there
@@ -152,7 +153,7 @@ public class SwitchBetweenLoginRegister {
 
         soloLogin.waitForView(0);
 
-        //Press the Register And Login button in the Profile Page
+        //Press the dontHaveAccount button in the Profile Page
         onView(withId(R.id.dontHaveAccount)).perform(click());
 
         //--------Now in Register Activity ----------
@@ -171,7 +172,7 @@ public class SwitchBetweenLoginRegister {
 
         soloRegister.waitForView(0);
 
-        //Press the Register And Login button in the Profile Page
+        //Press the alreadHaveAccount button in the Register Page
         onView(withId(R.id.alreadHaveAccount)).perform(click());
 
         //--------Now back in Login Activity ----------
@@ -198,5 +199,10 @@ public class SwitchBetweenLoginRegister {
 
     private String getActionbarTitleLogin() {
         return ((LoginActivity) soloLogin.getCurrentActivity()).getSupportActionBar().getTitle().toString();
+    }
+
+    private void getUser() {
+        //Create User Based on Registered User
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 }
