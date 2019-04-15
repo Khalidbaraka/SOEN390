@@ -41,6 +41,8 @@ import de.danoeh.antennapod.core.util.LongIntMap;
 import de.danoeh.antennapod.core.util.flattr.FlattrStatus;
 import de.greenrobot.event.EventBus;
 
+import de.danoeh.antennapod.core.storage.Toggles;
+
 // TODO Remove media column from feeditem table
 
 /**
@@ -50,6 +52,7 @@ public class PodDBAdapter {
 
     private static final String TAG = "PodDBAdapter";
     public static final String DATABASE_NAME = "Antennapod.db";
+    public static final String TEST_DATABASE_NAME = "TestAntennapod.db";
 
     /**
      * Maximum number of arguments for IN-operator.
@@ -328,6 +331,8 @@ public class PodDBAdapter {
     private static class SingletonHolder {
         private static final PodDBHelper dbHelper = new PodDBHelper(PodDBAdapter.context, DATABASE_NAME, null);
         private static final PodDBAdapter dbAdapter = new PodDBAdapter();
+        //Add a new db helper for the test db
+        private static final PodDBHelper testDbHelper = new PodDBHelper(PodDBAdapter.context, TEST_DATABASE_NAME, null);
     }
 
     public static PodDBAdapter getInstance() {
@@ -348,13 +353,23 @@ public class PodDBAdapter {
     private SQLiteDatabase openDb() {
         SQLiteDatabase newDb;
         try {
-            newDb = SingletonHolder.dbHelper.getWritableDatabase();
+            if(Toggles.TEST_DB == true){
+                newDb =SingletonHolder.testDbHelper.getWritableDatabase();
+            }
+            else{
+                newDb = SingletonHolder.dbHelper.getWritableDatabase();
+            }
             if (Build.VERSION.SDK_INT >= 16) {
                 newDb.disableWriteAheadLogging();
             }
         } catch (SQLException ex) {
             Log.e(TAG, Log.getStackTraceString(ex));
-            newDb = SingletonHolder.dbHelper.getReadableDatabase();
+            if(Toggles.TEST_DB == true){
+                newDb =SingletonHolder.testDbHelper.getWritableDatabase();
+            }
+            else{
+                newDb = SingletonHolder.dbHelper.getWritableDatabase();
+            }
         }
         return newDb;
     }
@@ -369,6 +384,10 @@ public class PodDBAdapter {
         try {
             for (String tableName : ALL_TABLES) {
                 db.delete(tableName, "1", null);
+            }
+            if(Toggles.TEST_DB){
+                db.delete("SQLITE_SEQUENCE", "NAME =?",new String[]{TABLE_NAME_FEEDS});
+                db.delete("SQLITE_SEQUENCE", "NAME =?",new String[]{TABLE_NAME_FEED_ITEMS});
             }
             return true;
         } finally {
