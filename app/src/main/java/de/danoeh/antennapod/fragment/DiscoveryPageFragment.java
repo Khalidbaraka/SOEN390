@@ -13,6 +13,7 @@ import de.danoeh.antennapod.activity.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class DiscoveryPageFragment extends Fragment {
 
     private AdView mAdView;
     private View DiscoveryView;
+    private InterstitialAd mInterstitialAd;
     private TextView txtHome;
     public static final String TAG = "DiscoveryPageFragment";
     private FirebaseAuth auth;
@@ -59,6 +61,9 @@ public class DiscoveryPageFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         Button categoriesButton = DiscoveryView.findViewById(R.id.categories_button);
 
