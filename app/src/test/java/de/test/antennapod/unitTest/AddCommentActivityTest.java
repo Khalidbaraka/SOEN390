@@ -31,7 +31,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(RobolectricTestRunner.class)
 public class AddCommentActivityTest {
 
     private ActivityController<AddCommentActivity> controller;
@@ -39,6 +39,11 @@ public class AddCommentActivityTest {
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
+
+    @Before
+    public void setUp() {
+        controller = Robolectric.buildActivity(AddCommentActivity.class);
+    }
 
     @Test
     public void checkActivityControllerLaunch() {
