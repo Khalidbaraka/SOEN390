@@ -5,6 +5,10 @@ errorMessages = []
 successMessages = []
 executionMessages = []
 
+travisBuildNumber = sys.argv[1]
+commitMessage = sys.argv[2]
+pullRequestBranch = sys.argv[3]
+
 
 for line in sys.stdin:
     if ("error" in line.lower()) or ("fail" in line.lower()):
@@ -16,7 +20,11 @@ for line in sys.stdin:
 
 print("")
 print("=======================================")
-print("LOG ANALYSIS RESULTS for build number " + sys.argv[1])
+print("LOG ANALYSIS RESULTS")
+print("Build Number: " + travisBuildNumber)
+print("Commit Message: " + commitMessage)
+if(len(pullRequestBranch) > 0):
+    print("This is part of a PR from branch: " + pullRequestBranch)
 
 print("")
 if len(successMessages) > 0:
