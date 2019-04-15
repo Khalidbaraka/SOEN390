@@ -35,6 +35,8 @@ import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.CommentListActivity;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.activity.OnlineFeedViewActivity;
+import de.danoeh.antennapod.activity.ReplyListActivity;
+import de.danoeh.antennapod.model.Comment;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onData;
@@ -101,7 +103,7 @@ public class CommentsUITests {
     @Test
     public void test3CommentListActivityViewTest() {
         onView(withId(R.id.butSearchItunes)).perform(click());
-        solo.waitForView(R.id.layout_1);//layout_1 listview
+        solo.waitForView(R.id.list);//layout_1 listview
 
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
                 onChildView(withId(R.id.imgvCover)).perform(click());
@@ -119,7 +121,7 @@ public class CommentsUITests {
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
                 onChildView(withId(R.id.imgvCover)).perform(click());
         //clicks on podcast
-        solo.waitForView(R.id.constraintLayout);
+        solo.waitForView(R.id.relativeLayout);
         onView(withId(R.id.viewCommentsBtn)).perform(click());
         solo.waitForView(R.id.constraintLayout);
         onView(withId(R.id.commentContent_1)).check(matches(notNullValue() ));
@@ -137,7 +139,7 @@ public class CommentsUITests {
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
                 onChildView(withId(R.id.imgvCover)).perform(click());
         //clicks on podcast
-        solo.waitForView(R.id.constraintLayout);
+        solo.waitForView(R.id.relativeLayout);
         onView(withId(R.id.viewCommentsBtn)).perform(click());
         solo.waitForView(R.id.constraintLayout);
         onView(withId(R.id.commentContent_1)).check(matches(notNullValue() ));
@@ -162,7 +164,7 @@ public class CommentsUITests {
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
                 onChildView(withId(R.id.imgvCover)).perform(click());
         //clicks on podcast
-        solo.waitForView(R.id.constraintLayout);
+        solo.waitForView(R.id.relativeLayout);
         onView(withId(R.id.viewCommentsBtn)).perform(click());
         solo.waitForView(R.id.constraintLayout);
 
@@ -181,6 +183,42 @@ public class CommentsUITests {
         solo.waitForView(android.R.id.list);
         assertEquals(CommentListActivity.class, getActivityInstance().getClass());
 
+    }
+
+    @Test
+    public void test7LikeCommentTest(){
+
+        onView(withId(R.id.butSearchItunes)).perform(click());
+        solo.waitForView(R.id.layout_1);
+        onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
+                onChildView(withId(R.id.imgvCover)).perform(click());
+        //clicks on podcast
+        solo.waitForView(R.id.relativeLayout);
+        onView(withId(R.id.viewCommentsBtn)).perform(click());
+        solo.waitForView(R.id.constraintLayout);
+
+        onView(withId(R.id.recyclerView_1)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_btn)));
+
+        assertEquals(CommentListActivity.class, getActivityInstance().getClass());
+    }
+
+    @Test
+    public void test8UnLikeCommentTest(){
+
+        onView(withId(R.id.butSearchItunes)).perform(click());
+        solo.waitForView(R.id.layout_1);
+        onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
+                onChildView(withId(R.id.imgvCover)).perform(click());
+        //clicks on podcast
+        solo.waitForView(R.id.relativeLayout);
+        onView(withId(R.id.viewCommentsBtn)).perform(click());
+        solo.waitForView(R.id.constraintLayout);
+
+        onView(withId(R.id.recyclerView_1)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_btn)));
+
+        assertEquals(CommentListActivity.class, getActivityInstance().getClass());
     }
 
     private Activity getActivityInstance(){
