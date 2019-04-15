@@ -20,29 +20,26 @@ print("LOG ANALYSIS RESULTS:")
 
 print("")
 if len(successMessages) > 0:
-    print("There are a total of " + str(len(successMessages)) + " success messages in this test")
-    print("Here are the success messages:")
+    print("THERE ARE A TOTAL OF " + str(len(successMessages)) + " SUCCESS MESSAGES IN THIS TEST")
     for successMessage in successMessages:
         print(successMessage)
 else:
-    print("There are no success messages in this test")
+    print("THERE WERE NO SUCCESS MESSAGES IN THIS TEST")
 
 print("")
 if len(errorMessages) > 0:
-    print("There are a total of " + str(len(errorMessages)) + " error messages in this test")
-    print("Here are the error messages: ")
+    print("THERE ARE A TOTAL OF " + str(len(errorMessages)) + " ERROR MESSAGES IN THIS TEST")
     for errorMessage in errorMessages:
         print(errorMessage)
 else:
-    print("There are no error messages in this test.")
+    print("THERE WERE NO ERROR MESSAGES IN THIS TEST")
 
 print("")
 if len(executionMessages) > 0:
-    print("There are a total of " + str(len(executionMessages)) + " general execution messages in this test")
-    print("Here are the general execution messages")
+    print("THERE ARE A TOTAL OF " + str(len(executionMessages)) + " GENERAL EXECUTION MESSAGES IN THIS TEST")
     for executionMessage in executionMessages:
         print(executionMessage)
 else:
-    print("There were no general execution messages in this test")
+    print("THERE WERE NO GENERAL EXECUTION MESSAGES IN THIS TEST")
 
 
