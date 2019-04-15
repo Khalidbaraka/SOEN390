@@ -49,6 +49,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 
 
+    @FixMethodOrder(MethodSorters.NAME_ASCENDING)
     @RunWith(AndroidJUnit4.class)
     public class findSimiliarUI {
         private Solo solo;

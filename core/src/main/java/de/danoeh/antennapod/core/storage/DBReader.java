@@ -88,6 +88,68 @@ public final class DBReader {
     }
 
     /**
+     * Returns a list of Favorite Feeds, sorted alphabetically by their title.
+     *
+     * @return A list of Feeds, sorted alphabetically by their title. A Feed-object
+     * of the returned list does NOT have its list of FeedItems yet. The FeedItem-list
+     * can be loaded separately with {@link #getFeedItemList(Feed)}.
+     */
+    public static List<Feed> getFeedListFavorites() {
+        Log.d(TAG, "Extracting Feedlist");
+
+        PodDBAdapter adapter = PodDBAdapter.getInstance();
+        adapter.open();
+        try {
+            return getFeedListFavorites(adapter);
+        } finally {
+            adapter.close();
+        }
+    }
+
+    private static List<Feed> getFeedListFavorites(PodDBAdapter adapter) {
+        Cursor cursor = null;
+        try {
+            cursor = adapter.getFavoritesPodcastsCursor();
+            List<Feed> feeds = new ArrayList<>(cursor.getCount());
+            while (cursor.moveToNext()) {
+                Feed feed = extractFeedFromCursorRow(cursor);
+                feeds.add(feed);
+            }
+            return feeds;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    public static LongList getFavoritePodcastIDList() {
+        Log.d(TAG, "getFavoritePodcastIDList() called");
+        PodDBAdapter adapter = PodDBAdapter.getInstance();
+        adapter.open();
+        Cursor cursor = null;
+        try {
+            cursor = adapter.getFavoritesPodcastsCursor();
+            LongList favoriteIDs = new LongList(cursor.getCount());
+            while (cursor.moveToNext()) {
+                favoriteIDs.add((long)cursor.getInt(0));
+            }
+            return favoriteIDs;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            adapter.close();
+        }
+    }
+
+    public static void isFavoritePodcast(Feed feed){
+        LongList favoriteIds = getFavoritePodcastIDList();
+        if(favoriteIds.contains(feed.getId())){
+            feed.addTag(Feed.TAG_FAVORITE);
+        }
+    }
+    /**
      * Returns a list with the download URLs of all feeds.
      *
      * @return A list of Strings with the download URLs of all feeds.
@@ -1105,6 +1167,32 @@ public final class DBReader {
         }
 
         Collections.sort(feeds, comparator);
+        int queueSize = adapter.getQueueSize();
+        int numNewItems = adapter.getNumberOfNewItems();
+        int numDownloadedItems = adapter.getNumberOfDownloadedEpisodes();
+
+        NavDrawerData result = new NavDrawerData(feeds, queueSize, numNewItems, numDownloadedItems,
+                feedCounters, UserPreferences.getEpisodeCleanupAlgorithm().getReclaimableItems());
+        adapter.close();
+        return result;
+    }
+
+    /**
+     * Returns data necessary for displaying the navigation drawer. This includes
+     * the list of subscriptions, the number of items in the queue and the number of unread
+     * items.
+     */
+    public static NavDrawerData getFavoritePodcastsData() {
+        Log.d(TAG, "getNavDrawerData() called with: " + "");
+        PodDBAdapter adapter = PodDBAdapter.getInstance();
+        adapter.open();
+        List<Feed> feeds = getFeedListFavorites(adapter);
+        long[] feedIds = new long[feeds.size()];
+        for (int i = 0; i < feeds.size(); i++) {
+            feedIds[i] = feeds.get(i).getId();
+        }
+        final LongIntMap feedCounters = adapter.getFeedCounters(feedIds);
+
         int queueSize = adapter.getQueueSize();
         int numNewItems = adapter.getNumberOfNewItems();
         int numDownloadedItems = adapter.getNumberOfDownloadedEpisodes();

@@ -41,6 +41,8 @@ import de.danoeh.antennapod.core.util.LongIntMap;
 import de.danoeh.antennapod.core.util.flattr.FlattrStatus;
 import de.greenrobot.event.EventBus;
 
+import de.danoeh.antennapod.core.storage.Toggles;
+
 // TODO Remove media column from feeditem table
 
 /**
@@ -50,6 +52,7 @@ public class PodDBAdapter {
 
     private static final String TAG = "PodDBAdapter";
     public static final String DATABASE_NAME = "Antennapod.db";
+    public static final String TEST_DATABASE_NAME = "TestAntennapod.db";
 
     /**
      * Maximum number of arguments for IN-operator.
@@ -126,6 +129,7 @@ public class PodDBAdapter {
     static final String TABLE_NAME_QUEUE = "Queue";
     static final String TABLE_NAME_SIMPLECHAPTERS = "SimpleChapters";
     static final String TABLE_NAME_FAVORITES = "Favorites";
+    static final String TABLE_NAME_FAVORITES_PODCASTS = "FavoritesPodcasts";
 
     // SQL Statements for creating new tables
     private static final String TABLE_PRIMARY_KEY = KEY_ID
@@ -218,6 +222,10 @@ public class PodDBAdapter {
             + TABLE_NAME_FAVORITES + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_FEEDITEM + " INTEGER," + KEY_FEED + " INTEGER)";
 
+    static final String CREATE_TABLE_FAVORITES_PODCASTS = "CREATE TABLE "
+            + TABLE_NAME_FAVORITES_PODCASTS + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_FEED + " INTEGER)";
+
     /**
      * Select all columns from the feed-table
      */
@@ -281,7 +289,8 @@ public class PodDBAdapter {
             TABLE_NAME_DOWNLOAD_LOG,
             TABLE_NAME_QUEUE,
             TABLE_NAME_SIMPLECHAPTERS,
-            TABLE_NAME_FAVORITES
+            TABLE_NAME_FAVORITES,
+            TABLE_NAME_FAVORITES_PODCASTS
     };
 
     /**
@@ -292,6 +301,16 @@ public class PodDBAdapter {
     static {
         String selFiSmall = Arrays.toString(FEEDITEM_SEL_FI_SMALL);
         SEL_FI_SMALL_STR = selFiSmall.substring(1, selFiSmall.length() - 1);
+    }
+
+    /**
+     * Contains FEED_SEL_STD as comma-separated list. Useful for raw queries.
+     */
+    private static final String SEL_STD_STR;
+
+    static {
+        String selStd = Arrays.toString(FEED_SEL_STD);
+        SEL_STD_STR = selStd.substring(1, selStd.length() - 1);
     }
 
     /**
@@ -312,6 +331,8 @@ public class PodDBAdapter {
     private static class SingletonHolder {
         private static final PodDBHelper dbHelper = new PodDBHelper(PodDBAdapter.context, DATABASE_NAME, null);
         private static final PodDBAdapter dbAdapter = new PodDBAdapter();
+        //Add a new db helper for the test db
+        private static final PodDBHelper testDbHelper = new PodDBHelper(PodDBAdapter.context, TEST_DATABASE_NAME, null);
     }
 
     public static PodDBAdapter getInstance() {
@@ -332,13 +353,23 @@ public class PodDBAdapter {
     private SQLiteDatabase openDb() {
         SQLiteDatabase newDb;
         try {
-            newDb = SingletonHolder.dbHelper.getWritableDatabase();
+            if(Toggles.TEST_DB == true){
+                newDb =SingletonHolder.testDbHelper.getWritableDatabase();
+            }
+            else{
+                newDb = SingletonHolder.dbHelper.getWritableDatabase();
+            }
             if (Build.VERSION.SDK_INT >= 16) {
                 newDb.disableWriteAheadLogging();
             }
         } catch (SQLException ex) {
             Log.e(TAG, Log.getStackTraceString(ex));
-            newDb = SingletonHolder.dbHelper.getReadableDatabase();
+            if(Toggles.TEST_DB == true){
+                newDb =SingletonHolder.testDbHelper.getWritableDatabase();
+            }
+            else{
+                newDb = SingletonHolder.dbHelper.getWritableDatabase();
+            }
         }
         return newDb;
     }
@@ -353,6 +384,10 @@ public class PodDBAdapter {
         try {
             for (String tableName : ALL_TABLES) {
                 db.delete(tableName, "1", null);
+            }
+            if(Toggles.TEST_DB){
+                db.delete("SQLITE_SEQUENCE", "NAME =?",new String[]{TABLE_NAME_FEEDS});
+                db.delete("SQLITE_SEQUENCE", "NAME =?",new String[]{TABLE_NAME_FEED_ITEMS});
             }
             return true;
         } finally {
@@ -815,6 +850,26 @@ public class PodDBAdapter {
         }
     }
 
+    public void setFavoritesPodcasts(List<Feed> favoritesPodcasts) {
+        ContentValues values = new ContentValues();
+        try {
+            db.beginTransactionNonExclusive();
+            db.delete(TABLE_NAME_FAVORITES_PODCASTS, null, null);
+            for (int i = 0; i <favoritesPodcasts.size(); i++) {
+                Feed item = favoritesPodcasts.get(i);
+                values.put(KEY_ID, i);
+                values.put(KEY_FEED, item.getId());
+                db.insertWithOnConflict(TABLE_NAME_FAVORITES_PODCASTS, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            }
+            db.setTransactionSuccessful();
+        } catch (SQLException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+
     /**
      * Adds the item to favorites
      */
@@ -830,11 +885,32 @@ public class PodDBAdapter {
         db.insert(TABLE_NAME_FAVORITES, null, values);
     }
 
+    /**
+     * Adds the podcast to favoritesPodcastsitem
+     */
+    public void addFavoritePodcastItem (Feed item) {
+        // don't add an item that's already there...
+        if (isPodcastItemInFavorites(item)) {
+            Log.d(TAG, "item already in favorites");
+            return;
+        }
+        ContentValues values = new ContentValues();
+        values.put(KEY_FEED, item.getId());
+        db.insert(TABLE_NAME_FAVORITES_PODCASTS, null, values);
+    }
+
     public void removeFavoriteItem(FeedItem item) {
         String deleteClause = String.format("DELETE FROM %s WHERE %s=%s AND %s=%s",
                 TABLE_NAME_FAVORITES,
                 KEY_FEEDITEM, item.getId(),
                 KEY_FEED, item.getFeedId());
+        db.execSQL(deleteClause);
+    }
+
+    public void removeFavoritePodcastItem(Feed item) {
+        String deleteClause = String.format("DELETE FROM %s WHERE %s=%s",
+                TABLE_NAME_FAVORITES_PODCASTS,
+                KEY_FEED, item.getId());
         db.execSQL(deleteClause);
     }
 
@@ -846,6 +922,17 @@ public class PodDBAdapter {
         c.close();
         return count > 0;
     }
+
+    private boolean isPodcastItemInFavorites(Feed item) {
+        String query = String.format("SELECT %s from %s WHERE %s=%d",
+                KEY_ID, TABLE_NAME_FAVORITES_PODCASTS, KEY_FEED, item.getId());
+        Cursor c = db.rawQuery(query, null);
+        int count = c.getCount();
+        c.close();
+        return count > 0;
+    }
+
+
 
     public void setQueue(List<FeedItem> queue) {
         ContentValues values = new ContentValues();
@@ -1064,6 +1151,17 @@ public class PodDBAdapter {
                 TABLE_NAME_FEED_ITEMS + "." + KEY_ID,
                 TABLE_NAME_FAVORITES + "." + KEY_FEEDITEM,
                 TABLE_NAME_FEED_ITEMS + "." + KEY_PUBDATE};
+        String query = String.format("SELECT %s FROM %s INNER JOIN %s ON %s=%s ORDER BY %s DESC", args);
+        return db.rawQuery(query, null);
+    }
+    public final Cursor getFavoritesPodcastsCursor() {
+        Object[] args = new String[]{
+                SEL_STD_STR,
+                TABLE_NAME_FEEDS, TABLE_NAME_FAVORITES_PODCASTS,
+                TABLE_NAME_FEEDS + "." + KEY_ID,
+                TABLE_NAME_FAVORITES_PODCASTS + "." + KEY_FEED,
+                TABLE_NAME_FEEDS + "." + KEY_DESCRIPTION
+        };
         String query = String.format("SELECT %s FROM %s INNER JOIN %s ON %s=%s ORDER BY %s DESC", args);
         return db.rawQuery(query, null);
     }
@@ -1562,6 +1660,7 @@ public class PodDBAdapter {
             db.execSQL(CREATE_TABLE_QUEUE);
             db.execSQL(CREATE_TABLE_SIMPLECHAPTERS);
             db.execSQL(CREATE_TABLE_FAVORITES);
+            db.execSQL(CREATE_TABLE_FAVORITES_PODCASTS);
 
             db.execSQL(CREATE_INDEX_FEEDITEMS_FEED);
             db.execSQL(CREATE_INDEX_FEEDITEMS_PUBDATE);

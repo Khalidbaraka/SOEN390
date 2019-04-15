@@ -19,6 +19,9 @@
     <string name="itunes_categories" translate="false">iTunes Categories</string>
     <string name="itunes_podcast" translate="false">iTunes Podcast</string>
     <string name="categories" translate="false">Categories</string>
+
+    <string name="add_to_favorites_podcasts">Add to favorites Podcasts</string>
+
     <string name="register_and_login" translate="false">Register and Login</string>
     <string name="register_and_login_footer" translate="false">You can save and sync your subscription and history on all your devices</string>
     <string name="register" translate="false">Register</string>

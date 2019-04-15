@@ -80,20 +80,18 @@ public class RegisterTest {
     }
 
     @Test
-    public void test2RegisterTest() {
+    public void test2LogoutIfLoggedIn() {
 
         //Create User Based on Registered User
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        getUser();
         solo.waitForView(android.R.id.list);
+
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals("Profile Page", getActionbarTitle());
 
         //if user is already logged in, then start by logging out
         if(user != null && user.isEmailVerified())
         {
-            solo.waitForView(android.R.id.list);
-
-            //Assert current activity ActionBar is "Authentication".
-            assertEquals("Profile Page", getActionbarTitle());
-
             //Checks button is there
             onView(withId(R.id.profile_logout_btn)).check(matches(notNullValue()));
 
@@ -106,8 +104,13 @@ public class RegisterTest {
 
             solo.waitForView(android.R.id.list);
             solo.waitForView(android.R.id.list);
-
         }
+
+    }
+
+
+    @Test
+    public void test3RegisterTest() {
 
         //Checks button is there
         onView(withId(R.id.profile_register_and_login_btn)).check(matches(notNullValue()));
@@ -119,7 +122,7 @@ public class RegisterTest {
         //Press the Authentication button in the profile Page
         onView(withId(R.id.profile_register_and_login_btn)).perform(click());
 
-        //--------Now in RegisterLogin Activity ----------
+        //--------Now in Authentication Activity ----------
         soloRegisterAndLogin.waitForView(0);
 
         //Assert current activity ActionBar is "Authentication".
@@ -172,36 +175,27 @@ public class RegisterTest {
         soloRegister.waitForView(android.R.id.list);
 
         //Create User Based on Registered User
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        getUser();
         solo.waitForView(android.R.id.list);
 
-
         //Successfully Registered
-        if(user != null && !user.isEmailVerified())
-        {
-            //--------Now in Main Activity ----------
-            solo.waitForView(android.R.id.list);
-            solo.waitForView(android.R.id.list);
-            solo.waitForView(android.R.id.list);
-            solo.waitForView(android.R.id.list);
+        //--------Now in Main Activity ----------
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
 
-            //Assert current activity ActionBar is "Authentication".
-            assertEquals("Profile Page", getActionbarTitle());
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals("Profile Page", getActionbarTitle());
 
-            //Delete User Account of Registered User
-            deleteUser();
+        //Delete User Account of Registered User
+        deleteUser();
 
-            //Checks button is there after you register
-            onView(withId(R.id.profile_register_and_login_btn)).check(matches(notNullValue()));
-        }
+        //Checks button is there after you register
+        onView(withId(R.id.profile_register_and_login_btn)).check(matches(notNullValue()));
 
-        //Not Successfully Registered
-        else {
-
-            //Assert current activity ActionBar is still "Register".
-            assertEquals(soloRegister.getString(R.string.title_activity_register), getActionbarTitleRegister());
-        }
     }
+
 
     private String getActionbarTitle() {
         return ((MainActivity) solo.getCurrentActivity()).getSupportActionBar().getTitle().toString();
@@ -213,6 +207,11 @@ public class RegisterTest {
 
     private String getActionbarTitleRegister() {
         return ((RegisterActivity) soloRegister.getCurrentActivity()).getSupportActionBar().getTitle().toString();
+    }
+
+    private void getUser() {
+        //Create User Based on Registered User
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     private void deleteUser() {
