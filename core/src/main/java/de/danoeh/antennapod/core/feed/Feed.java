@@ -3,10 +3,13 @@ package de.danoeh.antennapod.core.feed;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.danoeh.antennapod.core.asynctask.ImageResource;
 import de.danoeh.antennapod.core.storage.DBWriter;
@@ -24,6 +27,12 @@ public class Feed extends FeedFile implements FlattrThing, ImageResource {
     public static final int FEEDFILETYPE_FEED = 0;
     public static final String TYPE_RSS2 = "rss";
     public static final String TYPE_ATOM1 = "atom";
+    public static final String TAG_FAVORITE = "FavoritePodcast";
+
+    /**
+     * Any tags assigned to this item
+     */
+    private final Set<String> tags = new HashSet<>();
 
     /* title as defined by the feed */
     private String feedTitle;
@@ -550,6 +559,18 @@ public class Feed extends FeedFile implements FlattrThing, ImageResource {
 
     public void setLastUpdateFailed(boolean lastUpdateFailed) {
         this.lastUpdateFailed = lastUpdateFailed;
+    }
+
+    public void addTag(String tag){
+        tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        tags.remove(tag);
+    }
+
+    public boolean isTagged(String tag) {
+        return tags.contains(tag);
     }
 
 }

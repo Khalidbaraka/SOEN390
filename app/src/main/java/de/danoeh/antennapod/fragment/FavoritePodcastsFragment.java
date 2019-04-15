@@ -1,9 +1,6 @@
 package de.danoeh.antennapod.fragment;
 
 import android.util.Log;
-import android.view.ContextMenu;
-
-import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.core.storage.DBReader;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,11 +27,4 @@ public class FavoritePodcastsFragment extends SubscriptionFragment{
                     subscriptionAdapter.notifyDataSetChanged();
                 }, error -> Log.e(TAG, Log.getStackTraceString(error)));
     }
-
-    @Override
-    protected void changeItemVisibility(ContextMenu menu){
-        menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(true);
-        menu.findItem(R.id.add_to_favorites_podcasts).setVisible(false);
-    }
-
 }

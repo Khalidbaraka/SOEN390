@@ -475,8 +475,6 @@ public class DBWriter {
             final PodDBAdapter adapter = PodDBAdapter.getInstance().open();
             adapter.addFavoritePodcastItem(item);
             adapter.close();
-            //No tags are added to favorite podcasts
-           //item.addTag(FeedItem.TAG_FAVORITE);
             EventBus.getDefault().post(FavoritesPodcastsEvent.added(item));
             EventBus.getDefault().post(FeedEventBus.updated(item));
         });
@@ -487,8 +485,7 @@ public class DBWriter {
             final PodDBAdapter adapter = PodDBAdapter.getInstance().open();
             adapter.removeFavoritePodcastItem(item);
             adapter.close();
-            //No tags were added, so there is nothing to remove.
-            //item.removeTag(FeedItem.TAG_FAVORITE);
+            item.removeTag(Feed.TAG_FAVORITE);
             EventBus.getDefault().post(FavoritesPodcastsEvent.removed(item));
             EventBus.getDefault().post(FeedEventBus.updated(item));
         });
