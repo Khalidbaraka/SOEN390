@@ -161,8 +161,7 @@ public class CommentsUITests {
         solo.waitForView(R.id.constraintLayout);
         onView(withId(R.id.viewCommentsBtn)).perform(click());
         solo.waitForView(R.id.constraintLayout);
-//        onView(withId(R.id.recyclerView_1)).perform(
-//                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.like_btn)));
+
         onView(withId(R.id.recyclerView_1)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.addReplyBtn)));
         solo.waitForView(R.id.constraintLayout);
@@ -179,12 +178,7 @@ public class CommentsUITests {
         assertEquals(CommentListActivity.class, getActivityInstance().getClass());
 
     }
-
-
-
-    //To-Do one test for replying and one for like.
-
-
+    
     private Activity getActivityInstance(){
         final Activity[] currentActivity = {null};
 
