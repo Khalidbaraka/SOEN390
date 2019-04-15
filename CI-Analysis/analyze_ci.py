@@ -8,6 +8,8 @@ executionMessages = []
 travisBuildNumber = sys.argv[1]
 travisJobNumber = sys.argv[2]
 travisBuildStage = sys.argv[3]
+commitMessage = sys.argv[4]
+prOriginBranch = sys.argv[5]
 
 
 for line in sys.stdin:
@@ -25,9 +27,13 @@ for line in sys.stdin:
 print("")
 print("=======================================")
 print("LOG ANALYSIS RESULTS")
+print("Commit Message: " + commitMessage)
 print("Build Number: " + travisBuildNumber)
 print("Job Number: " + travisJobNumber)
 print("Build Stage: " + travisBuildStage)
+if(len(prOriginBranch) > 0):
+    print("This is a Pull Request from branch: " + prOriginBranch)
+
 
 # Success Messages
 print("")
