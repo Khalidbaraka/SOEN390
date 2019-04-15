@@ -3,10 +3,14 @@ package de.danoeh.antennapod.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -268,7 +272,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         public int totalReplies;
         public TextView repliesNum;
         public TextView likesNum;
-        public Button likeButton;
+        public ImageButton likeButton;
         private FirebaseAuth mAuth;
         private DatabaseReference mLikeDatabase;
         public ViewHolder(@NonNull View view, Context ctx ) {
@@ -342,10 +346,10 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.child(commentID).hasChild(mAuth.getCurrentUser().getUid())){
-                        likeButton.setText("Unlike");
-
+                        likeButton.setImageResource(R.drawable.like);
                     }else {
-                        likeButton.setText("Like");
+                        likeButton.setImageResource(R.drawable.dislike);
+
                     }
                 }
 
