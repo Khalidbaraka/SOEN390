@@ -16,7 +16,7 @@ for line in sys.stdin:
 
 print("")
 print("=======================================")
-print("LOG ANALYSIS RESULTS:")
+print("LOG ANALYSIS RESULTS for build number " + sys.argv[1])
 
 print("")
 if len(successMessages) > 0:
@@ -25,16 +25,18 @@ if len(successMessages) > 0:
         print(successMessage)
 else:
     print("THERE WERE NO SUCCESS MESSAGES IN THIS TEST")
+    print("")
 
-print("")
+
 if len(errorMessages) > 0:
     print("THERE ARE A TOTAL OF " + str(len(errorMessages)) + " ERROR MESSAGES IN THIS TEST")
     for errorMessage in errorMessages:
         print(errorMessage)
 else:
     print("THERE WERE NO ERROR MESSAGES IN THIS TEST")
+    print("")
 
-print("")
+
 if len(executionMessages) > 0:
     print("THERE ARE A TOTAL OF " + str(len(executionMessages)) + " GENERAL EXECUTION MESSAGES IN THIS TEST")
     for executionMessage in executionMessages:
