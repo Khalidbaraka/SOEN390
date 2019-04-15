@@ -3,6 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 apply plugin: "com.android.application"
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.google.firebase.firebase-perf'
 apply from: "$project.rootDir/tools/findbugs.gradle"
 apply from: "$project.rootDir/tools/checkstyle.gradle"
 apply from: "$project.rootDir/tools/pmd.gradle"
@@ -141,7 +142,11 @@ android {
     }
 
     lintOptions {
-        abortOnError false
+        abortOnError false        // true by default
+        checkAllWarnings false
+        checkReleaseBuilds false
+        ignoreWarnings true       // false by default
+        quiet true                // false by default
     }
 
     compileOptions {
@@ -180,6 +185,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-perf:16.2.5'
     // Firebase storage, to store the user profile picture
     implementation 'com.google.firebase:firebase-storage:16.0.1'
 
@@ -244,6 +250,10 @@ dependencies {
     androidTestCompile 'org.mockito:mockito-android:2.7.22'
     testImplementation 'org.robolectric:robolectric:4.2'
     testImplementation 'org.mockito:mockito-core:2.7.22'
+    // Use JUnit test framework
+    androidTestImplementation 'junit:junit:4.12'
+    // Mockito
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 }
 
 play {
@@ -288,8 +298,11 @@ allprojects {
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xlint" << "-Xlint:-deprecation" << "-Xlint:-serial"
+            options.compilerArgs << '-Xlint:-unchecked'
+            options.compilerArgs << '-Xlint:-rawtypes'
         }
     }
 }
 
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

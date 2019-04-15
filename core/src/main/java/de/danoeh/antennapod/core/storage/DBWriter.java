@@ -27,6 +27,8 @@ import de.danoeh.antennapod.core.R;
 import de.danoeh.antennapod.core.asynctask.FlattrClickWorker;
 import de.danoeh.antennapod.core.event.FavoritesEvent;
 import de.danoeh.antennapod.core.event.FeedItemEvent;
+import de.danoeh.antennapod.core.event.FavoritesPodcastsEvent;
+import de.danoeh.antennapod.core.event.FeedEventBus;
 import de.danoeh.antennapod.core.event.MessageEvent;
 import de.danoeh.antennapod.core.event.QueueEvent;
 import de.danoeh.antennapod.core.feed.EventDistributor;
@@ -456,7 +458,7 @@ public class DBWriter {
             EventBus.getDefault().post(FeedItemEvent.updated(item));
         });
     }
-
+    
     public static Future<?> removeFavoriteItem(final FeedItem item) {
         return dbExec.submit(() -> {
             final PodDBAdapter adapter = PodDBAdapter.getInstance().open();
@@ -465,6 +467,27 @@ public class DBWriter {
             item.removeTag(FeedItem.TAG_FAVORITE);
             EventBus.getDefault().post(FavoritesEvent.removed(item));
             EventBus.getDefault().post(FeedItemEvent.updated(item));
+        });
+    }
+    //Adding favorite podcast
+    public static Future<?> addFavoritePodcastItem(final Feed item) {
+        return dbExec.submit(() -> {
+            final PodDBAdapter adapter = PodDBAdapter.getInstance().open();
+            adapter.addFavoritePodcastItem(item);
+            adapter.close();
+            EventBus.getDefault().post(FavoritesPodcastsEvent.added(item));
+            EventBus.getDefault().post(FeedEventBus.updated(item));
+        });
+    }
+    //Removing favorite podcast
+    public static Future<?> removeFavoritePodcastItem(final Feed item) {
+        return dbExec.submit(() -> {
+            final PodDBAdapter adapter = PodDBAdapter.getInstance().open();
+            adapter.removeFavoritePodcastItem(item);
+            adapter.close();
+            item.removeTag(Feed.TAG_FAVORITE);
+            EventBus.getDefault().post(FavoritesPodcastsEvent.removed(item));
+            EventBus.getDefault().post(FeedEventBus.updated(item));
         });
     }
 

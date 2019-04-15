@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
@@ -39,6 +40,7 @@ import java.util.List;
 
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.adapter.NavListAdapter;
+import de.danoeh.antennapod.adapter.SubscriptionFavoritePodcastsAdapter;
 import de.danoeh.antennapod.core.asynctask.FeedRemover;
 import de.danoeh.antennapod.core.dialog.ConfirmationDialog;
 import de.danoeh.antennapod.core.event.MessageEvent;
@@ -70,6 +72,7 @@ import de.danoeh.antennapod.fragment.PlaybackHistoryFragment;
 import de.danoeh.antennapod.fragment.QueueFragment;
 import de.danoeh.antennapod.fragment.SubscriptionFragment;
 import de.danoeh.antennapod.fragment.DiscoveryPageFragment;
+import de.danoeh.antennapod.fragment.SubscriptionFavoritePodcastsFragment;
 import de.danoeh.antennapod.fragment.ProfilePageFragment;
 import de.danoeh.antennapod.menuhandler.NavDrawerActivity;
 import de.greenrobot.event.EventBus;
@@ -106,7 +109,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             DiscoveryPageFragment.TAG,
             ProfilePageFragment.TAG,
             EpisodesFragment.TAG,
-            SubscriptionFragment.TAG,
+            SubscriptionFavoritePodcastsFragment.TAG,
             DownloadsFragment.TAG,
             PlaybackHistoryFragment.TAG,
             AddFeedFragment.TAG,
@@ -322,9 +325,9 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             case AddFeedFragment.TAG:
                 fragment = new AddFeedFragment();
                 break;
-            case SubscriptionFragment.TAG:
-                SubscriptionFragment subscriptionFragment = new SubscriptionFragment();
-                fragment = subscriptionFragment;
+            case SubscriptionFavoritePodcastsFragment.TAG:
+                SubscriptionFavoritePodcastsFragment subscriptionFavoritePodcastsFragment = new SubscriptionFavoritePodcastsFragment();
+                fragment = subscriptionFavoritePodcastsFragment;
                 break;
             default:
                 // default to the queue
@@ -542,7 +545,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
                 case DownloadsFragment.TAG:
                 case PlaybackHistoryFragment.TAG:
                 case AddFeedFragment.TAG:
-                case SubscriptionFragment.TAG:
+                case SubscriptionFavoritePodcastsFragment.TAG:
                     return retVal;
                 default:
                     requestCastButton(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -582,10 +585,26 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.nav_feed_context, menu);
         Feed feed = navDrawerData.feeds.get(position - navAdapter.getSubscriptionOffset());
+
+        DBReader.isFavoritePodcast(feed);
+
         menu.setHeaderTitle(feed.getTitle());
+
+        if(feed.isTagged(Feed.TAG_FAVORITE)){
+            menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(true);
+            menu.findItem(R.id.add_to_favorites_podcasts).setVisible(false);
+        }
+        else{
+            menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
+            menu.findItem(R.id.add_to_favorites_podcasts).setVisible(true);
+        }
         // episodes are not loaded, so we cannot check if the podcast has new or unplayed ones!
     }
 
+    //FOR TESTING PURPOSES ONLY////
+    public void setmPosition(int position){
+        this.mPosition = position;
+    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -595,6 +614,7 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             return false;
         }
         Feed feed = navDrawerData.feeds.get(position - navAdapter.getSubscriptionOffset());
+        DBReader.isFavoritePodcast(feed);
         switch(item.getItemId()) {
             case R.id.mark_all_seen_item:
                 ConfirmationDialog markAllSeenConfirmationDialog = new ConfirmationDialog(this,
@@ -631,12 +651,25 @@ public class MainActivity extends CastEnabledActivity implements NavDrawerActivi
             case R.id.rename_item:
                 new RenameFeedDialog(this, feed).show();
                 return true;
+            case R.id.add_to_favorites_podcasts:
+                DBWriter.addFavoritePodcastItem(feed);
+                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                 startActivity(intent);
+                return true;
+            case R.id.remove_from_favorite_podcasts:
+                DBWriter.removeFavoritePodcastItem(feed);
+                Intent intentt = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentt);
+                return true;
             case R.id.remove_item:
                 final FeedRemover remover = new FeedRemover(this, feed) {
                     @Override
                     protected void onPostExecute(Void result) {
                         super.onPostExecute(result);
                         if(getSelectedNavListIndex() == position) {
+                            if(feed.isTagged(Feed.TAG_FAVORITE)){
+                                DBWriter.removeFavoritePodcastItem(feed);
+                            }
                             loadFragment(EpisodesFragment.TAG, null);
                         }
                     }

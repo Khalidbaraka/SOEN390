@@ -39,17 +39,16 @@ public class SubscriptionFragment extends Fragment {
 
     public static final String TAG = "SubscriptionFragment";
 
-    private static final int EVENTS = EventDistributor.FEED_LIST_UPDATE
+    protected static final int EVENTS = EventDistributor.FEED_LIST_UPDATE
             | EventDistributor.UNREAD_ITEMS_UPDATE;
 
-    private GridView subscriptionGridLayout;
-    private DBReader.NavDrawerData navDrawerData;
-    private SubscriptionsAdapter subscriptionAdapter;
+    protected GridView subscriptionGridLayout;
+    protected DBReader.NavDrawerData navDrawerData;
+    protected SubscriptionsAdapter subscriptionAdapter;
+    protected View root;
+    protected int mPosition = -1;
 
-    private int mPosition = -1;
-
-    private Disposable disposable;
-
+    protected Disposable disposable;
     public SubscriptionFragment() {
     }
 
@@ -67,7 +66,7 @@ public class SubscriptionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_subscriptions, container, false);
+        root = inflater.inflate(R.layout.fragment_subscriptions, container, false);
         subscriptionGridLayout = root.findViewById(R.id.subscriptions_grid);
         registerForContextMenu(subscriptionGridLayout);
         return root;
@@ -99,7 +98,7 @@ public class SubscriptionFragment extends Fragment {
         }
     }
 
-    private void loadSubscriptions() {
+    protected void loadSubscriptions() {
         if(disposable != null) {
             disposable.dispose();
         }
@@ -124,7 +123,9 @@ public class SubscriptionFragment extends Fragment {
             return;
         }
 
-        Feed feed = (Feed)selectedObject;
+        Feed feed = (Feed) selectedObject;
+
+        DBReader.isFavoritePodcast(feed);
 
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.nav_feed_context, menu);
@@ -132,11 +133,19 @@ public class SubscriptionFragment extends Fragment {
         menu.setHeaderTitle(feed.getTitle());
 
         mPosition = position;
+        if(feed.isTagged(Feed.TAG_FAVORITE)){
+            menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(true);
+            menu.findItem(R.id.add_to_favorites_podcasts).setVisible(false);
+        }
+        else{
+            changeItemVisibility(menu);
+        }
+
+       // menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
         final int position = mPosition;
         mPosition = -1; // reset
         if(position < 0) {
@@ -150,6 +159,7 @@ public class SubscriptionFragment extends Fragment {
         }
 
         Feed feed = (Feed)selectedObject;
+        DBReader.isFavoritePodcast(feed);
         switch(item.getItemId()) {
             case R.id.mark_all_seen_item:
                 ConfirmationDialog markAllSeenConfirmationDialog = new ConfirmationDialog(getActivity(),
@@ -197,11 +207,30 @@ public class SubscriptionFragment extends Fragment {
             case R.id.rename_item:
                 new RenameFeedDialog(getActivity(), feed).show();
                 return true;
+            case R.id.add_to_favorites_podcasts:
+                DBWriter.addFavoritePodcastItem(feed);
+                Fragment mFragment = new SubscriptionFavoritePodcastsFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, mFragment)
+                        .commit();
+                return true;
+            case R.id.remove_from_favorite_podcasts:
+                DBWriter.removeFavoritePodcastItem(feed);
+                Fragment mFragmentt = new SubscriptionFavoritePodcastsFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, mFragmentt)
+                        .commit();
+                return true;
             case R.id.remove_item:
                 final FeedRemover remover = new FeedRemover(getContext(), feed) {
                     @Override
                     protected void onPostExecute(Void result) {
                         super.onPostExecute(result);
+                        if(feed.isTagged(Feed.TAG_FAVORITE)){
+                            DBWriter.removeFavoritePodcastItem(feed);
+                        }
                         loadSubscriptions();
                     }
                 };
@@ -239,7 +268,7 @@ public class SubscriptionFragment extends Fragment {
         loadSubscriptions();
     }
 
-    private final EventDistributor.EventListener contentUpdate = new EventDistributor.EventListener() {
+    protected final EventDistributor.EventListener contentUpdate = new EventDistributor.EventListener() {
         @Override
         public void update(EventDistributor eventDistributor, Integer arg) {
             if ((EVENTS & arg) != 0) {
@@ -249,7 +278,7 @@ public class SubscriptionFragment extends Fragment {
         }
     };
 
-    private final SubscriptionsAdapter.ItemAccess itemAccess = new SubscriptionsAdapter.ItemAccess() {
+    protected final SubscriptionsAdapter.ItemAccess itemAccess = new SubscriptionsAdapter.ItemAccess() {
         @Override
         public int getCount() {
             if (navDrawerData != null) {
@@ -273,4 +302,9 @@ public class SubscriptionFragment extends Fragment {
             return navDrawerData != null ? navDrawerData.feedCounters.get(feedId) : 0;
         }
     };
+
+    protected void changeItemVisibility(ContextMenu menu){
+        menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
+        menu.findItem(R.id.add_to_favorites_podcasts).setVisible(true);
+    }
 }
