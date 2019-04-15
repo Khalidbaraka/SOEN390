@@ -6,6 +6,9 @@
         android:title="Add Post"
         app:showAsAction="always" />
 
+    <item android:id="@+id/action_add_reply"
+        android:title="Add Reply"
+        app:showAsAction="always" />
 
     <item android:id="@+id/action_signout"
         android:title="Sign Out"
