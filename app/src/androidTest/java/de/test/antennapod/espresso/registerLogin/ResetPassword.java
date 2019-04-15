@@ -83,20 +83,18 @@ public class ResetPassword {
     }
 
     @Test
-    public void test2ResetPassword() {
+    public void test2LogoutIfLoggedIn() {
 
         //Create User Based on Registered User
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        getUser();
         solo.waitForView(android.R.id.list);
+
+        //Assert current activity ActionBar is "Authentication".
+        assertEquals("Profile Page", getActionbarTitle());
 
         //if user is already logged in, then start by logging out
         if(user != null && user.isEmailVerified())
         {
-            solo.waitForView(android.R.id.list);
-
-            //Assert current activity ActionBar is "Authentication".
-            assertEquals("Profile Page", getActionbarTitle());
-
             //Checks button is there
             onView(withId(R.id.profile_logout_btn)).check(matches(notNullValue()));
 
@@ -109,8 +107,11 @@ public class ResetPassword {
 
             solo.waitForView(android.R.id.list);
             solo.waitForView(android.R.id.list);
-
         }
+    }
+
+    @Test
+    public void test3ResetPassword() {
 
         //Checks button is there
         onView(withId(R.id.profile_register_and_login_btn)).check(matches(notNullValue()));
@@ -123,7 +124,7 @@ public class ResetPassword {
         onView(withId(R.id.profile_register_and_login_btn)).perform(click());
 
 
-        //--------Now in RegisterLogin Activity ----------
+        //--------Now in Authentication Activity ----------
         soloRegisterAndLogin.waitForView(0);
 
         //Assert current activity ActionBar is "Authentication".
@@ -136,7 +137,7 @@ public class ResetPassword {
         onView(withId(R.id.login_main_layout_button)).check(matches(withText("Login")));
         assertEquals("Login", soloRegisterAndLogin.getString(R.string.login));
 
-        //Press the Register And Login button in the Discovery Page
+        //Press the Login button in the Authentication Page
         onView(withId(R.id.login_main_layout_button)).perform(click());
 
         //--------Now in Login Activity ----------
@@ -155,20 +156,20 @@ public class ResetPassword {
 
         soloLogin.waitForView(0);
 
-        //Press the Register And Login button in the Discovery Page
+        //Press the Forgot Password button in the Login Page
         onView(withId(R.id.btn_reset_password)).perform(click());
 
         //--------Now in ForgotPasswordActivity  Activity ----------
         soloForgotPassword.waitForView(0);
         Espresso.closeSoftKeyboard();
 
-        //Assert current activity ActionBar is "Register".
+        //Assert current activity ActionBar is "Reset Password".
         assertEquals(soloForgotPassword.getString(R.string.title_activity_forgot_password), getActionbarTitleForgotPassword());
 
         //Write user info in editTexts
         soloForgotPassword.waitForView(0);
 
-        onView(withId(R.id.input_email_reset)).perform(clearText(),typeText("sodemet@businesssource.net"));
+        onView(withId(R.id.input_email_reset)).perform(clearText(),typeText("vebanida@maillink.top"));
 
         Espresso.closeSoftKeyboard();
 
@@ -192,29 +193,18 @@ public class ResetPassword {
         onView(withId(R.id.btn_reset_password)).perform(click());
 
         //Create User Based on Registered User
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        getUser();
         solo.waitForView(android.R.id.list);
 
-        //Successfully Reset Password
-        //if(user == null) {
-            //--------Now back in Login Activity ----------
-            soloLogin.waitForView(android.R.id.list);
-            soloLogin.waitForView(android.R.id.list);
-            soloLogin.waitForView(android.R.id.list);
+         //--------Now back in Login Activity ----------
+        soloLogin.waitForView(android.R.id.list);
+        soloLogin.waitForView(android.R.id.list);
+        soloLogin.waitForView(android.R.id.list);
 
-            //Assert current activity ActionBar is "Register".
-            assertEquals(soloLogin.getString(R.string.title_activity_login), getActionbarTitleLogin());
-            soloLogin.waitForView(android.R.id.list);
-       // }
-        //Not Successfully Reset Password
+        //Assert current activity ActionBar is "Register".
+        assertEquals(soloLogin.getString(R.string.title_activity_login), getActionbarTitleLogin());
+        soloLogin.waitForView(android.R.id.list);
 
-        /*
-        else {
-
-            //Assert current activity ActionBar is still "Register".
-            assertEquals(soloForgotPassword.getString(R.string.title_activity_forgot_password), getActionbarTitleForgotPassword());
-        }
-        */
 
     }
 
@@ -234,4 +224,8 @@ public class ResetPassword {
         return ((ForgotPasswordActivity) soloForgotPassword.getCurrentActivity()).getSupportActionBar().getTitle().toString();
     }
 
+    private void getUser() {
+        //Create User Based on Registered User
+        user = FirebaseAuth.getInstance().getCurrentUser();
+    }
 }
