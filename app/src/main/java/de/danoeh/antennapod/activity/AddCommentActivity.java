@@ -54,24 +54,31 @@ public class AddCommentActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //posting to our database
-                startPosting();
+                String content= mComment.getText().toString().trim();
+                Map<String, String> dataToSave= new HashMap<>();
+                DatabaseReference newComment = mPostDatabase.push();
+                String id= mAuth.getUid();
+                String email= mUser.getEmail();
+                String time=String.valueOf(java.lang.System.currentTimeMillis());
+
+                startPosting(content,dataToSave,newComment,id,email,time,podcastTitleFromCommentList);
+
             }
         });
     }
 
 
-    private void startPosting(){
+    public void startPosting(String content, Map<String, String> dataToSave,DatabaseReference newComment,
+                             String id, String email, String time, String podcastTitleFromCommentList
+                             ){
 
-        String content= mComment.getText().toString().trim();
-
-        if(!TextUtils.isEmpty(content)){
+        if(content.length() != 0){
             //start uplodaing
-            DatabaseReference newComment = mPostDatabase.push();
-            Map<String, String> dataToSave= new HashMap<>();
-            dataToSave.put("userid", mAuth.getUid());
-            dataToSave.put("userEmail", mUser.getEmail());
+
+            dataToSave.put("userid", id);
+            dataToSave.put("userEmail", email);
             dataToSave.put("comment", content);
-            dataToSave.put("timestamp", String.valueOf(java.lang.System.currentTimeMillis()));
+            dataToSave.put("timestamp", time);
             dataToSave.put("podcast", podcastTitleFromCommentList);
 
             newComment.setValue(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
