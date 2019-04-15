@@ -106,12 +106,19 @@ public class ProfilePageTest {
 
         onView(withId(R.id.reset_password_btn)).check(matches(withText("Proceed")));
         assertEquals("Proceed", solo.getString(R.string.proceed));
+        solo.waitForView(android.R.id.list);
 
         // Change the user's name
-        onView(withId(R.id.edit_full_name)).perform(clearText(),typeText("Goose"));
+        onView(withId(R.id.edit_full_name)).perform(clearText(),typeText("Marvel"));
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+
 
         Espresso.closeSoftKeyboard();
         solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+
 
         // Press on Process
         onView(withId(R.id.reset_password_btn)).perform(click());
@@ -122,10 +129,15 @@ public class ProfilePageTest {
         solo.waitForView(android.R.id.list);
 
         // Change the user's password
-        onView(withId(R.id.edit_password)).perform(clearText(),typeText("password"));
+        onView(withId(R.id.edit_password)).perform(clearText(),typeText("password123"));
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
 
         Espresso.closeSoftKeyboard();
         solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+
 
         // Press on Process
         onView(withId(R.id.reset_password_btn)).perform(click());
