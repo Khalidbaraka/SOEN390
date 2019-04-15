@@ -13,6 +13,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.test.runner.lifecycle.Stage;
 import android.view.View;
+import android.widget.GridView;
 
 import com.robotium.solo.Solo;
 import com.robotium.solo.Timeout;
@@ -47,6 +48,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static org.hamcrest.CoreMatchers.anything;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 
@@ -73,7 +76,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void goToAddPodcastTest() {
+    public void test1GoToAddPodcastTest() {
         // Add Podcast page
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         String currentPage = getActionbarTitle();
@@ -87,7 +90,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void AddFeedFragmentAccessTest() {
+    public void test2AddFeedFragmentAccessTest() {
         // in podcast we want to click on Itunes btn
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
@@ -96,9 +99,10 @@ public class CommentsUITests {
     }
 
     @Test
-    public void CommentListActivityViewTest() {
+    public void test3CommentListActivityViewTest() {
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);//layout_1 listview
+
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
                 onChildView(withId(R.id.imgvCover)).perform(click());
         //clicks on podcast
@@ -109,7 +113,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void CommentListActivityElementsTest(){
+    public void test4CommentListActivityElementsTest(){
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
@@ -127,7 +131,7 @@ public class CommentsUITests {
 
     //posting a comment
     @Test
-    public void addCommentTest(){
+    public void test5AddCommentTest(){
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
         onData(anything()).inAdapterView(withId(R.id.gridView)).atPosition(0).
@@ -151,7 +155,7 @@ public class CommentsUITests {
     }
 
     @Test
-    public void addReplyTest(){
+    public void test6AddReplyTest(){
 
         onView(withId(R.id.butSearchItunes)).perform(click());
         solo.waitForView(R.id.layout_1);
@@ -178,7 +182,7 @@ public class CommentsUITests {
         assertEquals(CommentListActivity.class, getActivityInstance().getClass());
 
     }
-    
+
     private Activity getActivityInstance(){
         final Activity[] currentActivity = {null};
 
