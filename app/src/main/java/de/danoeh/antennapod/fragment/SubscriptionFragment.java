@@ -125,14 +125,21 @@ public class SubscriptionFragment extends Fragment {
 
         Feed feed = (Feed) selectedObject;
 
+        DBReader.isFavoritePodcast(feed);
+
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.nav_feed_context, menu);
 
         menu.setHeaderTitle(feed.getTitle());
 
         mPosition = position;
-
-        changeItemVisibility(menu);
+        if(feed.isTagged(Feed.TAG_FAVORITE)){
+            menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(true);
+            menu.findItem(R.id.add_to_favorites_podcasts).setVisible(false);
+        }
+        else{
+            changeItemVisibility(menu);
+        }
 
        // menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
     }
@@ -152,6 +159,7 @@ public class SubscriptionFragment extends Fragment {
         }
 
         Feed feed = (Feed)selectedObject;
+        DBReader.isFavoritePodcast(feed);
         switch(item.getItemId()) {
             case R.id.mark_all_seen_item:
                 ConfirmationDialog markAllSeenConfirmationDialog = new ConfirmationDialog(getActivity(),
@@ -220,6 +228,9 @@ public class SubscriptionFragment extends Fragment {
                     @Override
                     protected void onPostExecute(Void result) {
                         super.onPostExecute(result);
+                        if(feed.isTagged(Feed.TAG_FAVORITE)){
+                            DBWriter.removeFavoritePodcastItem(feed);
+                        }
                         loadSubscriptions();
                     }
                 };
@@ -291,10 +302,6 @@ public class SubscriptionFragment extends Fragment {
             return navDrawerData != null ? navDrawerData.feedCounters.get(feedId) : 0;
         }
     };
-
-    protected void superOnCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-    }
 
     protected void changeItemVisibility(ContextMenu menu){
         menu.findItem(R.id.remove_from_favorite_podcasts).setVisible(false);
