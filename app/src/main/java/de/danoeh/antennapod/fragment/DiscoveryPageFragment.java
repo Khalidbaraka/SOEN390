@@ -65,6 +65,10 @@ public class DiscoveryPageFragment extends Fragment {
         mInterstitialAd = new InterstitialAd(getContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
+        mInterstitialAd.loadAd(new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build());
+
         Button categoriesButton = DiscoveryView.findViewById(R.id.categories_button);
 
         Button luckyBtn = DiscoveryView.findViewById(R.id.luckyBtn);
