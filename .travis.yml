@@ -43,7 +43,7 @@ jobs:
             - emulator -avd test -no-skin -no-audio -no-window &
             - android-wait-for-emulator
             - adb shell input keyevent 82 &
-            - ./gradlew createFreeDebugCoverageReport | python CI-Analysis/analyze_ci.py
+            - ./gradlew createFreeDebugCoverageReport
         - stage: Unit tests
           name: Release 1
           script: 
