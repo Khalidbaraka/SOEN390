@@ -99,10 +99,12 @@ public class FavoritePodcastEspresso {
                 onChildView(withId(R.id.imgvCover)).perform(longClick());
 
         //Assert the the "Remove From Favorite Podcast" menuItem is actually there
-        assertEquals("Remove From Favorite Podcast",solo.getString(R.string.remove_from_favorite_podcast));
+        assertEquals("Remove From Favorite Podcasts",solo.getString(R.string.remove_from_favorite_podcast));
+        solo.waitForView(android.R.id.list);
 
         //Click on remove from favorite podcast
         onView(anyOf(withText(R.string.remove_from_favorite_podcast), withId(R.id.remove_from_favorite_podcasts))).perform(click());
+        solo.waitForView(android.R.id.list);
         solo.waitForView(android.R.id.list);
 
         //Switch back tab to Favorite Podcasts to see item has been deleted
