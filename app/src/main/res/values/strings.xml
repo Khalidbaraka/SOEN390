@@ -59,6 +59,7 @@
     <string name="title_activity_register" translatable="false"> Register </string>
 
     <string name="require_fulll_name" translatable="false">Full Name is required!</string>
+    <string name="require_new_name" translatable="false">Cannot update to the same current name</string>
     <string name="email_bad_format" translatable="false">Wrong email format!. Your email should contain "@"</string>
     <string name="require_email" translatable="false">Enter email address!</string>
     <string name="require_password" translatable="false">Enter password!</string>
@@ -70,7 +71,7 @@
     <string name="login_unverified" translatable="false">Please Verify your Email Address</string>
     <string name="reset_password_success" translatable="false">We have sent you instructions to reset your password!</string>
     <string name="reset_password_fail" translatable="false">Failed to send reset email!</string>
-    <string name="add_your_comment">Add your Comment</string>
+    <string name="add_your_comment" translatable="false">Add your Comment</string>
 
 
 </resources>

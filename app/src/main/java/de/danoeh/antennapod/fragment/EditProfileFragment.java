@@ -43,6 +43,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.model.Printer;
 import de.danoeh.antennapod.model.User;
 
 /**
@@ -68,6 +69,8 @@ public class EditProfileFragment extends Fragment {
     private Button submitBtn;
     private ProgressBar progressBar;
 
+    private Printer printer;
+
     private User currentUserInfo;
 
     public EditProfileFragment() {
@@ -89,6 +92,13 @@ public class EditProfileFragment extends Fragment {
         currentUser = auth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference("profile-images");
+
+        printer = new Printer() {
+            @Override
+            public void print(int messageId) {
+                Toast.makeText(getActivity(), messageId, Toast.LENGTH_SHORT).show();
+            }
+        };
 
         // Prevent the user access if he's not logged in
         if (currentUser != null && currentUser.isEmailVerified()) {
@@ -123,7 +133,12 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                editUserInformation();
+                // Get user information
+                String email = currentUser.getEmail();
+                String fullName = editFullName.getText().toString();
+                String mUri = currentUserInfo.getImageURL();
+
+                editUserInformation(email, fullName, mUri);
 
                 // Release the keyboard after submit
                 InputMethodManager inputManager = (InputMethodManager)
@@ -173,21 +188,25 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    private void editUserInformation() {
+    private void editUserInformation(String email, String fullName, String mUri) {
 
+        // Update user's name primarily
         User updatedUser;
-
-        // Get user information
-        String email = currentUser.getEmail();
-        String mUri = currentUserInfo.getImageURL();
-
-        String fullName = editFullName.getText().toString().trim();
 
         String updatedPassword;
 
         if (currentUser != null && currentUser.isEmailVerified()) {
 
-            if (editFullName.getText().toString().trim().length() > 0) {
+            if (fullName.trim().length() > 0) {
+                if (!checkEmailandFullNameValidationOnEditProfile(email, fullName, printer)) {
+                    return;
+                }
+
+                if (fullName.equals(currentUserInfo.getFullName())) {
+                    Toast.makeText(getActivity(), R.string.require_new_name,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+
                 progressBar.setVisibility(View.VISIBLE);
 
                 updatedUser = new User(email, fullName, mUri);
@@ -209,11 +228,16 @@ public class EditProfileFragment extends Fragment {
                     }
                 });
             }
+            }
 
             else if (editPassword.getText().toString().trim().length() >= 6) {
                 progressBar.setVisibility(View.VISIBLE);
 
                 updatedPassword = editPassword.getText().toString().trim();
+
+                if (!checkPasswordValidationOnEditProfile(updatedPassword, printer)) {
+                    return;
+                }
 
                 currentUser.updatePassword(updatedPassword)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -240,6 +264,35 @@ public class EditProfileFragment extends Fragment {
                 getFragmentManager().popBackStack();
             }
         }
+    }
+
+    public boolean checkEmailandFullNameValidationOnEditProfile(String email, String fullName, Printer printer){
+        if (email == null || email.length() == 0) {
+            printer.print(R.string.require_email);
+            return false;
+        }
+
+        if(!email.contains("@")){
+            printer.print(R.string.email_bad_format);
+            return false;
+        }
+
+        if (fullName.equals(currentUserInfo.getFullName())) {
+            printer.print(R.string.require_new_name);
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean checkPasswordValidationOnEditProfile(String password, Printer printer){
+
+        if (password == null || password.length() < 6) {
+            printer.print(R.string.warn_short_password);
+            return false;
+        }
+
+        return true;
     }
 
     private void openImage() {
