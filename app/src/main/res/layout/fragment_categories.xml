@@ -1,10 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout404"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.danoeh.antennapod.fragment.Categories"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="de.danoeh.antennapod.fragment.Categories">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -26,23 +27,22 @@
 
     <android.support.design.widget.TabLayout
 
+        android:id="@+id/categories_tablayout_id"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
         android:background="@color/antennapod_blue"
-        app:tabIndicatorColor="@color/red"
-        app:tabTextColor="@color/black"
-        app:tabSelectedTextColor="@color/vpi__bright_foreground_inverse_holo_light"
-        app:tabIndicatorHeight="1dp"
         app:tabBackground="@color/holo_blue_dark"
-        android:id="@+id/categories_tablayout_id"/>
-    
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/categories_viewpager_id"></android.support.v4.view.ViewPager>
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/red"
+        app:tabIndicatorHeight="1dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/vpi__bright_foreground_inverse_holo_light"
+        app:tabTextColor="@color/black" />
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/categories_viewpager_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
 
 </LinearLayout>
