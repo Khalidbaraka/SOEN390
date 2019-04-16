@@ -97,6 +97,11 @@ public class ProfilePageTest {
         //selects & opens the Edit Profile page
         onView(withId(R.id.profile_option_list)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("Edit Profile")), click()));
         solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+        solo.waitForView(android.R.id.list);
+
         assertEquals("Profile Page", currentPage);
 
         // Verify the input components - Edit Text and Button
@@ -116,68 +121,7 @@ public class ProfilePageTest {
         Espresso.closeSoftKeyboard();
         solo.waitForView(android.R.id.list);
         solo.waitForView(android.R.id.list);
-
-        // Press on Process
-        onView(withId(R.id.reset_password_btn)).perform(click());
         solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-
-        //selects & opens the Edit Profile page
-        onView(withId(R.id.profile_option_list)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("Edit Profile")), click()));
-        solo.waitForView(android.R.id.list);
-        assertEquals("Profile Page", currentPage);
-
-        // Change the user's name - SECOND Try
-        onView(withId(R.id.edit_full_name)).perform(clearText(),typeText("Groot"));
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-
-        Espresso.closeSoftKeyboard();
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-
-        // Press on Process
-        onView(withId(R.id.reset_password_btn)).perform(click());
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-
-        //selects & opens the Edit Profile page
-        onView(withId(R.id.profile_option_list)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("Edit Profile")), click()));
-        solo.waitForView(android.R.id.list);
-        assertEquals("Profile Page", currentPage);
-
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-
-        // Change the user's password
-        onView(withId(R.id.edit_password)).perform(clearText(),typeText("Rocket"));
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-
-        Espresso.closeSoftKeyboard();
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-
-        // Press on Process
-        onView(withId(R.id.reset_password_btn)).perform(click());
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-        solo.waitForView(android.R.id.list);
-    }
-
-    @Test
-    public void test4EditProfilePicture() {
-
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        mActivityRule.getActivity().startActivityForResult(intent, IMAGE_REQUEST);
 
     }
 
